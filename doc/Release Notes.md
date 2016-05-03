@@ -4,6 +4,7 @@ This page contains information about each minor release of LightStage. LightStag
 ## Beta 0.1.0
 - Fixed bendy line glitch in issue #5
 - Added simple level editor
+- Added a 4th level
 
 ## Alpha 0.16
 - Added Bomb Deflection Chance to the shop
