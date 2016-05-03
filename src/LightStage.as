@@ -1,7 +1,7 @@
 ﻿/***************************
-LIGHTSTAGE ALPHA 0.14
+LIGHTSTAGE ALPHA 0.15
 Built by Raph Hennessy
-All Rights Reserved 2nd May 2016
+All Rights Reserved 3rd May 2016
 Currently, these features work:
 - Deflect base lazer beams
 - Different deflections for different mirror types
@@ -18,11 +18,8 @@ Currently, these features work:
 - Collect coins by filling them with light
 - See your current level & money balance at the top of the screen
 
-Changes from LightStage Alpha 0.13:
-- Added coins!
-- Added text that shows your current level & coin balance
-- You can't get coins multiple times by restarting the level
-- Redesigned levels to incorporate coins
+Changes from LightStage Alpha 0.14:
+- None
 ***************************/
 package
 {
