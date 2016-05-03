@@ -1,5 +1,5 @@
 ﻿/********************************
-LIGHTSTAGE ALPHA 0.16
+LIGHTSTAGE BETA 0.1.0
 Built by Raph Hennessy
 All Rights Reserved 3rd May 2016
 ********************************/
@@ -547,7 +547,15 @@ package
 					tmpLine.startX = mirrors[tmpLine.owner].x; // don't change the start x point of the line
 					tmpLine.startY = mirrors[tmpLine.owner].y; // also donn't change the starting y point
 					
-					tmpLine.draw(mirrors[mHit].x, mirrors[mHit].y); // redraw the line to hit the bad mirror
+					switch (tmpLine.axis)
+					{
+						case 'x':
+							tmpLine.draw(mirrors[tmpLine.owner].x, mirrors[mHit].y); // only y axis should change
+							break;
+						case 'y':
+							tmpLine.draw(mirrors[mHit].x, mirrors[tmpLine.owner].y); // only x axis should change
+					}
+					
 					tmpLine.endMirror = mHit; // set the endMirror of the temporary line to the bad mirror
 					
 					tmpLine.inter = true;
