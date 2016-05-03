@@ -25,3 +25,7 @@ bomb deflection chance gives you a chance to dodge bombs
 the bomb deflection powerup can help you deflect bombs
 avoid bombs using the bomb deflection chance upgrade
 buy upgrades in the shop by pressing S
+press L to open the level editor
+you can play around with  in the level editor
+you can use the level editor by pressing l
+test out new level combinations by pressing l

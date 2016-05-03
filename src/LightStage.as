@@ -78,7 +78,6 @@ package
 						dialog.noBtn.addEventListener(MouseEvent.MOUSE_DOWN, closeYNDialog);
 						dialog.headingText.text = "Are you sure?";
 						dialog.descText.text = "Do you really want to reset this level?";
-						trace('================RESET================');
 					}
 					else
 					{
@@ -106,7 +105,6 @@ package
 					{
 						mirrors.push(new mirror(mouseX, mouseY, 9999));
 						stage.addChild(mirrors[mirrors.length - 1]);
-						trace('added new mirror at X: ' + mouseX + ', Y: ' + mouseY);
 					}
 					break;
 					
@@ -115,7 +113,6 @@ package
 					{
 						bombs.push(new bomb(mouseX, mouseY));
 						stage.addChild(bombs[bombs.length - 1]);
-						trace('added new bomb at X: ' + mouseX + ', Y: ' + mouseY);
 					}
 					break;
 					
@@ -124,7 +121,6 @@ package
 					{
 						globes.push(new globe(mouseX, mouseY));
 						stage.addChild(globes[globes.length - 1]);
-						trace('added new globe at X: ' + mouseX + ', Y: ' + mouseY);
 					}
 					break;
 					
@@ -133,9 +129,50 @@ package
 					{
 						coins.push(new coin(mouseX, mouseY));
 						stage.addChild(coins[coins.length - 1]);
-						trace('added new coin at X: ' + mouseX + ', Y: ' + mouseY);
 					}
 					break;
+				case Keyboard.P: // print out all the code needed to setup the designed level
+					if (levelEdit == true)
+					{
+						trace('===================START LEVEL CODE===================');
+						for (var printMirror: int = 0; printMirror < mirrors.length; printMirror++)
+						{
+							trace('\nmirrors.push(new mirror(' + 
+								  mirrors[printMirror].x + 
+								  ', ' + mirrors[printMirror].y +
+								  ', ' + mirrors[printMirror].currentFrame +
+								  '));');
+							trace('stage.addChild(mirrors[mirrors.length - 1]);');
+						}
+						for (var printGlobe: int = 0; printGlobe < globes.length; printGlobe++)
+						{
+							trace('\nglobes.push(new globe(' + 
+								  globes[printGlobe].x + 
+								  ', ' + globes[printGlobe].y +
+								  '));');
+							trace('stage.addChild(globes[globes.length - 1]);');
+						}
+						trace('if (spawnCoins)');
+						trace('{');
+						for (var printCoin: int = 0; printCoin < coins.length; printCoin++)
+						{
+							trace('\n\tcoins.push(new coin(' + 
+								  coins[printCoin].x + 
+								  ', ' + coins[printCoin].y +
+								  '));');
+							trace('\tstage.addChild(coins[coins.length - 1]);');
+						}
+						trace('}');
+						for (var printBomb: int = 0; printBomb < bombs.length; printBomb++)
+						{
+							trace('\nbombs.push(new bomb(' + 
+								  bombs[printBomb].x + 
+								  ', ' + bombs[printBomb].y +
+								  '));');
+							trace('stage.addChild(bombs[bombs.length - 1]);');
+						}
+						trace('====================END LEVEL CODE====================');
+					}
 			}
 			
 		}
