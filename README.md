@@ -3,3 +3,14 @@ LightStage is a strategy game programmed in actionscript 3 where players positio
 
 ![Gameplay Image](http://s32.postimg.org/p2m19wm39/level3_2.png)
 
+## Documentation
+
+Documentation is located in the ‘doc’ directory of the master branch.
+
+## License
+
+Code is licensed under the MIT Licence. See the LICENSE file for more details.
+
+## Credits
+
+Currently, LightStage is made completely by Raph Hennessy (@raphydaphy on GitHub). However, this may change in the future as any contributions are greatly appreciated.
