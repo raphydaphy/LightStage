@@ -25,7 +25,8 @@ package
 		private var spawnCoins: Boolean = true; // did they win or is it their first game? then we should spawn new coins!
 		
 		private var lastDragged: int;
-		private var shopDialog: openShop = new openShop();
+		private var dialog: openShop = new openShop();
+		private var playerShop: shop = new shop(money);
 		
 		public function LightStage() // The initialization function that sets up the game
 		{
@@ -50,30 +51,51 @@ package
 					reset(); // reset the game if the R key is pressed
 					break;
 				case Keyboard.S:
-					stage.addChild(shopDialog);
-					shopDialog.visible = true;
-					shopDialog.x = 275;
-					shopDialog.y = 200;
-					shopDialog.yesBtn.addEventListener(MouseEvent.MOUSE_DOWN, shop);
-					shopDialog.noBtn.addEventListener(MouseEvent.MOUSE_DOWN, closeShopDialog);
+					stage.addChild(dialog);
+					dialog.visible = true;
+					dialog.x = 275;
+					dialog.y = 200;
+					dialog.yesBtn.addEventListener(MouseEvent.MOUSE_DOWN, useShop);
+					dialog.noBtn.addEventListener(MouseEvent.MOUSE_DOWN, closeShopDialog);
+					dialog.headingText.text = "Are you sure?";
+					dialog.descText.text = "Opening the shop will reset the level. Do you really want to open the shop?";
 					break;
 			}
 			
 		}
 		
-		private function shop(event:MouseEvent): void
+		private function useShop(event:MouseEvent): void
 		{
-			stage.removeChild(shopDialog);
-			shopDialog.yesBtn.removeEventListener(MouseEvent.MOUSE_DOWN, shop);
-			shopDialog.noBtn.removeEventListener(MouseEvent.MOUSE_DOWN, closeShopDialog);
-			trace('shop opened');
+			stage.removeChild(dialog);
+			dialog.yesBtn.removeEventListener(MouseEvent.CLICK, useShop);
+			dialog.noBtn.removeEventListener(MouseEvent.CLICK, closeShopDialog);
+			
+			stage.addChild(playerShop);
+			playerShop.x = 275;
+			playerShop.y = 200;
+			
+			playerShop.exitShop.addEventListener(MouseEvent.CLICK, closeShop);
+			playerShop.doubleCoins.addEventListener(MouseEvent.CLICK, buyDoubleCoins);
+		}
+		
+		private function buyDoubleCoins(event:MouseEvent)
+		{
+			money = playerShop.shopBuy("double coins");
+			updateText();
+		}
+		private function closeShop(event:MouseEvent): void
+		{
+			stage.removeChild(playerShop);
+			playerShop.exitShop.removeEventListener(MouseEvent.CLICK, closeShop);
+			result == "RESTART";
+			reset();
 		}
 		
 		private function closeShopDialog(event:MouseEvent): void
 		{
-			stage.removeChild(shopDialog);
-			shopDialog.yesBtn.removeEventListener(MouseEvent.MOUSE_DOWN, shop);
-			shopDialog.noBtn.removeEventListener(MouseEvent.MOUSE_DOWN, closeShopDialog);
+			stage.removeChild(dialog);
+			dialog.yesBtn.removeEventListener(MouseEvent.CLICK, useShop);
+			dialog.noBtn.removeEventListener(MouseEvent.CLICK, closeShopDialog);
 		}
 		
 		private function levelUp(): void // if the user completes the previous level
@@ -395,8 +417,16 @@ package
 			{
 				if (coins[checkCoin].full == true && coins[checkCoin].stage) // If the selected globe is full
 				{
-					money += 1; // increase money
+					if (playerShop.items.indexOf("double coins") == -1) // if the player dosen't own the double coins upgrade
+					{
+						money += 1; // increase money by one coin
+					}
+					else // if they do own the double coins upgrade
+					{
+						money += 2;
+					}
 					updateText();
+					playerShop.setCoins(money);
 					trace(money);
 					coins[checkCoin].resetAll(); // reset selected coin
 					stage.removeChild(coins[checkCoin]); // remove the coin from the stage
