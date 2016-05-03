@@ -21,6 +21,8 @@ Currently, these features work:
 Changes from LightStage Alpha 0.13:
 - Added coins!
 - Added text that shows your current level & coin balance
+- You can't get coins multiple times by restarting the level
+- Redesigned levels to incorporate coins
 ***************************/
 package
 {
@@ -41,6 +43,7 @@ package
 		public var coins: Vector.<coin> = new Vector.<coin>(); // vector to store all the coin movieclips
 		
 		public var result: String = "NEW"; // what happened in the last game that was played?
+		private var spawnCoins: Boolean = true; // did they win or is it their first game? then we should spawn new coins!
 		
 		private var lastDragged: int;
 		
@@ -100,27 +103,33 @@ package
 		{
 			if (result == "NEW") // if it is the first game the user has played
 			{
+				spawnCoins = true;
 				startupMsg = "LightStage is starting..."; // show the initial starting message
 				result = "RESTART"; // prepare the next loading message so that it isn't always the default
 			}
 			else if (result == "DIED") // if the user died on their last turn
 			{
+				spawnCoins = false;
 				startupMsg = "You died!"; // the text on the loading screen should be 'You died!'
 			}
 			else if (result == "WON") // if the user completed the last level
 			{
+				spawnCoins = true;
 				startupMsg = "You completed level " + (level - 1) + "!"; // show the user what level they are on
 			}
 			else if (result == "RESTART") // if the user pressed any key to restart
 			{
+				spawnCoins = false;
 				startupMsg = "Resetting your level..."; // show the user that the level is being reset
 			}
 			else if (result == "OVER") // if the user completed all the levels
 			{
+				spawnCoins = true;
 				startupMsg = "You completed all the levels!";
 			}
 			else // if the reason for the reset is unknown
 			{
+				spawnCoins = false;
 				startupMsg = "LightStage is starting..."; // show the default message
 			}
 			for (var destroyLine: int = 0; destroyLine < lines.length; destroyLine++) // loop through lines
@@ -142,10 +151,22 @@ package
 			{
 				if (bombs[destroyBomb].stage) { stage.removeChild(bombs[destroyBomb]) } // remove bomb from the stage
 			}
+			
+			
 			for (var destroyCoin: int = 0; destroyCoin < coins.length; destroyCoin++) // loop through all the coins
 			{
-				coins[destroyCoin].resetAll(); // reset the coin
-				if (coins[destroyCoin].stage) { stage.removeChild(coins[destroyCoin]) }
+				if (spawnCoins) // make sure users don't get duplicate coins
+				{
+					coins[destroyCoin].resetAll(); // reset the coin
+					if (coins[destroyCoin].stage) { stage.removeChild(coins[destroyCoin]) }
+				}
+				else
+				{
+					if (coins[destroyCoin].full == false)
+					{
+						coins[destroyCoin].visible = false;
+					}
+				}
 			}
 			
 			stage.removeEventListener(Event.ENTER_FRAME, enterFrame); // stop enterFrame listener
@@ -165,24 +186,41 @@ package
 			lines = new Vector.<line>(); // setup lines vector
 			globes = new Vector.<globe>(); // setup globes vector
 			bombs = new Vector.<bomb>(); // setup bombs vector
-			coins = new Vector.<coin>(); // setup coins vector
+			
+			if (spawnCoins) // make sure users don't get duplicate coins
+			{
+				coins = new Vector.<coin>(); // setup coins vector
+			}
+			else
+			{
+				for (var fixCoin: int = 0; fixCoin < coins.length; fixCoin++) // loop through all the coins
+				{
+					if (coins[fixCoin].full == false)
+					{
+						coins[fixCoin].visible = true;
+					}
+				}
+			}
 			
 			if (level == 1) // if the user is on level 1
 			{
-				mirrors.push(new mirror(150, 350)); // Make a testing mirror to deflect UP / RIGHT
+				mirrors.push(new mirror(100, 350)); // Make a testing mirror to deflect UP / RIGHT
 				stage.addChild(mirrors[0]); // Add the new mirror to the stage
 				
-				mirrors.push(new mirror(250, 350)); // Make a nw mirror
+				mirrors.push(new mirror(300, 350)); // Make a nw mirror
 				stage.addChild(mirrors[1]); // Add the new mirror to the stage
 				
-				globes.push(new globe(200, 250)); // add a new globe to the globes array
+				globes.push(new globe(100, 250)); // add a new globe to the globes array
 				stage.addChild(globes[0]); // add the new globe to the stage
 				
-				globes.push(new globe(250, 250)); // add a new globe to the globes array
+				globes.push(new globe(300, 250)); // add a new globe to the globes array
 				stage.addChild(globes[1]); // add the new globe to the stage
 				
-				coins.push(new coin(225, 250)); // add a new coin to the coins vector
-				stage.addChild(coins[0]); // add the new coin to the stage
+				if (spawnCoins) // make sure users don't get duplicate coins
+				{
+					coins.push(new coin(200, 250)); // add a new coin to the coins vector
+					stage.addChild(coins[0]); // add the new coin to the stage
+				}
 				
 				lines.push(new line(0, 200, 1000, 200, 'y', 'RIGHT', 9999, 0xe67e22, false, false)); // add core line
 				lines[0].visible = true; // Make the baseline visible
@@ -201,6 +239,12 @@ package
 				
 				bombs.push(new bomb(300, 300)); // make a new bomb
 				stage.addChild(bombs[0]); // add the new bomb to the stage
+				
+				if (spawnCoins)
+				{
+					coins.push(new coin(260, 300)); // add a new coin to the coins vector
+					stage.addChild(coins[0]); // add the new coin to the stage
+				}
 				
 				lines.push(new line(400, 370, 400, 0, 'x', 'UP', 9999, 0xecf0f1, false, false)); // add core line
 				lines[0].visible = true; // Make the baseline visible
@@ -228,6 +272,15 @@ package
 				
 				bombs.push(new bomb(332, 270)); // add a new bomb to the bombs array
 				stage.addChild(bombs[1]); // add the new globe to the stage
+				
+				if (spawnCoins)
+				{
+					coins.push(new coin(414, 300)); // add a new coin to the coins vector
+					stage.addChild(coins[0]); // add the new coin to the stage
+					
+					coins.push(new coin(250, 300)); // add a new coin to the coins vector
+					stage.addChild(coins[1]); // add the new coin to the stage
+				}
 				
 				lines.push(new line(0, 200, 1000, 200, 'y', 'RIGHT', 9999, 0x8e44ad, false, false)); // add core line
 				lines[0].visible = true; // Make the baseline visible
