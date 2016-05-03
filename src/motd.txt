@@ -21,3 +21,7 @@ press s to open the shop!
 you can upgrade things at the shop
 open the shop with the S key
 the double coins powerup lets you get coins twice as fast
+bomb deflection chance gives you a chance to dodge bombs
+the bomb deflection powerup can help you deflect bombs
+avoid bombs using the bomb deflection chance upgrade
+buy upgrades in the shop by pressing S

@@ -66,6 +66,7 @@ package
 			
 			playerShop.exitShop.addEventListener(MouseEvent.CLICK, closeShop);
 			playerShop.doubleCoins.addEventListener(MouseEvent.CLICK, buyDoubleCoins);
+			playerShop.bombDeflectChance.addEventListener(MouseEvent.CLICK, buyBombChance);
 		}
 		
 		private function simpleDialog(heading: String, desc: String)
@@ -79,20 +80,23 @@ package
 			dialog.headingText.text = heading;
 			dialog.descText.text = desc;
 		}
-		private function buyDoubleCoins(event:MouseEvent)
+		private function buyDoubleCoins(event:MouseEvent) // purchases double coins and tells the user if it worked
 		{
 			var newMoney = playerShop.shopBuy("double coins");
-			if (newMoney == money) 
+			if (newMoney == money) { simpleDialog("Too poor!","You don't have enough coins to buy Double Coins!"); }
+			else if (newMoney == 1337) { simpleDialog("Already bought!","You already own Double Coins."); }
+			else { simpleDialog("Purchased Double Coins!","You sucessfully purchased Double Coins!"); money = newMoney; }
+			updateText();
+		}
+		
+		private function buyBombChance(event:MouseEvent) // purchases bomb defence chance and tells user if it worked
+		{
+			var newMoney = playerShop.shopBuy("bomb deflect chance");
+			if (newMoney == money) { simpleDialog("Too poor!","You don't have enough coins to buy Bomb Deflection Chance!"); }
+			else if (newMoney == 1337) { simpleDialog("Already bought!","You already own Bomb Deflection Chance."); }
+			else 
 			{
-				simpleDialog("Too poor!","You don't have enough coins to buy Double Coins!"); 
-			}
-			else if (newMoney == 1337)
-			{ 
-				simpleDialog("Already bought!","You already own Double Coins. You cannot buy it again."); 
-			}
-			else
-			{
-				simpleDialog("Purchased Double Coins!","You sucessfully purchased Double Coins!");
+				simpleDialog("Purchased Bomb Deflection Chance!","You successfully purchased Bomb Deflection Chance!");
 				money = newMoney;
 			}
 			updateText();
@@ -102,26 +106,13 @@ package
 		{
 			stage.removeChild(playerShop);
 			playerShop.exitShop.removeEventListener(MouseEvent.CLICK, closeShop);
-			//result == "RESTART";
-			//reset();
-		}
-		
-		private function closeShopDialog(event:MouseEvent): void
-		{
-			if (dialog.stage)
-			{
-				stage.removeChild(dialog);
-			}
-			dialog.yesBtn.removeEventListener(MouseEvent.CLICK, useShop);
-			dialog.noBtn.removeEventListener(MouseEvent.CLICK, closeShopDialog);
+			playerShop.doubleCoins.removeEventListener(MouseEvent.CLICK, buyDoubleCoins);
+			playerShop.bombDeflectChance.removeEventListener(MouseEvent.CLICK, buyBombChance);
 		}
 		
 		private function closeSimpleDialog(event:MouseEvent): void
 		{
-			if (dialog.stage)
-			{
-				stage.removeChild(dialog);
-			}
+			if (dialog.stage) { stage.removeChild(dialog); }
 			dialog.okBtn.removeEventListener(MouseEvent.CLICK, closeSimpleDialog);
 		}
 		
@@ -329,7 +320,6 @@ package
 			}
 			else
 			{
-				trace('You win!');
 				result = "OVER";
 				reset();
 			}
@@ -408,8 +398,17 @@ package
 					{
 						if (bombs[bombNum].exploded == true)
 						{
-							result = "DIED";
-							reset();
+							if (playerShop.items.indexOf("bomb deflect chance") != -1 && // if they have bomb defence chance
+								Math.round(Math.random())) // if they are lucky and manage to dodge the bomb
+							{
+								bombs[bombNum].resetAll();
+								if (bombs[bombNum].stage) { stage.removeChild(bombs[bombNum]); }
+							}
+							else // if they don't have bomb deflect chance, or didn't manage to deflect the bomb (50% chance)
+							{
+								result = "DIED";
+								reset();
+							}
 						}
 						else if (lines[lineNum].hitTestObject(bombs[bombNum])) // If the line is touching the selected globe
 						{
@@ -454,7 +453,6 @@ package
 					}
 					updateText();
 					playerShop.setCoins(money);
-					trace(money);
 					coins[checkCoin].resetAll(); // reset selected coin
 					stage.removeChild(coins[checkCoin]); // remove the coin from the stage
 				}

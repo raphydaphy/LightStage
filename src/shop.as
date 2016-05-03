@@ -26,6 +26,10 @@
 			{
 				itemCost = 2;
 			}
+			else if (item == "bomb deflect chance")
+			{
+				itemCost = 4;
+			}
 			
 			if (itemCost <= money)
 			{
@@ -33,24 +37,14 @@
 				{
 					items[items.length] = item;
 					money = money - itemCost;
-					
-					trace("You bought " + item + "! You have $" + money + " remaining!");
 				}
 				else
 				{
-					trace("You already own " + item + "!");
 					
 					return 1337;
 				}
 			}
-			else
-			{
-				trace("You are too poor to buy " + item + "! You only have $" + money + " but " + item + " costs $" + itemCost);
-			}
-			
 			return money
 		}
-
 	}
-	
 }
