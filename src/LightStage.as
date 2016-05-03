@@ -27,6 +27,7 @@ package
 		private var lastDragged: int;
 		private var dialog: openShop = new openShop();
 		private var playerShop: shop = new shop(money);
+		private var levelEdit: Boolean = false;
 		
 		public function LightStage() // The initialization function that sets up the game
 		{
@@ -44,31 +45,86 @@ package
 					if (result == "NEW")
 					{
 						reset();
+						prepGame();
 					}
 					break;
+					
 				case Keyboard.R:
 					result = "RESTART"; // make sure the reset function knows that the user restarted the game
 					reset(); // reset the game if the R key is pressed
+					prepGame();
 					break;
+				
 				case Keyboard.S:
-					useShop();
+					stage.addChild(playerShop);
+					playerShop.x = 275;
+					playerShop.y = 200;
+					
+					playerShop.exitShop.addEventListener(MouseEvent.CLICK, closeShop);
+					playerShop.doubleCoins.addEventListener(MouseEvent.CLICK, buyDoubleCoins);
+					playerShop.bombDeflectChance.addEventListener(MouseEvent.CLICK, buyBombChance);	
+					break;
+				
+				case Keyboard.L:
+					stage.addChild(dialog);
+					dialog.gotoAndStop(1);
+					dialog.visible = true;
+					dialog.x = 275;
+					dialog.y = 200;
+					dialog.yesBtn.addEventListener(MouseEvent.MOUSE_DOWN, levelEditor);
+					dialog.noBtn.addEventListener(MouseEvent.MOUSE_DOWN, closeYNDialog);
+					dialog.headingText.text = "Are you sure?";
+					dialog.descText.text = "Opening the level editor will reset your level. Do you really want to open the level editor?";
+					break;
+				
+				case Keyboard.Q:
+					if (levelEdit == true)
+					{
+						levelEdit = false;
+						level = 1;
+						reset();
+						prepGame();
+					}
+					break;
+					
+				case Keyboard.M:
+					if (levelEdit == true)
+					{
+						mirrors.push(new mirror(mouseX, mouseY));
+						stage.addChild(mirrors[mirrors.length - 1]);
+						trace('added new mirror at X: ' + mouseX + ', Y: ' + mouseY);
+					}
+					break;
+					
+				case Keyboard.B:
+					if (levelEdit == true)
+					{
+						bombs.push(new bomb(mouseX, mouseY));
+						stage.addChild(bombs[bombs.length - 1]);
+						trace('added new bomb at X: ' + mouseX + ', Y: ' + mouseY);
+					}
+					break;
+					
+				case Keyboard.G:
+					if (levelEdit == true)
+					{
+						globes.push(new globe(mouseX, mouseY));
+						stage.addChild(globes[globes.length - 1]);
+						trace('added new globe at X: ' + mouseX + ', Y: ' + mouseY);
+					}
+					break;
+					
+				case Keyboard.C:
+					if (levelEdit == true)
+					{
+						coins.push(new coin(mouseX, mouseY));
+						stage.addChild(coins[coins.length - 1]);
+						trace('added new coin at X: ' + mouseX + ', Y: ' + mouseY);
+					}
 					break;
 			}
 			
 		}
-		
-		private function useShop(): void
-		{
-			
-			stage.addChild(playerShop);
-			playerShop.x = 275;
-			playerShop.y = 200;
-			
-			playerShop.exitShop.addEventListener(MouseEvent.CLICK, closeShop);
-			playerShop.doubleCoins.addEventListener(MouseEvent.CLICK, buyDoubleCoins);
-			playerShop.bombDeflectChance.addEventListener(MouseEvent.CLICK, buyBombChance);
-		}
-		
 		private function simpleDialog(heading: String, desc: String)
 		{
 			stage.addChild(dialog);
@@ -116,10 +172,34 @@ package
 			dialog.okBtn.removeEventListener(MouseEvent.CLICK, closeSimpleDialog);
 		}
 		
+		private function closeYNDialog(event:MouseEvent): void
+		{
+			if (dialog.stage) { stage.removeChild(dialog); }
+			dialog.yesBtn.removeEventListener(MouseEvent.CLICK, closeYNDialog);
+			dialog.noBtn.removeEventListener(MouseEvent.CLICK, closeYNDialog);
+		}
+		
 		private function levelUp(): void // if the user completes the previous level
 		{
 			level += 1;
 			reset();
+			prepGame();
+		}
+		
+		private function levelEditor(event:MouseEvent): void
+		{
+			if (dialog.stage) { stage.removeChild(dialog); }
+			dialog.yesBtn.removeEventListener(MouseEvent.CLICK, closeYNDialog);
+			dialog.noBtn.removeEventListener(MouseEvent.CLICK, closeYNDialog);
+			levelEdit = true;
+			reset();
+			simpleDialog("Level Editor","Use Q to quit, M to get mirror, B to get bomb, C to get coin and G to get globe.");
+			mirrors = new Vector.<mirror>(); // setup mirrors vector
+			lines = new Vector.<line>(); // setup lines vector
+			globes = new Vector.<globe>(); // setup globes vector
+			bombs = new Vector.<bomb>(); // setup bombs vector
+			level = "Editor";
+			updateText();
 		}
 		
 		private function prepGame(): void
@@ -202,8 +282,6 @@ package
 			}
 			
 			stage.removeEventListener(Event.ENTER_FRAME, enterFrame); // stop enterFrame listener
-			
-			prepGame();
 		}
 		
 		private function game(event:TimerEvent):void // start the game
@@ -322,6 +400,7 @@ package
 			{
 				result = "OVER";
 				reset();
+				prepGame();
 			}
 			
 			stage.addEventListener(Event.ENTER_FRAME, enterFrame); // Start enterFrame listener
@@ -408,6 +487,7 @@ package
 							{
 								result = "DIED";
 								reset();
+								prepGame();
 							}
 						}
 						else if (lines[lineNum].hitTestObject(bombs[bombNum])) // If the line is touching the selected globe
