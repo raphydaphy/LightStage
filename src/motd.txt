@@ -17,3 +17,6 @@ collect coins by filling them with light
 collect as many coins as you can!
 if you take light away from a coin, it stops filling up!
 coins fill up faster than globes
+press s to open the shop!
+you can upgrade things at the shop
+open the shop with the S key

@@ -25,6 +25,7 @@ package
 		private var spawnCoins: Boolean = true; // did they win or is it their first game? then we should spawn new coins!
 		
 		private var lastDragged: int;
+		private var shopDialog: openShop = new openShop();
 		
 		public function LightStage() // The initialization function that sets up the game
 		{
@@ -48,19 +49,31 @@ package
 					result = "RESTART"; // make sure the reset function knows that the user restarted the game
 					reset(); // reset the game if the R key is pressed
 					break;
-				case Keyboard.LEFT:
-					if (lastDragged || lastDragged == 0)
-					{
-						mirrors[lastDragged].rotateBackwards();
-					}
+				case Keyboard.S:
+					stage.addChild(shopDialog);
+					shopDialog.visible = true;
+					shopDialog.x = 275;
+					shopDialog.y = 200;
+					shopDialog.yesBtn.addEventListener(MouseEvent.MOUSE_DOWN, shop);
+					shopDialog.noBtn.addEventListener(MouseEvent.MOUSE_DOWN, closeShopDialog);
 					break;
-				case Keyboard.RIGHT:
-					if (lastDragged || lastDragged == 0)
-					{
-						mirrors[lastDragged].rotateForwards();
-					}
 			}
 			
+		}
+		
+		private function shop(event:MouseEvent): void
+		{
+			stage.removeChild(shopDialog);
+			shopDialog.yesBtn.removeEventListener(MouseEvent.MOUSE_DOWN, shop);
+			shopDialog.noBtn.removeEventListener(MouseEvent.MOUSE_DOWN, closeShopDialog);
+			trace('shop opened');
+		}
+		
+		private function closeShopDialog(event:MouseEvent): void
+		{
+			stage.removeChild(shopDialog);
+			shopDialog.yesBtn.removeEventListener(MouseEvent.MOUSE_DOWN, shop);
+			shopDialog.noBtn.removeEventListener(MouseEvent.MOUSE_DOWN, closeShopDialog);
 		}
 		
 		private function levelUp(): void // if the user completes the previous level
@@ -186,7 +199,7 @@ package
 				mirrors.push(new mirror(100, 350)); // Make a testing mirror to deflect UP / RIGHT
 				stage.addChild(mirrors[0]); // Add the new mirror to the stage
 				
-				mirrors.push(new mirror(300, 350)); // Make a nw mirror
+				mirrors.push(new mirror(300, 350, 2)); // Make a nw mirror
 				stage.addChild(mirrors[1]); // Add the new mirror to the stage
 				
 				globes.push(new globe(100, 250)); // add a new globe to the globes array
@@ -210,7 +223,7 @@ package
 				mirrors.push(new mirror(450, 200)); // Make a mirror
 				stage.addChild(mirrors[0]); // Add the new mirror to the stage
 				
-				mirrors.push(new mirror(450, 300)); // Make a mirror
+				mirrors.push(new mirror(450, 300, 2)); // Make a mirror
 				stage.addChild(mirrors[1]); // Add the new mirror to the stage
 				
 				globes.push(new globe(225, 300)); // add a new globe to the globes vector
@@ -234,10 +247,10 @@ package
 				mirrors.push(new mirror(191, 300)); // Make a new mirror
 				stage.addChild(mirrors[0]); // Add the new mirror to the stage
 				
-				mirrors.push(new mirror(332, 300)); // Make a new mirror
+				mirrors.push(new mirror(332, 300, 2)); // Make a new mirror
 				stage.addChild(mirrors[1]); // Add the new mirror to the stage
 				
-				mirrors.push(new mirror(498, 300)); // Make a new mirror
+				mirrors.push(new mirror(498, 300, 2)); // Make a new mirror
 				stage.addChild(mirrors[2]); // Add the new mirror to the stage
 				
 				globes.push(new globe(191, 250)); // add a new globe to the globes array
