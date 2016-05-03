@@ -1,6 +1,11 @@
 # Release Notes
 This page contains information about each minor release of LightStage. LightStage was first added to GitHub when it was in Alpha version 0.13. This page contains information from Alpha 0.01 all the way up to the latest release.
 
+## Alpha 0.16
+- Added Bomb Deflection Chance to the shop
+- Fixed infinite coin glitch in issue #3
+- You no longer need to restart level after using the shop
+
 ## Alpha 0.15
 - Added shop!
 - Added Double Coins purchase option to the shop
