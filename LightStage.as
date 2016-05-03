@@ -1,5 +1,5 @@
 ﻿/***************************
-LIGHTSTAGE ALPHA 0.13
+LIGHTSTAGE ALPHA 0.14
 Built by Raph Hennessy
 All Rights Reserved 2nd May 2016
 Currently, these features work:
@@ -15,12 +15,12 @@ Currently, these features work:
 - The R key can be used to reset the level
 - The user is informed when they win the game and the game closes shortly after
 - Rotate mirrors using the arrow keys (buggy)
+- Collect coins by filling them with light
+- See your current level & money balance at the top of the screen
 
-Changes from LightStage Alpha 0.12:
-- Fixed glitch where the game can crash if you don't stop dragging when the frame changes
-- Proper winning screen
-- Game closes after you win after about 10 seconds
-- You can rotate mirrors using the arrow keys (buggy)
+Changes from LightStage Alpha 0.13:
+- Added coins!
+- Added text that shows your current level & coin balance
 ***************************/
 package
 {
@@ -38,9 +38,9 @@ package
 		public var lines: Vector.<line> = new Vector.<line>(); // this vector stores all the line sprites
 		public var globes: Vector.<globe> = new Vector.<globe>(); // vector to store all the globes
 		public var bombs: Vector.<bomb> = new Vector.<bomb>(); // vector to store all the bomb movieclips
+		public var coins: Vector.<coin> = new Vector.<coin>(); // vector to store all the coin movieclips
 		
 		public var result: String = "NEW"; // what happened in the last game that was played?
-		public var level: int = 1 // What level is the user up to?
 		
 		private var lastDragged: int;
 		
@@ -142,6 +142,11 @@ package
 			{
 				if (bombs[destroyBomb].stage) { stage.removeChild(bombs[destroyBomb]) } // remove bomb from the stage
 			}
+			for (var destroyCoin: int = 0; destroyCoin < coins.length; destroyCoin++) // loop through all the coins
+			{
+				coins[destroyCoin].resetAll(); // reset the coin
+				if (coins[destroyCoin].stage) { stage.removeChild(coins[destroyCoin]) }
+			}
 			
 			stage.removeEventListener(Event.ENTER_FRAME, enterFrame); // stop enterFrame listener
 			
@@ -160,6 +165,7 @@ package
 			lines = new Vector.<line>(); // setup lines vector
 			globes = new Vector.<globe>(); // setup globes vector
 			bombs = new Vector.<bomb>(); // setup bombs vector
+			coins = new Vector.<coin>(); // setup coins vector
 			
 			if (level == 1) // if the user is on level 1
 			{
@@ -174,6 +180,9 @@ package
 				
 				globes.push(new globe(250, 250)); // add a new globe to the globes array
 				stage.addChild(globes[1]); // add the new globe to the stage
+				
+				coins.push(new coin(225, 250)); // add a new coin to the coins vector
+				stage.addChild(coins[0]); // add the new coin to the stage
 				
 				lines.push(new line(0, 200, 1000, 200, 'y', 'RIGHT', 9999, 0xe67e22, false, false)); // add core line
 				lines[0].visible = true; // Make the baseline visible
@@ -291,6 +300,16 @@ package
 						}
 					}
 					
+					for (var coinNum: int = 0; coinNum < coins.length; coinNum++) //iterate through coins
+					{
+						if (lines[lineNum].hitTestObject(coins[coinNum])) // If the line is touching the selected coin
+						{
+							coins[coinNum].hit = true;
+							coins[coinNum].filling = true; // tell thatcoin that it has been hit by a line
+							coins[coinNum].startFill(); // start filling that coin using it's function
+						}
+					}
+					
 					for (var bombNum: int = 0; bombNum < bombs.length; bombNum++) //iterate through globes
 					{
 						if (bombs[bombNum].exploded == true)
@@ -324,6 +343,25 @@ package
 			{
 				result = "WON"; // record that the user won
 				levelUp(); // run the levelUp function to go to the next level
+			}
+			
+			
+			for (var checkCoin: int = 0; checkCoin < coins.length; checkCoin++) //iterate through coins
+			{
+				if (coins[checkCoin].full == true && coins[checkCoin].stage) // If the selected globe is full
+				{
+					money += 1; // increase money
+					updateText();
+					trace(money);
+					coins[checkCoin].resetAll(); // reset selected coin
+					stage.removeChild(coins[checkCoin]); // remove the coin from the stage
+				}
+				if (coins[checkCoin].hit == false) // If the coin didn't get hit by a beam last iteration
+				{
+					coins[checkCoin].filling = false; // set the coin's filling property to false
+					coins[checkCoin].resetAll(); // reset the selected coin
+				}
+				coins[checkCoin].hit = false; // set the hit property to false so that it is only reflecting the last loop
 			}
 		}
 
