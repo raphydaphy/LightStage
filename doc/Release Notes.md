@@ -5,6 +5,7 @@ This page contains information about each minor release of LightStage. LightStag
 - Added Bomb Deflection Chance to the shop
 - Fixed infinite coin glitch in issue #3
 - You no longer need to restart level after using the shop
+- Fixed overlay glitch in issue #1
 
 ## Alpha 0.15
 - Added shop!
