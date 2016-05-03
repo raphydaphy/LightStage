@@ -1,26 +1,8 @@
-﻿/***************************
+﻿/********************************
 LIGHTSTAGE ALPHA 0.15
 Built by Raph Hennessy
 All Rights Reserved 3rd May 2016
-Currently, these features work:
-- Deflect base lazer beams
-- Different deflections for different mirror types
-- Deflecting non-base beams
-- Restarting the game & having introduction text before the game starts the first time
-- Hit globes with lazer beams to fill them up
-- Fill up all the globes to reset the game
-- Bombs explode if light hits them
-- Level up by completing the current level
-- Different loading messages for if you died, reset the game or completed the level
-- The R key can be used to reset the level
-- The user is informed when they win the game and the game closes shortly after
-- Rotate mirrors using the arrow keys (buggy)
-- Collect coins by filling them with light
-- See your current level & money balance at the top of the screen
-
-Changes from LightStage Alpha 0.14:
-- None
-***************************/
+********************************/
 package
 {
 	import flash.events.* // Import all flash event modules for enterFrame, mouseEvent etc..
