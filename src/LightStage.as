@@ -1,5 +1,5 @@
 ﻿/********************************
-LIGHTSTAGE ALPHA 0.15
+LIGHTSTAGE ALPHA 0.16
 Built by Raph Hennessy
 All Rights Reserved 3rd May 2016
 ********************************/
@@ -51,25 +51,14 @@ package
 					reset(); // reset the game if the R key is pressed
 					break;
 				case Keyboard.S:
-					stage.addChild(dialog);
-					dialog.gotoAndStop(1);
-					dialog.visible = true;
-					dialog.x = 275;
-					dialog.y = 200;
-					dialog.yesBtn.addEventListener(MouseEvent.MOUSE_DOWN, useShop);
-					dialog.noBtn.addEventListener(MouseEvent.MOUSE_DOWN, closeShopDialog);
-					dialog.headingText.text = "Are you sure?";
-					dialog.descText.text = "Opening the shop will reset the level. Do you really want to open the shop?";
+					useShop();
 					break;
 			}
 			
 		}
 		
-		private function useShop(event:MouseEvent): void
+		private function useShop(): void
 		{
-			stage.removeChild(dialog);
-			dialog.yesBtn.removeEventListener(MouseEvent.CLICK, useShop);
-			dialog.noBtn.removeEventListener(MouseEvent.CLICK, closeShopDialog);
 			
 			stage.addChild(playerShop);
 			playerShop.x = 275;
@@ -113,8 +102,8 @@ package
 		{
 			stage.removeChild(playerShop);
 			playerShop.exitShop.removeEventListener(MouseEvent.CLICK, closeShop);
-			result == "RESTART";
-			reset();
+			//result == "RESTART";
+			//reset();
 		}
 		
 		private function closeShopDialog(event:MouseEvent): void

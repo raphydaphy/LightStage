@@ -20,3 +20,4 @@ coins fill up faster than globes
 press s to open the shop!
 you can upgrade things at the shop
 open the shop with the S key
+the double coins powerup lets you get coins twice as fast
