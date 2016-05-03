@@ -15,10 +15,20 @@
 			this.addEventListener(MouseEvent.MOUSE_DOWN, onDown, false, 0, true);
 			x = mirrorX;
 			y = mirrorY;
-			gotoAndStop(frame);
+			
+			if (frame == 9999)
+			{
+				gotoAndStop(1);
+				this.removeEventListener(MouseEvent.MOUSE_DOWN, onDown, false);
+				this.addEventListener(MouseEvent.CLICK, rotateForwards);
+			}
+			else
+			{
+				gotoAndStop(frame);
+			}
 		}
 		
-		public function rotateForwards():void {
+		public function rotateForwards(event:MouseEvent):void {
 			if(currentFrame < totalFrames)
 			{
 				gotoAndStop(currentFrame + 1);

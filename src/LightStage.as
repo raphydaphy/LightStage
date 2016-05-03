@@ -71,10 +71,23 @@ package
 					dialog.visible = true;
 					dialog.x = 275;
 					dialog.y = 200;
-					dialog.yesBtn.addEventListener(MouseEvent.MOUSE_DOWN, levelEditor);
-					dialog.noBtn.addEventListener(MouseEvent.MOUSE_DOWN, closeYNDialog);
-					dialog.headingText.text = "Are you sure?";
-					dialog.descText.text = "Opening the level editor will reset your level. Do you really want to open the level editor?";
+					
+					if (levelEdit == true)
+					{
+						dialog.yesBtn.addEventListener(MouseEvent.MOUSE_DOWN, levelEditor);
+						dialog.noBtn.addEventListener(MouseEvent.MOUSE_DOWN, closeYNDialog);
+						dialog.headingText.text = "Are you sure?";
+						dialog.descText.text = "Do you really want to reset this level?";
+						trace('================RESET================');
+					}
+					else
+					{
+						dialog.yesBtn.addEventListener(MouseEvent.MOUSE_DOWN, levelEditor);
+						dialog.noBtn.addEventListener(MouseEvent.MOUSE_DOWN, closeYNDialog);
+						dialog.headingText.text = "Are you sure?";
+						dialog.descText.text = "Opening the level editor will reset your game. Do you really want to open the level editor?";
+					}
+					
 					break;
 				
 				case Keyboard.Q:
@@ -82,6 +95,7 @@ package
 					{
 						levelEdit = false;
 						level = 1;
+						money = 0;
 						reset();
 						prepGame();
 					}
@@ -90,7 +104,7 @@ package
 				case Keyboard.M:
 					if (levelEdit == true)
 					{
-						mirrors.push(new mirror(mouseX, mouseY));
+						mirrors.push(new mirror(mouseX, mouseY, 9999));
 						stage.addChild(mirrors[mirrors.length - 1]);
 						trace('added new mirror at X: ' + mouseX + ', Y: ' + mouseY);
 					}
@@ -193,7 +207,7 @@ package
 			dialog.noBtn.removeEventListener(MouseEvent.CLICK, closeYNDialog);
 			levelEdit = true;
 			reset();
-			simpleDialog("Level Editor","Use Q to quit, M to get mirror, B to get bomb, C to get coin and G to get globe.");
+			simpleDialog("Level Editor","Use Q to quit, M to get mirror, B to get bomb, C to get coin, and G to get globe.");
 			mirrors = new Vector.<mirror>(); // setup mirrors vector
 			lines = new Vector.<line>(); // setup lines vector
 			globes = new Vector.<globe>(); // setup globes vector
@@ -395,6 +409,52 @@ package
 				lines.push(new line(0, 200, 1000, 200, 'y', 'RIGHT', 9999, 0x8e44ad, false, false)); // add core line
 				lines[0].visible = true; // Make the baseline visible
 				stage.addChild(lines[0]); // Add baseline to the stage
+			}
+			else if (level == 4)
+			{
+				mirrors.push(new mirror(-37, 20.45));
+				stage.addChild(mirrors[mirrors.length - 1]);
+				
+				mirrors.push(new mirror(3.45, 21.45, 2));
+				stage.addChild(mirrors[mirrors.length - 1]);
+				
+				mirrors.push(new mirror(41.2, 21.45, 2));
+				stage.addChild(mirrors[mirrors.length - 1]);
+				
+				mirrors.push(new mirror(84.45, 20.05, 2));
+				stage.addChild(mirrors[mirrors.length - 1]);
+				
+				if (spawnCoins)
+				{
+					coins.push(new coin(254.5, 274.75));
+					stage.addChild(coins[coins.length - 1]);
+					
+					coins.push(new coin(254.5, 139.75));
+					stage.addChild(coins[coins.length - 1]);
+				}
+				
+				globes.push(new globe(301, 274.75));
+				stage.addChild(globes[globes.length - 1]);
+				
+				globes.push(new globe(341.5, 332.5));
+				stage.addChild(globes[globes.length - 1]);
+				
+				globes.push(new globe(285.75, 139.75));
+				stage.addChild(globes[globes.length - 1]);
+				
+				bombs.push(new bomb(334.75, 216.5));
+				stage.addChild(bombs[bombs.length - 1]);
+				
+				bombs.push(new bomb(284.75, 216.5));
+				stage.addChild(bombs[bombs.length - 1]);
+				
+				bombs.push(new bomb(234.75, 216.5));
+				stage.addChild(bombs[bombs.length - 1]);
+				
+				lines.push(new line(550, 383.75, -450, 383.75, 'y', 'LEFT', 9999, 0x2c3e50, false, false)); // add core line
+				lines[0].visible = true; // Make the baseline visible
+				stage.addChild(lines[0]); // Add baseline to the stage
+				
 			}
 			else
 			{
