@@ -1,0 +1,19 @@
+direct light to the globes to finish a level
+try to finish each level in as little time as possible
+LightStage is about the process of discovery and light
+don't let two mirrors touch each other!
+some levels have multiple light beams
+LightStage was made by Raph Hennessy
+bombs can kill you if you direct light at them
+light is produced by the flashlights on the side of the screen
+wait three seconds after each death to try again
+wait three seconds after completing a level to continue
+once a bomb starts blowing up, there is no way to stop it!
+press r to restart a level
+click on a mirror and use the arrow keys to rotate it
+you can rotate mirrors using the arrow keys
+you can reset the level using the 'r' key
+collect coins by filling them with light
+collect as many coins as you can!
+if you take light away from a coin, it stops filling up!
+coins fill up faster than globes
