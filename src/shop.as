@@ -39,6 +39,8 @@
 				else
 				{
 					trace("You already own " + item + "!");
+					
+					return 1337;
 				}
 			}
 			else

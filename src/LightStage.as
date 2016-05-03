@@ -52,6 +52,7 @@ package
 					break;
 				case Keyboard.S:
 					stage.addChild(dialog);
+					dialog.gotoAndStop(1);
 					dialog.visible = true;
 					dialog.x = 275;
 					dialog.y = 200;
@@ -78,11 +79,36 @@ package
 			playerShop.doubleCoins.addEventListener(MouseEvent.CLICK, buyDoubleCoins);
 		}
 		
+		private function simpleDialog(heading: String, desc: String)
+		{
+			stage.addChild(dialog);
+			dialog.gotoAndStop(2);
+			dialog.visible = true;
+			dialog.x = 275;
+			dialog.y = 200;
+			dialog.okBtn.addEventListener(MouseEvent.MOUSE_DOWN, closeSimpleDialog);
+			dialog.headingText.text = heading;
+			dialog.descText.text = desc;
+		}
 		private function buyDoubleCoins(event:MouseEvent)
 		{
-			money = playerShop.shopBuy("double coins");
+			var newMoney = playerShop.shopBuy("double coins");
+			if (newMoney == money) 
+			{
+				simpleDialog("Too poor!","You don't have enough coins to buy Double Coins!"); 
+			}
+			else if (newMoney == 1337)
+			{ 
+				simpleDialog("Already bought!","You already own Double Coins. You cannot buy it again."); 
+			}
+			else
+			{
+				simpleDialog("Purchased Double Coins!","You sucessfully purchased Double Coins!");
+				money = newMoney;
+			}
 			updateText();
 		}
+		
 		private function closeShop(event:MouseEvent): void
 		{
 			stage.removeChild(playerShop);
@@ -93,9 +119,21 @@ package
 		
 		private function closeShopDialog(event:MouseEvent): void
 		{
-			stage.removeChild(dialog);
+			if (dialog.stage)
+			{
+				stage.removeChild(dialog);
+			}
 			dialog.yesBtn.removeEventListener(MouseEvent.CLICK, useShop);
 			dialog.noBtn.removeEventListener(MouseEvent.CLICK, closeShopDialog);
+		}
+		
+		private function closeSimpleDialog(event:MouseEvent): void
+		{
+			if (dialog.stage)
+			{
+				stage.removeChild(dialog);
+			}
+			dialog.okBtn.removeEventListener(MouseEvent.CLICK, closeSimpleDialog);
 		}
 		
 		private function levelUp(): void // if the user completes the previous level
