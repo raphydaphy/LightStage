@@ -20,11 +20,11 @@ package
 		public var globes: Vector.<globe> = new Vector.<globe>(); // vector to store all the globes
 		public var bombs: Vector.<bomb> = new Vector.<bomb>(); // vector to store all the bomb movieclips
 		public var coins: Vector.<coin> = new Vector.<coin>(); // vector to store all the coin movieclips
+		public var walls: Vector.<block> = new Vector.<block>(); // vector to store all the coin movieclips
 		
 		public var result: String = "NEW"; // what happened in the last game that was played?
 		private var spawnCoins: Boolean = true; // did they win or is it their first game? then we should spawn new coins!
 		
-		private var lastDragged: int;
 		private var dialog: openShop = new openShop();
 		private var playerShop: shop = new shop(money);
 		private var levelEdit: Boolean = false;
@@ -131,6 +131,13 @@ package
 						stage.addChild(coins[coins.length - 1]);
 					}
 					break;
+				case Keyboard.W:
+					if (levelEdit == true)
+					{
+						walls.push(new block(mouseX, mouseY));
+						stage.addChild(walls[walls.length - 1]);
+					}
+					break;
 				case Keyboard.P: // print out all the code needed to setup the designed level
 					if (levelEdit == true)
 					{
@@ -170,6 +177,14 @@ package
 								trace('\tstage.addChild(coins[coins.length - 1]);');
 							}
 							trace('}');
+						}
+						for (var printWall: int = 0; printWall < walls.length; printWall++)
+						{
+							trace('\nwalls.push(new block(' + 
+								  walls[printWall].x + 
+								  ', ' + walls[printWall].y +
+								  '));');
+							trace('stage.addChild(walls[walls.length - 1]);');
 						}
 						for (var printBomb: int = 0; printBomb < bombs.length; printBomb++)
 						{
@@ -321,6 +336,10 @@ package
 			for (var destroyBomb: int = 0; destroyBomb < bombs.length; destroyBomb++) // loop through all the bombs
 			{
 				if (bombs[destroyBomb].stage) { stage.removeChild(bombs[destroyBomb]) } // remove bomb from the stage
+			}
+			for (var destroyWall: int = 0; destroyWall < walls.length; destroyWall++) // loop through all the bombs
+			{
+				if (walls[destroyWall].stage) { stage.removeChild(walls[destroyWall]) } // remove bomb from the stage
 			}
 			
 			
@@ -516,9 +535,6 @@ package
 				mirrors.push(new mirror(66, 22, 2));
 				stage.addChild(mirrors[mirrors.length - 1]);
 
-				mirrors.push(new mirror(110, 22, 1));
-				stage.addChild(mirrors[mirrors.length - 1]);
-
 				globes.push(new globe(361, 153));
 				stage.addChild(globes[globes.length - 1]);
 
@@ -553,6 +569,136 @@ package
 				bombs.push(new bomb(521, 215));
 				stage.addChild(bombs[bombs.length - 1]);
 			}
+			else if (level == 6)
+			{
+				lines.push(new line(480, 370, 480, 0, 'x', 'UP', 9999, 0xecf0f1, false, false)); // add core line
+				lines[0].visible = true; // Make the baseline visible
+				stage.addChild(lines[0]); // Add baseline to the stage
+				
+				mirrors.push(new mirror(-22, 22, 2));
+				stage.addChild(mirrors[mirrors.length - 1]);
+
+				mirrors.push(new mirror(22, 22, 2));
+				stage.addChild(mirrors[mirrors.length - 1]);
+
+				mirrors.push(new mirror(66, 22, 1));
+				stage.addChild(mirrors[mirrors.length - 1]);
+
+				globes.push(new globe(387, 296));
+				stage.addChild(globes[globes.length - 1]);
+
+				globes.push(new globe(544, 176));
+				stage.addChild(globes[globes.length - 1]);
+				if (spawnCoins)
+				{
+					coins.push(new coin(350, 299));
+					stage.addChild(coins[coins.length - 1]);
+
+					coins.push(new coin(309, 298));
+					stage.addChild(coins[coins.length - 1]);
+
+					coins.push(new coin(297, 182));
+					stage.addChild(coins[coins.length - 1]);
+
+					coins.push(new coin(331, 179));
+					stage.addChild(coins[coins.length - 1]);
+
+					coins.push(new coin(367, 181));
+					stage.addChild(coins[coins.length - 1]);
+
+					coins.push(new coin(399, 180));
+					stage.addChild(coins[coins.length - 1]);
+				}
+				bombs.push(new bomb(189, 299));
+				stage.addChild(bombs[bombs.length - 1]);
+
+				bombs.push(new bomb(186, 243));
+				stage.addChild(bombs[bombs.length - 1]);
+
+				bombs.push(new bomb(185, 180));
+				stage.addChild(bombs[bombs.length - 1]);
+
+				bombs.push(new bomb(432, 238));
+				stage.addChild(bombs[bombs.length - 1]);
+
+				bombs.push(new bomb(386, 239));
+				stage.addChild(bombs[bombs.length - 1]);
+
+				bombs.push(new bomb(338, 240));
+				stage.addChild(bombs[bombs.length - 1]);
+
+				bombs.push(new bomb(299, 242));
+				stage.addChild(bombs[bombs.length - 1]);
+
+				bombs.push(new bomb(188, 119));
+				stage.addChild(bombs[bombs.length - 1]);
+
+				bombs.push(new bomb(225, 119));
+				stage.addChild(bombs[bombs.length - 1]);
+
+				bombs.push(new bomb(277, 123));
+				stage.addChild(bombs[bombs.length - 1]);
+
+				bombs.push(new bomb(319, 124));
+				stage.addChild(bombs[bombs.length - 1]);
+
+				bombs.push(new bomb(363, 127));
+				stage.addChild(bombs[bombs.length - 1]);
+
+				bombs.push(new bomb(411, 123));
+				stage.addChild(bombs[bombs.length - 1]);
+
+				bombs.push(new bomb(539, 109));
+				stage.addChild(bombs[bombs.length - 1]);
+
+				bombs.push(new bomb(544, 237));
+				stage.addChild(bombs[bombs.length - 1]);
+
+				bombs.push(new bomb(545, 291));
+				stage.addChild(bombs[bombs.length - 1]);
+
+				bombs.push(new bomb(546, 345));
+				stage.addChild(bombs[bombs.length - 1]);
+
+				bombs.push(new bomb(539, 53));
+				stage.addChild(bombs[bombs.length - 1]);
+
+				bombs.push(new bomb(410, 60));
+				stage.addChild(bombs[bombs.length - 1]);
+
+				bombs.push(new bomb(356, 59));
+				stage.addChild(bombs[bombs.length - 1]);
+
+				bombs.push(new bomb(302, 56));
+				stage.addChild(bombs[bombs.length - 1]);
+
+				bombs.push(new bomb(240, 52));
+				stage.addChild(bombs[bombs.length - 1]);
+
+				bombs.push(new bomb(190, 53));
+				stage.addChild(bombs[bombs.length - 1]);
+
+				bombs.push(new bomb(191, 348));
+				stage.addChild(bombs[bombs.length - 1]);
+
+				bombs.push(new bomb(242, 348));
+				stage.addChild(bombs[bombs.length - 1]);
+
+				bombs.push(new bomb(289, 351));
+				stage.addChild(bombs[bombs.length - 1]);
+
+				bombs.push(new bomb(332, 352));
+				stage.addChild(bombs[bombs.length - 1]);
+
+				bombs.push(new bomb(370, 353));
+				stage.addChild(bombs[bombs.length - 1]);
+
+				bombs.push(new bomb(408, 355));
+				stage.addChild(bombs[bombs.length - 1]);
+
+				bombs.push(new bomb(435, 354));
+				stage.addChild(bombs[bombs.length - 1]);
+			}
 			else
 			{
 				result = "OVER";
@@ -583,10 +729,6 @@ package
 
 					for (var mirrorNum: int = 0; mirrorNum < mirrors.length; mirrorNum++) // Iterate mirrors
 					{
-						if (mirrors[mirrorNum].dragging == true) // if the mirror is currently being dragged
-						{
-							lastDragged = mirrorNum;
-						}
 						if (lines[lineNum].owner != mirrorNum) // If mirror is not the one that made this line
 						{
 							if (mirrors[mirrorNum].hitTestObject(lines[lineNum])) // If mirror is touching line
@@ -598,7 +740,19 @@ package
 
 						}
 					}
-					if (!hit) // If there was no mirrors interfering with the selected line
+					
+					for (var wallNum: int = 0; wallNum < walls.length; wallNum++) // Iterate walls
+					{
+						if (walls[wallNum].hitTestObject(lines[lineNum])) // If wall is touching line
+						{
+							hit = true;
+							lines[lineNum].draw(walls[wallNum].x, walls[wallNum].y); // Redraw line
+							walls[wallNum].gotoAndStop(2);
+							walls[wallNum].blocking = true;
+						}
+					}
+					
+					if (!hit) // If there was no mirrors or walls interfering with the selected line
 					{
 						lines[lineNum].reset(); // Reset the line to the origional X and Y values
 						if (lines[lineNum].stage && // If the line is on the stage
@@ -699,6 +853,15 @@ package
 					coins[checkCoin].resetAll(); // reset the selected coin
 				}
 				coins[checkCoin].hit = false; // set the hit property to false so that it is only reflecting the last loop
+			}
+			
+			for (var checkWall: int = 0; checkWall < walls.length; checkWall++) // Iterate walls
+			{
+				if (walls[checkWall].blocking == false) // If wall is not touching any line
+				{
+					walls[checkWall].gotoAndStop(1);
+				}
+				walls[checkWall].blocking = false;
 			}
 		}
 
