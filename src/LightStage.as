@@ -1,7 +1,7 @@
 ﻿/********************************
 LIGHTSTAGE BETA 0.1.0
 Built by Raph Hennessy
-All Rights Reserved 3rd May 2016
+All Rights Reserved 4rd May 2016
 ********************************/
 package
 {
@@ -135,14 +135,18 @@ package
 					if (levelEdit == true)
 					{
 						trace('===================START LEVEL CODE===================');
+						var mirrorX = -22
+						var mirrorY = 22;
 						for (var printMirror: int = 0; printMirror < mirrors.length; printMirror++)
 						{
 							trace('\nmirrors.push(new mirror(' + 
-								  mirrors[printMirror].x + 
-								  ', ' + mirrors[printMirror].y +
+								  mirrorX + 
+								  ', ' + mirrorY +
 								  ', ' + mirrors[printMirror].currentFrame +
 								  '));');
 							trace('stage.addChild(mirrors[mirrors.length - 1]);');
+							if (mirrorX > 197) { mirrorX = -22; mirrorY += 50; }
+							else { mirrorX += 44; }
 						}
 						for (var printGlobe: int = 0; printGlobe < globes.length; printGlobe++)
 						{
@@ -152,17 +156,21 @@ package
 								  '));');
 							trace('stage.addChild(globes[globes.length - 1]);');
 						}
-						trace('if (spawnCoins)');
-						trace('{');
-						for (var printCoin: int = 0; printCoin < coins.length; printCoin++)
+						
+						if (coins.length > 0)
 						{
-							trace('\n\tcoins.push(new coin(' + 
-								  coins[printCoin].x + 
-								  ', ' + coins[printCoin].y +
-								  '));');
-							trace('\tstage.addChild(coins[coins.length - 1]);');
+							trace('if (spawnCoins)');
+							trace('{');
+							for (var printCoin: int = 0; printCoin < coins.length; printCoin++)
+							{
+								trace('\n\tcoins.push(new coin(' + 
+									  coins[printCoin].x + 
+									  ', ' + coins[printCoin].y +
+									  '));');
+								trace('\tstage.addChild(coins[coins.length - 1]);');
+							}
+							trace('}');
 						}
-						trace('}');
 						for (var printBomb: int = 0; printBomb < bombs.length; printBomb++)
 						{
 							trace('\nbombs.push(new bomb(' + 
@@ -492,6 +500,58 @@ package
 				lines[0].visible = true; // Make the baseline visible
 				stage.addChild(lines[0]); // Add baseline to the stage
 				
+			}
+			else if (level == 5)
+			{
+				lines.push(new line(450, 50, 450, 1000, 'x', 'DOWN', 9999, 0x2c3e50, false, false)); // add core line
+				lines[0].visible = true; // Make the baseline visible
+				stage.addChild(lines[0]); // Add baseline to the stage
+				
+				mirrors.push(new mirror(-22, 22, 1));
+				stage.addChild(mirrors[mirrors.length - 1]);
+
+				mirrors.push(new mirror(22, 22, 1));
+				stage.addChild(mirrors[mirrors.length - 1]);
+
+				mirrors.push(new mirror(66, 22, 2));
+				stage.addChild(mirrors[mirrors.length - 1]);
+
+				mirrors.push(new mirror(110, 22, 1));
+				stage.addChild(mirrors[mirrors.length - 1]);
+
+				globes.push(new globe(361, 153));
+				stage.addChild(globes[globes.length - 1]);
+
+				globes.push(new globe(313, 292));
+				stage.addChild(globes[globes.length - 1]);
+
+				globes.push(new globe(394, 340));
+				stage.addChild(globes[globes.length - 1]);
+				if (spawnCoins)
+				{
+					coins.push(new coin(311, 243));
+					stage.addChild(coins[coins.length - 1]);
+
+					coins.push(new coin(391, 153));
+					stage.addChild(coins[coins.length - 1]);
+
+					coins.push(new coin(514, 153));
+					stage.addChild(coins[coins.length - 1]);
+				}
+				bombs.push(new bomb(267, 152));
+				stage.addChild(bombs[bombs.length - 1]);
+
+				bombs.push(new bomb(313, 378));
+				stage.addChild(bombs[bombs.length - 1]);
+
+				bombs.push(new bomb(520, 333));
+				stage.addChild(bombs[bombs.length - 1]);
+
+				bombs.push(new bomb(522, 280));
+				stage.addChild(bombs[bombs.length - 1]);
+
+				bombs.push(new bomb(521, 215));
+				stage.addChild(bombs[bombs.length - 1]);
 			}
 			else
 			{

@@ -29,3 +29,6 @@ press L to open the level editor
 you can play around with  in the level editor
 you can use the level editor by pressing l
 test out new level combinations by pressing l
+get the code for your edited level by pressing p
+press p in the level editor to print out the level code
+pressing p in the level editor prints out your code
