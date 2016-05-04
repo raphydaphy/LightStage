@@ -1,7 +1,14 @@
 # Release Notes
 This page contains information about each minor release of LightStage. LightStage was first added to GitHub when it was in Alpha version 0.13. This page contains information from Alpha 0.01 all the way up to the latest release.
 
-## Beta 0.1.1
+## LightStage 0.1 Beta 2
+- Fixed overlay glitch in issue #1
+- Added 7th level
+- Fixed standalone SWF glitch in issue #6
+- Nerfed upgrade costs as they used to be too OP
+- Fixed glitch were walls don't stop blocking light after completing the level
+
+## LightSTage 0.1 Beta 1
 - Fixed bendy line glitch in issue #5
 - Added simple level editor
 - Level editor can generate level code
@@ -12,7 +19,6 @@ This page contains information about each minor release of LightStage. LightStag
 - Added Bomb Deflection Chance to the shop
 - Fixed infinite coin glitch in issue #3
 - You no longer need to restart level after using the shop
-- Fixed overlay glitch in issue #1
 
 ## Alpha 0.15
 - Added shop!
