@@ -1,5 +1,5 @@
 ﻿/********************************
-LIGHTSTAGE 0.1 BETA 2
+LIGHTSTAGE 0.1 BETA 3
 Built by Raph Hennessy
 All Rights Reserved 4th May 2016
 ********************************/
@@ -29,6 +29,10 @@ package
 		private var playerShop: shop = new shop(money);
 		private var levelEdit: Boolean = false;
 		private var resetting: Boolean = false;
+		
+		private var lineColors: Array = [0x2ecc71, 0x27ae60, 0x3498db, 0x2980b9, 0x9b59b6, 0x8e44ad, 0x34495e, 0x2c3e50,
+										 0xf1c40f, 0xf1c40f, 0xe67e22, 0xe74c3c, 0xecf0f1, 0x95a5a6, 0xf39c12, 0xd35400,
+										 0xc0392b, 0xbdc3c7, 0x7f8c8d];
 		
 		public function LightStage() // The initialization function that sets up the game
 		{
@@ -142,7 +146,26 @@ package
 						stage.addChild(walls[walls.length - 1]);
 					}
 					break;
-				case Keyboard.P: // print out all the code needed to setup the designed level
+				case Keyboard.T:
+					if (levelEdit = true)
+					{
+						if (globes.length > 0)
+						{
+							level = 0;
+							money = 0;
+							stage.addEventListener(Event.ENTER_FRAME, enterFrame);
+							
+							var stopGameTimer:Timer = new Timer(500, 1); 
+							stopGameTimer.addEventListener(TimerEvent.TIMER, stopEnterFrame);
+							stopGameTimer.start(); // start the timer
+						}
+						else
+						{
+							simpleDialog("Error!","You need to put at least one globe on the stage to test the level");
+						}
+					}
+					break;
+				case Keyboard.P:
 					if (levelEdit == true)
 					{
 						trace('===================START LEVEL CODE===================');
@@ -203,6 +226,7 @@ package
 			}
 			
 		}
+
 		private function simpleDialog(heading: String, desc: String)
 		{
 			stage.addChild(dialog);
@@ -214,6 +238,12 @@ package
 			dialog.headingText.text = heading;
 			dialog.descText.text = desc;
 		}
+		
+		private function stopEnterFrame(event:TimerEvent)
+		{
+			stage.removeEventListener(Event.ENTER_FRAME, enterFrame); // stop enterFrame listener
+		}
+		
 		private function buyDoubleCoins(event:MouseEvent) // purchases double coins and tells the user if it worked
 		{
 			var newMoney = playerShop.shopBuy("double coins");
@@ -266,19 +296,82 @@ package
 		
 		private function levelEditor(event:MouseEvent): void
 		{
+			var num:int=Math.floor(Math.random() * lineColors.length);
 			if (dialog.stage) { stage.removeChild(dialog); }
 			dialog.yesBtn.removeEventListener(MouseEvent.CLICK, closeYNDialog);
 			dialog.noBtn.removeEventListener(MouseEvent.CLICK, closeYNDialog);
+			stage.addChild(dialog);
+			dialog.gotoAndStop(3);
+			dialog.visible = true;
+			dialog.x = 275;
+			dialog.y = 200;
+			dialog.leftBtn.addEventListener(MouseEvent.MOUSE_DOWN, levelEditorSetLeft);
+			dialog.rightBtn.addEventListener(MouseEvent.MOUSE_DOWN, levelEditorSetRight);
+			dialog.upBtn.addEventListener(MouseEvent.MOUSE_DOWN, levelEditorSetUp);
+			dialog.downBtn.addEventListener(MouseEvent.MOUSE_DOWN, levelEditorSetDown);
+			dialog.headingText.text = "Level Editor Setup";
+			dialog.descText.text = "What direction do you want your base line to be going in?";
 			spawnCoins = true;
 			levelEdit = true;
 			reset();
-			simpleDialog("Level Editor","Use Q to quit, M to get mirror, B to get bomb, C to get coin, and G to get globe.");
 			mirrors = new Vector.<mirror>(); // setup mirrors vector
 			lines = new Vector.<line>(); // setup lines vector
 			globes = new Vector.<globe>(); // setup globes vector
 			bombs = new Vector.<bomb>(); // setup bombs vector
 			level = "Editor";
 			updateText();
+		}
+		
+		private function levelEditorSetLeft(event:MouseEvent)
+		{
+			if (dialog.stage) { stage.removeChild(dialog); }
+			dialog.leftBtn.addEventListener(MouseEvent.MOUSE_DOWN, levelEditorSetLeft);
+			dialog.rightBtn.addEventListener(MouseEvent.MOUSE_DOWN, levelEditorSetRight);
+			dialog.upBtn.addEventListener(MouseEvent.MOUSE_DOWN, levelEditorSetUp);
+			dialog.downBtn.addEventListener(MouseEvent.MOUSE_DOWN, levelEditorSetDown);
+			
+			lines.push(new line(550, 200, -450, 200, 'y', 'LEFT', 9999, lineColors[num], false, false));
+			lines[lines.length - 1].visible = true;
+			stage.addChild(lines[lines.length - 1]);
+		}
+		
+		private function levelEditorSetRight(event:MouseEvent)
+		{
+			if (dialog.stage) { stage.removeChild(dialog); }
+			dialog.leftBtn.addEventListener(MouseEvent.MOUSE_DOWN, levelEditorSetLeft);
+			dialog.rightBtn.addEventListener(MouseEvent.MOUSE_DOWN, levelEditorSetRight);
+			dialog.upBtn.addEventListener(MouseEvent.MOUSE_DOWN, levelEditorSetUp);
+			dialog.downBtn.addEventListener(MouseEvent.MOUSE_DOWN, levelEditorSetDown);
+			
+			lines.push(new line(0, 200, 1000, 200, 'y', 'RIGHT', 9999, lineColors[num], false, false));
+			lines[lines.length - 1].visible = true;
+			stage.addChild(lines[lines.length - 1]);
+		}
+		
+		private function levelEditorSetUp(event:MouseEvent)
+		{
+			if (dialog.stage) { stage.removeChild(dialog); }
+			dialog.leftBtn.addEventListener(MouseEvent.MOUSE_DOWN, levelEditorSetLeft);
+			dialog.rightBtn.addEventListener(MouseEvent.MOUSE_DOWN, levelEditorSetRight);
+			dialog.upBtn.addEventListener(MouseEvent.MOUSE_DOWN, levelEditorSetUp);
+			dialog.downBtn.addEventListener(MouseEvent.MOUSE_DOWN, levelEditorSetDown);
+			
+			lines.push(new line(275, 360, 275, -450, 'x', 'UP', 9999, lineColors[num], false, false));
+			lines[lines.length - 1].visible = true;
+			stage.addChild(lines[lines.length - 1]);
+		}
+		
+		private function levelEditorSetDown(event:MouseEvent)
+		{
+			if (dialog.stage) { stage.removeChild(dialog); }
+			dialog.leftBtn.addEventListener(MouseEvent.MOUSE_DOWN, levelEditorSetLeft);
+			dialog.rightBtn.addEventListener(MouseEvent.MOUSE_DOWN, levelEditorSetRight);
+			dialog.upBtn.addEventListener(MouseEvent.MOUSE_DOWN, levelEditorSetUp);
+			dialog.downBtn.addEventListener(MouseEvent.MOUSE_DOWN, levelEditorSetDown);
+			
+			lines.push(new line(275, 120, 275, 450, 'x', 'DOWN', 9999, lineColors[num], false, false));
+			lines[lines.length - 1].visible = true;
+			stage.addChild(lines[lines.length - 1]);
 		}
 		
 		private function prepGame(): void
