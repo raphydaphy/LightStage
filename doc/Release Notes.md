@@ -1,7 +1,7 @@
 # Release Notes
 This page contains information about each minor release of LightStage. LightStage was first added to GitHub when it was in Alpha version 0.13. This page contains information from Alpha 0.01 all the way up to the latest release.
 
-## Beta 0.1.0
+## Beta 0.1.1
 - Fixed bendy line glitch in issue #5
 - Added simple level editor
 - Level editor can generate level code
