@@ -269,6 +269,7 @@ package
 			if (dialog.stage) { stage.removeChild(dialog); }
 			dialog.yesBtn.removeEventListener(MouseEvent.CLICK, closeYNDialog);
 			dialog.noBtn.removeEventListener(MouseEvent.CLICK, closeYNDialog);
+			spawnCoins = true;
 			levelEdit = true;
 			reset();
 			simpleDialog("Level Editor","Use Q to quit, M to get mirror, B to get bomb, C to get coin, and G to get globe.");
@@ -709,6 +710,241 @@ package
 				stage.addChild(bombs[bombs.length - 1]);
 
 				bombs.push(new bomb(435, 354));
+				stage.addChild(bombs[bombs.length - 1]);
+			}
+			else if (level == 7)
+			{
+				lines.push(new line(275, 370, 275, 0, 'x', 'UP', 9999, 0xecf0f1, false, false)); // add core line
+				lines[0].visible = true; // Make the baseline visible
+				stage.addChild(lines[0]); // Add baseline to the stage
+				
+				mirrors.push(new mirror(-22, 22, 1));
+				stage.addChild(mirrors[mirrors.length - 1]);
+
+				mirrors.push(new mirror(22, 22, 1));
+				stage.addChild(mirrors[mirrors.length - 1]);
+
+				mirrors.push(new mirror(66, 22, 1));
+				stage.addChild(mirrors[mirrors.length - 1]);
+
+				globes.push(new globe(360, 230));
+				stage.addChild(globes[globes.length - 1]);
+
+				globes.push(new globe(320, 294));
+				stage.addChild(globes[globes.length - 1]);
+
+				globes.push(new globe(560, 164));
+				stage.addChild(globes[globes.length - 1]);
+
+				globes.push(new globe(598, 164));
+				stage.addChild(globes[globes.length - 1]);
+				
+				if (spawnCoins)
+				{
+
+					coins.push(new coin(395, 166));
+					stage.addChild(coins[coins.length - 1]);
+
+					coins.push(new coin(440, 165));
+					stage.addChild(coins[coins.length - 1]);
+
+					coins.push(new coin(482, 164));
+					stage.addChild(coins[coins.length - 1]);
+
+					coins.push(new coin(519, 164));
+					stage.addChild(coins[coins.length - 1]);
+				}
+
+				walls.push(new block(-100, -100));
+				stage.addChild(walls[walls.length - 1]);
+
+				walls.push(new block(-100, -100));
+				stage.addChild(walls[walls.length - 1]);
+
+				walls.push(new block(-100, -100));
+				stage.addChild(walls[walls.length - 1]);
+
+				walls.push(new block(-100, -100));
+				stage.addChild(walls[walls.length - 1]);
+
+				walls.push(new block(-100, -100));
+				stage.addChild(walls[walls.length - 1]);
+
+				walls.push(new block(-100, -100));
+				stage.addChild(walls[walls.length - 1]);
+
+				walls.push(new block(-100, -100));
+				stage.addChild(walls[walls.length - 1]);
+
+				walls.push(new block(-100, -100));
+				stage.addChild(walls[walls.length - 1]);
+
+				walls.push(new block(-100, -100));
+				stage.addChild(walls[walls.length - 1]);
+
+				walls.push(new block(-100, -100));
+				stage.addChild(walls[walls.length - 1]);
+
+				walls.push(new block(-100, -100));
+				stage.addChild(walls[walls.length - 1]);
+
+				walls.push(new block(-100, -100));
+				stage.addChild(walls[walls.length - 1]);
+
+				walls.push(new block(-100, -100));
+				stage.addChild(walls[walls.length - 1]);
+
+				walls.push(new block(-100, -100));
+				stage.addChild(walls[walls.length - 1]);
+
+				walls.push(new block(-100, -100));
+				stage.addChild(walls[walls.length - 1]);
+
+				walls.push(new block(-100, -100));
+				stage.addChild(walls[walls.length - 1]);
+
+				walls.push(new block(-100, -100));
+				stage.addChild(walls[walls.length - 1]);
+
+				walls.push(new block(-100, -100));
+				stage.addChild(walls[walls.length - 1]);
+
+				walls.push(new block(-100, -100));
+				stage.addChild(walls[walls.length - 1]);
+
+				walls.push(new block(-100, -100));
+				stage.addChild(walls[walls.length - 1]);
+
+				walls.push(new block(-100, -100));
+				stage.addChild(walls[walls.length - 1]);
+
+				walls.push(new block(-100, -100));
+				stage.addChild(walls[walls.length - 1]);
+
+				walls.push(new block(-100, -100));
+				stage.addChild(walls[walls.length - 1]);
+
+				walls.push(new block(-100, -100));
+				stage.addChild(walls[walls.length - 1]);
+
+				walls.push(new block(-100, -100));
+				stage.addChild(walls[walls.length - 1]);
+
+				walls.push(new block(-100, -100));
+				stage.addChild(walls[walls.length - 1]);
+
+				walls.push(new block(-100, -100));
+				stage.addChild(walls[walls.length - 1]);
+
+				walls.push(new block(-100, -100));
+				stage.addChild(walls[walls.length - 1]);
+
+				walls.push(new block(-100, -100));
+				stage.addChild(walls[walls.length - 1]);
+
+				walls.push(new block(-100, -100));
+				stage.addChild(walls[walls.length - 1]);
+
+				walls.push(new block(275, 84));
+				stage.addChild(walls[walls.length - 1]);
+
+				walls.push(new block(234, 85));
+				stage.addChild(walls[walls.length - 1]);
+
+				walls.push(new block(233, 126));
+				stage.addChild(walls[walls.length - 1]);
+
+				walls.push(new block(234, 168));
+				stage.addChild(walls[walls.length - 1]);
+
+				walls.push(new block(233, 251));
+				stage.addChild(walls[walls.length - 1]);
+
+				walls.push(new block(235, 298));
+				stage.addChild(walls[walls.length - 1]);
+
+				walls.push(new block(235, 342));
+				stage.addChild(walls[walls.length - 1]);
+
+				walls.push(new block(233, 385));
+				stage.addChild(walls[walls.length - 1]);
+
+				walls.push(new block(320, 128));
+				stage.addChild(walls[walls.length - 1]);
+
+				walls.push(new block(323, 209));
+				stage.addChild(walls[walls.length - 1]);
+
+				walls.push(new block(321, 251));
+				stage.addChild(walls[walls.length - 1]);
+
+				walls.push(new block(323, 338));
+				stage.addChild(walls[walls.length - 1]);
+
+				walls.push(new block(324, 381));
+				stage.addChild(walls[walls.length - 1]);
+
+				walls.push(new block(390, 123));
+				stage.addChild(walls[walls.length - 1]);
+
+				walls.push(new block(442, 126));
+				stage.addChild(walls[walls.length - 1]);
+
+				walls.push(new block(403, 253));
+				stage.addChild(walls[walls.length - 1]);
+
+				walls.push(new block(401, 205));
+				stage.addChild(walls[walls.length - 1]);
+
+				walls.push(new block(448, 203));
+				stage.addChild(walls[walls.length - 1]);
+
+				walls.push(new block(367, 342));
+				stage.addChild(walls[walls.length - 1]);
+
+				walls.push(new block(411, 342));
+				stage.addChild(walls[walls.length - 1]);
+
+				walls.push(new block(487, 203));
+				stage.addChild(walls[walls.length - 1]);
+
+				walls.push(new block(523, 204));
+				stage.addChild(walls[walls.length - 1]);
+
+				walls.push(new block(560, 202));
+				stage.addChild(walls[walls.length - 1]);
+
+				walls.push(new block(595, 204));
+				stage.addChild(walls[walls.length - 1]);
+
+				walls.push(new block(598, 125));
+				stage.addChild(walls[walls.length - 1]);
+
+				walls.push(new block(561, 121));
+				stage.addChild(walls[walls.length - 1]);
+
+				walls.push(new block(520, 123));
+				stage.addChild(walls[walls.length - 1]);
+
+				walls.push(new block(480, 128));
+				stage.addChild(walls[walls.length - 1]);
+
+				walls.push(new block(629, 164));
+				stage.addChild(walls[walls.length - 1]);
+
+				bombs.push(new bomb(234, 209));
+				stage.addChild(bombs[bombs.length - 1]);
+
+				bombs.push(new bomb(317, 84));
+				stage.addChild(bombs[bombs.length - 1]);
+
+				bombs.push(new bomb(323, 167));
+				stage.addChild(bombs[bombs.length - 1]);
+
+				bombs.push(new bomb(351, 126));
+				stage.addChild(bombs[bombs.length - 1]);
+
+				bombs.push(new bomb(407, 300));
 				stage.addChild(bombs[bombs.length - 1]);
 			}
 			else

@@ -24,11 +24,11 @@
 			var itemCost: int = 0;
 			if (item == "double coins")
 			{
-				itemCost = 2;
+				itemCost = 8;
 			}
 			else if (item == "bomb deflect chance")
 			{
-				itemCost = 4;
+				itemCost = 5;
 			}
 			
 			if (itemCost <= money)
