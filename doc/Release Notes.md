@@ -1,6 +1,10 @@
 # Release Notes
 This page contains information about each minor release of LightStage. LightStage was first added to GitHub when it was in Alpha version 0.13. This page contains information from Alpha 0.01 all the way up to the latest release.
 
+## LightStage 0.01 Beta 3
+- Added an option to test levels made in the level editor by pressing T
+- Added an option to pick core line direction in level editor
+
 ## LightStage 0.1 Beta 2
 - Fixed overlay glitch in issue #1
 - Added 7th level
