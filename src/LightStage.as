@@ -1,5 +1,5 @@
 ﻿/********************************
-LIGHTSTAGE BETA 0.1.1
+LIGHTSTAGE 0.1 BETA 2
 Built by Raph Hennessy
 All Rights Reserved 4th May 2016
 ********************************/
