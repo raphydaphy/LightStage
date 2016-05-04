@@ -34,6 +34,14 @@
 			exploded = false; // make sure the bomb knows that it is not exploded (it is on frame 1 now)
 		}
 		
+		public function destroy()
+		{
+			gotoAndStop(1);
+			visible = false;
+			x = -100;
+			y = -100;
+		}
+		
 		private function increment(event:TimerEvent) // This function increments the fill state of the globe
 		{
 			if (currentFrame < 8) // If the bomb is not already full (on frame 8)

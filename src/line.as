@@ -106,11 +106,11 @@
 			this.visible = false;
 			graphics.clear();
 			
-			origStartX = 0;
-			origStartY = 0;
+			origStartX = -100;
+			origStartY = -100;
 			
-			origEndX = 0;
-			origEndY = 0;
+			origEndX = -100;
+			origEndY = -100;
 			
 			update();
 			

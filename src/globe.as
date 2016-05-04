@@ -53,6 +53,14 @@
 			}
 		}
 		
+		public function destroy()
+		{
+			gotoAndStop(1);
+			visible = false;
+			x = -100;
+			y = -100;
+		}
+		
 		private function increment(event:TimerEvent) // This function increments the fill state of the globe
 		{
 			update(); // Check that the globe is not already full

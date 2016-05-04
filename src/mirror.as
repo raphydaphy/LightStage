@@ -53,6 +53,8 @@
 		public function destroy(): void
 		{
 			this.visible = false;
+			x = -100;
+			y = -100;
 			try // if the user is still dragging, this can cause an exception
 			{
 				stage.removeEventListener(MouseEvent.MOUSE_DOWN, onDown, false); // they have lifted mouse, so remove listener

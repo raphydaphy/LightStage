@@ -28,6 +28,7 @@ package
 		private var dialog: openShop = new openShop();
 		private var playerShop: shop = new shop(money);
 		private var levelEdit: Boolean = false;
+		private var resetting: Boolean = false;
 		
 		public function LightStage() // The initialization function that sets up the game
 		{
@@ -50,9 +51,12 @@ package
 					break;
 					
 				case Keyboard.R:
-					result = "RESTART"; // make sure the reset function knows that the user restarted the game
-					reset(); // reset the game if the R key is pressed
-					prepGame();
+					if (levelEdit == false && resetting == false)
+					{
+						result = "RESTART"; // make sure the reset function knows that the user restarted the game
+						reset(); // reset the game if the R key is pressed
+						prepGame();
+					}
 					break;
 				
 				case Keyboard.S:
@@ -287,6 +291,7 @@ package
 		
 		private function reset():void //reset game
 		{
+			resetting = true;
 			if (result == "NEW") // if it is the first game the user has played
 			{
 				spawnCoins = true;
@@ -331,14 +336,17 @@ package
 			for (var destroyGlobe: int = 0; destroyGlobe < globes.length; destroyGlobe++) // loop through all the globes
 			{
 				globes[destroyGlobe].resetAll(); // reset the globe
+				globes[destroyGlobe].destroy(); // destroy the globe
 				if (globes[destroyGlobe].stage) { stage.removeChild(globes[destroyGlobe]) } // remove globe from the stage
 			}
 			for (var destroyBomb: int = 0; destroyBomb < bombs.length; destroyBomb++) // loop through all the bombs
 			{
+				bombs[destroyBomb].destroy(); // destroy the bomb
 				if (bombs[destroyBomb].stage) { stage.removeChild(bombs[destroyBomb]) } // remove bomb from the stage
 			}
 			for (var destroyWall: int = 0; destroyWall < walls.length; destroyWall++) // loop through all the bombs
 			{
+				walls[destroyWall].destroy(); // destroy the wall
 				if (walls[destroyWall].stage) { stage.removeChild(walls[destroyWall]) } // remove bomb from the stage
 			}
 			
@@ -364,6 +372,7 @@ package
 		
 		private function game(event:TimerEvent):void // start the game
 		{
+			resetting = false;
 			if (result == "OVER") // if the user has won the game
 			{
 				fscommand("quit"); // exit the game
@@ -427,6 +436,9 @@ package
 				
 				bombs.push(new bomb(300, 300)); // make a new bomb
 				stage.addChild(bombs[0]); // add the new bomb to the stage
+				
+				walls.push(new block(300, 340));
+				stage.addChild(walls[0]);
 				
 				if (spawnCoins)
 				{

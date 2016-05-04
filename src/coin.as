@@ -38,6 +38,14 @@
 			update(); // update the coin properties
 		}
 		
+		public function destroy()
+		{
+			gotoAndStop(1);
+			visible = false;
+			x = -100;
+			y = -100;
+		}
+		
 		private function update() // This function makes sure all the coin variables are accurate
 		{
 			if (filling == false) // If the coin is no longer touching a lazer beam
