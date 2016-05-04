@@ -1,7 +1,7 @@
 ﻿/********************************
 LIGHTSTAGE BETA 0.1.0
 Built by Raph Hennessy
-All Rights Reserved 4rd May 2016
+All Rights Reserved 4th May 2016
 ********************************/
 package
 {
