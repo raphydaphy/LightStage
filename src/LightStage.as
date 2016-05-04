@@ -169,6 +169,23 @@ package
 					if (levelEdit == true)
 					{
 						trace('===================START LEVEL CODE===================');
+						for (var printLine: int = 0; printLine < lines.length; printLine++)
+						{
+							if (lines[printLine].disp == false)
+							{
+								trace('lines.push(new line(' + lines[printLine].origStartX +
+									   ', ' + lines[printLine].origStartY +
+									   ', ' + lines[printLine].origEndX +
+									   ', ' + lines[printLine].origEndY +
+									   ", '" + lines[printLine].axis + "'" +
+									   ", '" + lines[printLine].dir + "'" +
+									   ', 9999, lineColors[num]' +
+									   ', false, false));');
+								trace('lines[lines.length - 1].visible = true;');
+								trace('stage.addChild(lines[lines.length - 1])');
+							}
+						}
+						
 						var mirrorX = -22
 						var mirrorY = 22;
 						for (var printMirror: int = 0; printMirror < mirrors.length; printMirror++)
@@ -197,11 +214,14 @@ package
 							trace('{');
 							for (var printCoin: int = 0; printCoin < coins.length; printCoin++)
 							{
-								trace('\n\tcoins.push(new coin(' + 
-									  coins[printCoin].x + 
-									  ', ' + coins[printCoin].y +
-									  '));');
-								trace('\tstage.addChild(coins[coins.length - 1]);');
+								if (coins[printCoin].x != -100 && coins[printCoin].y != -100)
+								{
+									trace('\n\tcoins.push(new coin(' + 
+										  coins[printCoin].x + 
+										  ', ' + coins[printCoin].y +
+										  '));');
+									trace('\tstage.addChild(coins[coins.length - 1]);');
+								}
 							}
 							trace('}');
 						}
@@ -320,6 +340,11 @@ package
 			bombs = new Vector.<bomb>(); // setup bombs vector
 			level = "Editor";
 			updateText();
+			for (var destroyCoin: int = 0; destroyCoin < coins.length; destroyCoin++) // loop through all the coins
+			{
+				coins[destroyCoin].destroy(); // reset the coin
+				if (coins[destroyCoin].stage) { stage.removeChild(coins[destroyCoin]) }
+			}
 		}
 		
 		private function levelEditorSetLeft(event:MouseEvent)
@@ -493,6 +518,8 @@ package
 				}
 			}
 			
+			var num:int=Math.floor(Math.random() * lineColors.length);
+			
 			if (level == 1) // if the user is on level 1
 			{
 				mirrors.push(new mirror(100, 350)); // Make a testing mirror to deflect UP / RIGHT
@@ -513,7 +540,7 @@ package
 					stage.addChild(coins[0]); // add the new coin to the stage
 				}
 				
-				lines.push(new line(0, 200, 1000, 200, 'y', 'RIGHT', 9999, 0xe67e22, false, false)); // add core line
+				lines.push(new line(0, 200, 1000, 200, 'y', 'RIGHT', 9999, lineColors[num], false, false)); // add core line
 				lines[0].visible = true; // Make the baseline visible
 				stage.addChild(lines[0]); // Add baseline to the stage
 			}
@@ -540,7 +567,7 @@ package
 					stage.addChild(coins[0]); // add the new coin to the stage
 				}
 				
-				lines.push(new line(400, 370, 400, 0, 'x', 'UP', 9999, 0xecf0f1, false, false)); // add core line
+				lines.push(new line(400, 370, 400, 0, 'x', 'UP', 9999, lineColors[num], false, false)); // add core line
 				lines[0].visible = true; // Make the baseline visible
 				stage.addChild(lines[0]); // Add baseline to the stage
 			}
@@ -576,7 +603,7 @@ package
 					stage.addChild(coins[1]); // add the new coin to the stage
 				}
 				
-				lines.push(new line(0, 200, 1000, 200, 'y', 'RIGHT', 9999, 0x8e44ad, false, false)); // add core line
+				lines.push(new line(0, 200, 1000, 200, 'y', 'RIGHT', 9999, lineColors[num], false, false)); // add core line
 				lines[0].visible = true; // Make the baseline visible
 				stage.addChild(lines[0]); // Add baseline to the stage
 			}
@@ -621,14 +648,14 @@ package
 				bombs.push(new bomb(234.75, 216.5));
 				stage.addChild(bombs[bombs.length - 1]);
 				
-				lines.push(new line(550, 383.75, -450, 383.75, 'y', 'LEFT', 9999, 0x2c3e50, false, false)); // add core line
+				lines.push(new line(550, 383.75, -450, 383.75, 'y', 'LEFT', 9999, lineColors[num], false, false)); // add core line
 				lines[0].visible = true; // Make the baseline visible
 				stage.addChild(lines[0]); // Add baseline to the stage
 				
 			}
 			else if (level == 5)
 			{
-				lines.push(new line(450, 50, 450, 1000, 'x', 'DOWN', 9999, 0x2c3e50, false, false)); // add core line
+				lines.push(new line(450, 50, 450, 1000, 'x', 'DOWN', 9999, lineColors[num], false, false)); // add core line
 				lines[0].visible = true; // Make the baseline visible
 				stage.addChild(lines[0]); // Add baseline to the stage
 				
@@ -677,7 +704,7 @@ package
 			}
 			else if (level == 6)
 			{
-				lines.push(new line(480, 370, 480, 0, 'x', 'UP', 9999, 0xecf0f1, false, false)); // add core line
+				lines.push(new line(480, 370, 480, 0, 'x', 'UP', 9999, lineColors[num], false, false)); // add core line
 				lines[0].visible = true; // Make the baseline visible
 				stage.addChild(lines[0]); // Add baseline to the stage
 				
@@ -807,7 +834,7 @@ package
 			}
 			else if (level == 7)
 			{
-				lines.push(new line(275, 370, 275, 0, 'x', 'UP', 9999, 0xecf0f1, false, false)); // add core line
+				lines.push(new line(275, 370, 275, 0, 'x', 'UP', 9999, lineColors[num], false, false)); // add core line
 				lines[0].visible = true; // Make the baseline visible
 				stage.addChild(lines[0]); // Add baseline to the stage
 				
@@ -1038,6 +1065,182 @@ package
 				stage.addChild(bombs[bombs.length - 1]);
 
 				bombs.push(new bomb(407, 300));
+				stage.addChild(bombs[bombs.length - 1]);
+			}
+			else if (level == 8)
+			{
+				lines.push(new line(275, 360, 275, -450, 'x', 'UP', 9999, lineColors[num], false, false));
+				lines[lines.length - 1].visible = true;
+				stage.addChild(lines[lines.length - 1])
+
+				mirrors.push(new mirror(-22, 22, 1));
+				stage.addChild(mirrors[mirrors.length - 1]);
+
+				mirrors.push(new mirror(22, 22, 2));
+				stage.addChild(mirrors[mirrors.length - 1]);
+
+				mirrors.push(new mirror(66, 22, 1));
+				stage.addChild(mirrors[mirrors.length - 1]);
+
+				mirrors.push(new mirror(110, 22, 1));
+				stage.addChild(mirrors[mirrors.length - 1]);
+
+				mirrors.push(new mirror(154, 22, 2));
+				stage.addChild(mirrors[mirrors.length - 1]);
+
+				mirrors.push(new mirror(198, 22, 1));
+				stage.addChild(mirrors[mirrors.length - 1]);
+
+				globes.push(new globe(374, 135));
+				stage.addChild(globes[globes.length - 1]);
+
+				globes.push(new globe(387, 299));
+				stage.addChild(globes[globes.length - 1]);
+
+				globes.push(new globe(146, 262));
+				stage.addChild(globes[globes.length - 1]);
+				if (spawnCoins)
+				{
+					coins.push(new coin(294, 216));
+					stage.addChild(coins[coins.length - 1]);
+
+					coins.push(new coin(330, 135));
+					stage.addChild(coins[coins.length - 1]);
+
+					coins.push(new coin(338, 303));
+					stage.addChild(coins[coins.length - 1]);
+
+					coins.push(new coin(428, 219));
+					stage.addChild(coins[coins.length - 1]);
+
+					coins.push(new coin(191, 302));
+					stage.addChild(coins[coins.length - 1]);
+				}
+
+				walls.push(new block(-100, -100));
+				stage.addChild(walls[walls.length - 1]);
+
+				walls.push(new block(-100, -100));
+				stage.addChild(walls[walls.length - 1]);
+
+				walls.push(new block(-100, -100));
+				stage.addChild(walls[walls.length - 1]);
+
+				walls.push(new block(-100, -100));
+				stage.addChild(walls[walls.length - 1]);
+
+				walls.push(new block(-100, -100));
+				stage.addChild(walls[walls.length - 1]);
+
+				walls.push(new block(-100, -100));
+				stage.addChild(walls[walls.length - 1]);
+
+				walls.push(new block(-100, -100));
+				stage.addChild(walls[walls.length - 1]);
+
+				walls.push(new block(-100, -100));
+				stage.addChild(walls[walls.length - 1]);
+
+				walls.push(new block(-100, -100));
+				stage.addChild(walls[walls.length - 1]);
+
+				walls.push(new block(-100, -100));
+				stage.addChild(walls[walls.length - 1]);
+
+				walls.push(new block(-100, -100));
+				stage.addChild(walls[walls.length - 1]);
+
+				walls.push(new block(275, 85));
+				stage.addChild(walls[walls.length - 1]);
+
+				walls.push(new block(329, 83));
+				stage.addChild(walls[walls.length - 1]);
+
+				walls.push(new block(378, 81));
+				stage.addChild(walls[walls.length - 1]);
+
+				walls.push(new block(427, 81));
+				stage.addChild(walls[walls.length - 1]);
+
+				walls.push(new block(470, 80));
+				stage.addChild(walls[walls.length - 1]);
+
+				walls.push(new block(478, 190));
+				stage.addChild(walls[walls.length - 1]);
+
+				walls.push(new block(477, 243));
+				stage.addChild(walls[walls.length - 1]);
+
+				walls.push(new block(479, 296));
+				stage.addChild(walls[walls.length - 1]);
+
+				walls.push(new block(481, 345));
+				stage.addChild(walls[walls.length - 1]);
+
+				walls.push(new block(438, 348));
+				stage.addChild(walls[walls.length - 1]);
+
+				walls.push(new block(391, 351));
+				stage.addChild(walls[walls.length - 1]);
+
+				walls.push(new block(340, 353));
+				stage.addChild(walls[walls.length - 1]);
+
+				walls.push(new block(148, 363));
+				stage.addChild(walls[walls.length - 1]);
+
+				walls.push(new block(78, 360));
+				stage.addChild(walls[walls.length - 1]);
+
+				walls.push(new block(76, 91));
+				stage.addChild(walls[walls.length - 1]);
+
+				walls.push(new block(116, 93));
+				stage.addChild(walls[walls.length - 1]);
+
+				walls.push(new block(160, 94));
+				stage.addChild(walls[walls.length - 1]);
+
+				walls.push(new block(203, 92));
+				stage.addChild(walls[walls.length - 1]);
+
+				walls.push(new block(241, 90));
+				stage.addChild(walls[walls.length - 1]);
+
+				bombs.push(new bomb(469, 135));
+				stage.addChild(bombs[bombs.length - 1]);
+
+				bombs.push(new bomb(436, 300));
+				stage.addChild(bombs[bombs.length - 1]);
+
+				bombs.push(new bomb(79, 258));
+				stage.addChild(bombs[bombs.length - 1]);
+
+				bombs.push(new bomb(76, 216));
+				stage.addChild(bombs[bombs.length - 1]);
+
+				bombs.push(new bomb(76, 172));
+				stage.addChild(bombs[bombs.length - 1]);
+
+				bombs.push(new bomb(76, 127));
+				stage.addChild(bombs[bombs.length - 1]);
+
+				bombs.push(new bomb(76, 310));
+				stage.addChild(bombs[bombs.length - 1]);
+
+				bombs.push(new bomb(112, 359));
+				stage.addChild(bombs[bombs.length - 1]);
+
+				bombs.push(new bomb(131, 160));
+				stage.addChild(bombs[bombs.length - 1]);
+
+				bombs.push(new bomb(192, 210));
+				stage.addChild(bombs[bombs.length - 1]);
+
+				bombs.push(new bomb(219, 139));
+				stage.addChild(bombs[bombs.length - 1]);
+
+				bombs.push(new bomb(135, 209));
 				stage.addChild(bombs[bombs.length - 1]);
 			}
 			else

@@ -17,10 +17,10 @@
 		public var disp: Boolean = true; // Is this line made by another mirror (not a core line)
 		public var inter: Boolean = false; // If the line is between TWO different mirrors
 
-		private var origStartX: int; // origional starting x point before mirror hit the line
-		private var origStartY: int; // origional starting y point before mirror hit the line
-		private var origEndX: int; // origional ending x point before mirror hit the line
-		private var origEndY: int; // origional ending y point before mirror hit the line
+		public var origStartX: int; // origional starting x point before mirror hit the line
+		public var origStartY: int; // origional starting y point before mirror hit the line
+		public var origEndX: int; // origional ending x point before mirror hit the line
+		public var origEndY: int; // origional ending y point before mirror hit the line
 		
 		public var owner: int; // What is the mirror number that created this line?
 		public var endMirror: int; // What is the mirror number that this line ends at?
