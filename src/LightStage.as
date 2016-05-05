@@ -29,6 +29,7 @@ package
 		private var playerShop: shop = new shop(money);
 		private var levelEdit: Boolean = false;
 		private var resetting: Boolean = false;
+		private var maxLevel = 0;
 		
 		private var lineColors: Array = [0x2ecc71, 0x27ae60, 0x3498db, 0x2980b9, 0x9b59b6, 0x8e44ad, 0x34495e, 0x2c3e50,
 										 0xf1c40f, 0xf1c40f, 0xe67e22, 0xe74c3c, 0xecf0f1, 0x95a5a6, 0xf39c12, 0xd35400,
@@ -421,9 +422,15 @@ package
 			{
 				spawnCoins = false;
 				startupMsg = "You died!"; // the text on the loading screen should be 'You died!'
+				level = 1;
 			}
 			else if (result == "WON") // if the user completed the last level
 			{
+				if (level - 1 > maxLevel)
+				{
+					maxLevel = level - 1;
+					money += level - 1;
+				}
 				spawnCoins = true;
 				startupMsg = "You completed level " + (level - 1) + "!"; // show the user what level they are on
 			}
@@ -520,7 +527,7 @@ package
 			
 			var num:int=Math.floor(Math.random() * lineColors.length);
 			
-			if (level == 1) // if the user is on level 1
+			if (level == 1)
 			{
 				mirrors.push(new mirror(100, 350)); // Make a testing mirror to deflect UP / RIGHT
 				stage.addChild(mirrors[0]); // Add the new mirror to the stage
@@ -1319,6 +1326,69 @@ package
 				stage.addChild(bombs[bombs.length - 1]);
 
 				bombs.push(new bomb(59, 333));
+				stage.addChild(bombs[bombs.length - 1]);
+			}
+			else if (level == 10)
+			{
+				lines.push(new line(0, 200, 1000, 200, 'y', 'RIGHT', 9999, lineColors[num], false, false));
+				lines[lines.length - 1].visible = true;
+				stage.addChild(lines[lines.length - 1])
+
+				mirrors.push(new mirror(-22, 22, 1));
+				stage.addChild(mirrors[mirrors.length - 1]);
+
+				mirrors.push(new mirror(22, 22, 1));
+				stage.addChild(mirrors[mirrors.length - 1]);
+
+				mirrors.push(new mirror(66, 22, 2));
+				stage.addChild(mirrors[mirrors.length - 1]);
+
+				mirrors.push(new mirror(110, 22, 1));
+				stage.addChild(mirrors[mirrors.length - 1]);
+
+				mirrors.push(new mirror(154, 22, 2));
+				stage.addChild(mirrors[mirrors.length - 1]);
+
+				globes.push(new globe(163, 130));
+				stage.addChild(globes[globes.length - 1]);
+
+				globes.push(new globe(347, 74));
+				stage.addChild(globes[globes.length - 1]);
+
+				globes.push(new globe(387, 316));
+				stage.addChild(globes[globes.length - 1]);
+				if (spawnCoins)
+				{
+
+					coins.push(new coin(310, 76));
+					stage.addChild(coins[coins.length - 1]);
+
+					coins.push(new coin(227, 320));
+					stage.addChild(coins[coins.length - 1]);
+
+					coins.push(new coin(265, 317));
+					stage.addChild(coins[coins.length - 1]);
+				}
+
+				bombs.push(new bomb(164, 26));
+				stage.addChild(bombs[bombs.length - 1]);
+
+				bombs.push(new bomb(439, 75));
+				stage.addChild(bombs[bombs.length - 1]);
+
+				bombs.push(new bomb(163, 335));
+				stage.addChild(bombs[bombs.length - 1]);
+
+				bombs.push(new bomb(399, 22));
+				stage.addChild(bombs[bombs.length - 1]);
+
+				bombs.push(new bomb(108, 74));
+				stage.addChild(bombs[bombs.length - 1]);
+
+				bombs.push(new bomb(384, 367));
+				stage.addChild(bombs[bombs.length - 1]);
+
+				bombs.push(new bomb(434, 319));
 				stage.addChild(bombs[bombs.length - 1]);
 			}
 			else
