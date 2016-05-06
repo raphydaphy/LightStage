@@ -63,12 +63,19 @@ package
 					break;
 					
 				case Keyboard.R:
-					if (levelEdit == false && resetting == false)
+					for (var bombNum: int = 0; bombNum < bombs.length; bombNum++) //iterate through globes
 					{
-						result = "RESTART"; // make sure the reset function knows that the user restarted the game
-						reset(); // reset the game if the R key is pressed
-						prepGame();
+						if (bombs[bombNum].exploded == true)
+						{
+							if (levelEdit == false && resetting == false)
+							{
+								result = "RESTART"; // make sure the reset function knows that the user restarted the game
+								reset(); // reset the game if the R key is pressed
+								prepGame();
+							}
+						}
 					}
+					
 					break;
 				
 				case Keyboard.S:
@@ -434,12 +441,12 @@ package
 			}
 			else if (result == "WON") // if the user completed the last level
 			{
-				if (level - 1 > maxLevel)
+				if (level - 1 > maxLevel) // if this is the best level they have reached
 				{
 					maxLevel = level - 1;
 					money += level - 1;
+					spawnCoins = true;
 				}
-				spawnCoins = true;
 				startupMsg = "You completed level " + (level - 1) + "!"; // show the user what level they are on
 			}
 			else if (result == "RESTART") // if the user pressed any key to restart
@@ -478,27 +485,18 @@ package
 				bombs[destroyBomb].destroy(); // destroy the bomb
 				if (bombs[destroyBomb].stage) { stage.removeChild(bombs[destroyBomb]) } // remove bomb from the stage
 			}
-			for (var destroyWall: int = 0; destroyWall < walls.length; destroyWall++) // loop through all the bombs
+			for (var destroyWall: int = 0; destroyWall < walls.length; destroyWall++) // loop through all the walls
 			{
+				walls[destroyWall].resetAll(); // reset the wall
 				walls[destroyWall].destroy(); // destroy the wall
-				if (walls[destroyWall].stage) { stage.removeChild(walls[destroyWall]) } // remove bomb from the stage
+				if (walls[destroyWall].stage) { stage.removeChild(walls[destroyWall]) } // remove walls from the stage
 			}
 			
 			
 			for (var destroyCoin: int = 0; destroyCoin < coins.length; destroyCoin++) // loop through all the coins
 			{
-				if (spawnCoins) // make sure users don't get duplicate coins
-				{
-					coins[destroyCoin].resetAll(); // reset the coin
-					if (coins[destroyCoin].stage) { stage.removeChild(coins[destroyCoin]) }
-				}
-				else
-				{
-					if (coins[destroyCoin].full == false)
-					{
-						coins[destroyCoin].visible = false;
-					}
-				}
+				coins[destroyCoin].resetAll(); // reset the coin
+				if (coins[destroyCoin].stage) { stage.removeChild(coins[destroyCoin]) }
 			}
 			
 			stage.removeEventListener(Event.ENTER_FRAME, enterFrame); // stop enterFrame listener
