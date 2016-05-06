@@ -66,13 +66,14 @@ package
 			gotoAndStop(1); // go to the first frame 'Welcome to LightStage'
 			stage.addEventListener(KeyboardEvent.KEY_DOWN, keyHandler); // start keyHandler listener
 			G.vars._stage = stage;
-			stage.addEventListener(Event.ENTER_FRAME, replaceStage);
+			//stage.addEventListener(Event.ENTER_FRAME, replaceStage);
 		}
-		
+		/*
 		private function replaceStage(event:Event)
 		{
 			stage = G.vars._stage;
 		}
+		*/
 		public function safeUpdateText(changeFrame: Boolean = true): void
 		{
 			if (currentFrame == 3)
