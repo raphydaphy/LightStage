@@ -1497,6 +1497,14 @@ package
 						{
 							if (mirrors[mirrorNum].hitTestObject(lines[lineNum])) // If mirror is touching line
 							{
+								for (var hitMirror: int = 0; hitMirror < mirrors.length; hitMirror++) // iterate again
+								{
+									if (hitMirror != mirrorNum && mirrors[hitMirror].hitTestObject(mirrors[mirrorNum]))
+									{
+										mirrors[hitMirror].x = mirrors[hitMirror].oX;
+										mirrors[hitMirror].y = mirrors[hitMirror].oY;
+									}
+								}
 								hit = true;
 								lines[lineNum].draw(mirrors[mirrorNum].x, mirrors[mirrorNum].y); // Redraw line
 								simBounce(lines[lineNum], lineNum, mirrors[mirrorNum], mirrorNum); // Run this

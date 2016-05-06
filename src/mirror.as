@@ -9,12 +9,17 @@
 		// Red (frame 2) mirrors are type 2 mirrors
 		
 		public var dragging: Boolean = true;
+		public var oX: int;
+		public var oY: int;
 		
 		public function mirror(mirrorX: int, mirrorY: int, frame: int = 1)
 		{
 			this.addEventListener(MouseEvent.MOUSE_DOWN, onDown, false, 0, true);
 			x = mirrorX;
 			y = mirrorY;
+			
+			oX = mirrorX;
+			oY = mirrorY;
 			
 			if (frame == 9999)
 			{
