@@ -8,6 +8,7 @@
 		var explodeTimer:Timer; // Timer variable to use for waiting 2400ms before blowing up the bomb
 		var exploded: Boolean = false; // Is the bomb completely exploded?
 		var wait: Boolean = false; // if the bomb is already working on a timer to fill
+		var exploding: Boolean = false;
 		
 		public function bomb(bombX: int, bombY: int) // bomb initialization
 		{
@@ -20,6 +21,7 @@
 		{
 			if (wait == false)
 			{
+				exploding = true;
 				wait = true; // we need to wait for the bomb to increment before incrementing the bomb again
 				explodeTimer = new Timer(300, 1); // prepare a 300 millisecond timer to pause for 300 milliseconds
 				explodeTimer.addEventListener(TimerEvent.TIMER, increment); // create a listener for the timer

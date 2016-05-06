@@ -34,8 +34,10 @@ package
 		private var badges: Array = [];
 		private var levelEdit: Boolean = false;
 		private var resetting: Boolean = false;
-		private var maxLevel = 0;
-		private var deaths = 0;
+		private var maxLevel: int = 0;
+		private var deaths: int = 0;
+		private var detonated: int = 0;
+		private var escaped: int = 0;
 		private var lineColors: Array = [0x2ecc71, 0x27ae60, 0x3498db, 0x2980b9, 0x9b59b6, 0x8e44ad, 0x34495e, 0x2c3e50,
 										 0xf1c40f, 0xf1c40f, 0xe67e22, 0xe74c3c, 0xecf0f1, 0x95a5a6, 0xf39c12, 0xd35400,
 										 0xc0392b, 0xbdc3c7, 0x7f8c8d];
@@ -549,21 +551,56 @@ package
 			if (deaths > 4 && // if they have died at least 5 times in a row
 				badges.indexOf("crash test dummy 1") == -1 ) // if they don't already have the badge
 			{
-				showBadge("Crash Test Dummy 1","Die 5 times in a single game",10,1);
+				showBadge("Crash Test Dummy 1","Die 5 times in a single game",5,1);
 			}
 			
 			if (deaths > 9 && // if they have died at least 10 times in a row
 				badges.indexOf("crash test dummy 2") == -1 ) // if they don't already have the badge
 			{
-				showBadge("Crash Test Dummy 2","Die 10 times in a single game",25,1);
+				showBadge("Crash Test Dummy 2","Die 10 times in a single game",10,1);
 			}
 			
 			if (playerShop.playerItems.length > 1 && // if they have purchased at least 2 items from the shop
 				badges.indexOf("spending spree 1") == -1) // if they don't already have the badge
 			{
-				showBadge("Spending Spree 1","Buy at least two items from the ingame shop",10,2);
+				showBadge("Spending Spree 1","Buy at least two items from the ingame shop",5,2);
+			}
+			
+			if (level > 4 &&
+				badges.indexOf("survivor 1") == -1)
+			{
+				showBadge("Survivor 1","Complete 4 levels in a row without dying",10,3);
+			}
+			
+			if (level > 8 &&
+				badges.indexOf("survivor 2") == -1)
+			{
+				showBadge("Survivor 2","Complete 8 levels in a row without dying",25,3);
+			}
+			
+			if (detonated > 5 &&
+				badges.indexOf("killing spree 1") == -1)
+			{
+				showBadge("Killing Spree 1","Detonate 5 bombs",5,4);
+			}
+			
+			if (detonated > 10 &&
+				badges.indexOf("killing spree 2") == -1)
+			{
+				showBadge("Killing Spree 2","Detonate 10 bombs",15,4);
 			}
 				
+			if (escaped > 5 &&
+				badges.indexOf("escape artist 1") == -1)
+			{
+				showBadge("Escape Artist 1","Dodge 5 bombs using Bomb Deflection Chance",10,5);
+			}
+			
+			if (escaped > 10 &&
+				badges.indexOf("escape artist 2") == -2)
+			{
+				showBadge("Escape Artist 2","Dodge 10 bombs using Bomb Deflection Chance",25,5);
+			}
 		}
 		
 		private function game(event:TimerEvent):void // start the game
@@ -1564,7 +1601,9 @@ package
 								Math.round(Math.random())) // if they are lucky and manage to dodge the bomb
 							{
 								bombs[bombNum].resetAll();
+								bombs[bombNum].destroy();
 								if (bombs[bombNum].stage) { stage.removeChild(bombs[bombNum]); }
+								escaped += 1;
 							}
 							else // if they don't have bomb deflect chance, or didn't manage to deflect the bomb (50% chance)
 							{
@@ -1575,6 +1614,10 @@ package
 						}
 						else if (lines[lineNum].hitTestObject(bombs[bombNum])) // If the line is touching the selected globe
 						{
+							if (bombs[bombNum].exploding == false)
+							{
+								detonated += 1;
+							}
 							bombs[bombNum].startExplode();
 						}
 					}
@@ -1640,13 +1683,24 @@ package
 			
 			if (badgeManager.stage)
 			{
-				stage.setChildIndex(badgeManager, stage.numChildren-1);
+				bringToFront(badgeManager);
+			}
+			
+			if (playerShop.stage)
+			{
+				bringToFront(playerShop);
 			}
 			
 			if (dialog.stage)
 			{
-				stage.setChildIndex(dialog, stage.numChildren-1);
+				bringToFront(dialog);
 			}
+			
+		}
+		
+		private function bringToFront(stageItem)
+		{
+			stage.setChildIndex(stageItem, stage.numChildren-1);
 		}
 
 		// This function simulates a bounce, creates a temporary, invisible line
