@@ -1,5 +1,5 @@
 ﻿/********************************
-LIGHTSTAGE 0.1 BETA 3
+LIGHTSTAGE 0.1 BETA 4
 Built by Raph Hennessy
 All Rights Reserved 4th May 2016
 ********************************/
@@ -15,25 +15,32 @@ package
 	
 	public class LightStage extends MovieClip // Main class declaration for the LightStage game
 	{
+		/**********************************************
+		PUBLIC VECTORS FOR MOVIECLIPS & CLASS INSTANCES
+		**********************************************/
 		public var mirrors: Vector.<mirror> = new Vector.<mirror>(); // vector for the mirror movieclips
 		public var lines: Vector.<line> = new Vector.<line>(); // this vector stores all the line sprites
 		public var globes: Vector.<globe> = new Vector.<globe>(); // vector to store all the globes
 		public var bombs: Vector.<bomb> = new Vector.<bomb>(); // vector to store all the bomb movieclips
 		public var coins: Vector.<coin> = new Vector.<coin>(); // vector to store all the coin movieclips
 		public var walls: Vector.<block> = new Vector.<block>(); // vector to store all the coin movieclips
-		
-		public var result: String = "NEW"; // what happened in the last game that was played?
-		private var spawnCoins: Boolean = true; // did they win or is it their first game? then we should spawn new coins!
-		
+
+		/********************************************************
+		PRIVATE VARIABLES FOR COUNTING SCORES & STORING INSTANCES
+		********************************************************/
 		private var dialog: openShop = new openShop();
 		private var playerShop: shop = new shop(money);
+		private var badgeManager: badgeAlert = new badgeAlert();
+		private var badges: Array = [];
 		private var levelEdit: Boolean = false;
 		private var resetting: Boolean = false;
 		private var maxLevel = 0;
-		
+		private var deaths = 9;
 		private var lineColors: Array = [0x2ecc71, 0x27ae60, 0x3498db, 0x2980b9, 0x9b59b6, 0x8e44ad, 0x34495e, 0x2c3e50,
 										 0xf1c40f, 0xf1c40f, 0xe67e22, 0xe74c3c, 0xecf0f1, 0x95a5a6, 0xf39c12, 0xd35400,
 										 0xc0392b, 0xbdc3c7, 0x7f8c8d];
+		public var result: String = "NEW"; // what happened in the last game that was played?
+		private var spawnCoins: Boolean = true; // did they win or is it their first game? then we should spawn new coins!
 		
 		public function LightStage() // The initialization function that sets up the game
 		{
@@ -420,6 +427,7 @@ package
 			}
 			else if (result == "DIED") // if the user died on their last turn
 			{
+				deaths += 1;
 				spawnCoins = false;
 				startupMsg = "You died!"; // the text on the loading screen should be 'You died!'
 				level = 1;
@@ -496,14 +504,44 @@ package
 			stage.removeEventListener(Event.ENTER_FRAME, enterFrame); // stop enterFrame listener
 		}
 		
+		private function hideBadge(event:TimerEvent): void // hide the badge alert movieclip
+		{
+			if (badgeManager.stage) { stage.removeChild(badgeManager); }
+		}
+		
+		private function checkBadges(): void
+		{
+			if (deaths > 9 && // if they have died at least 10 times in a row
+				badges.indexOf("crash test dummy 1") == -1 ) // if they don't already have the badge
+			{
+				badges.push("crash test dummy 1");
+				badgeManager = new badgeAlert();
+				badgeManager.badgeHeading.text = "Crash Test Dummy 1";
+				badgeManager.badgeDesc.text = "Die 10 Times";
+				badgeManager.badgeCost.text = "$20";
+				badgeManager.badgeIcon.gotoAndStop(1);
+				badgeManager.x = 275;
+				badgeManager.y = 350;
+				stage.addChild(badgeManager);
+				money += 20;
+				updateText();
+				var hideBadgeTimer:Timer = new Timer(2500, 1);
+				hideBadgeTimer.addEventListener(TimerEvent.TIMER, hideBadge);
+				hideBadgeTimer.start();
+			}
+		}
+		
 		private function game(event:TimerEvent):void // start the game
 		{
+			trace('You have died ' + deaths + ' times');
 			resetting = false;
 			if (result == "OVER") // if the user has won the game
 			{
 				fscommand("quit"); // exit the game
 			}
+			
 			gotoAndStop(3); // Go to blank frame to start the game on
+			checkBadges(); // check if they should get any new badges
 			
 			mirrors = new Vector.<mirror>(); // setup mirrors vector
 			lines = new Vector.<line>(); // setup lines vector
