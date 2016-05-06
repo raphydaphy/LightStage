@@ -1,5 +1,5 @@
 ﻿/***************************
-LIGHTSTAGE 0.1 BETA 4
+LIGHTSTAGE 0.1 FINAL
 Built by Raph Hennessy
 All Rights Reserved May 2016
 ***************************/
@@ -85,6 +85,11 @@ package
 				gotoAndStop(3);
 				updateText();
 			}
+		}
+		
+		public function setFrame(frameNumber: int)
+		{
+			gotoAndStop(frameNumber);
 		}
 		
 		private function keyHandler(event:KeyboardEvent): void // if a key is pressed

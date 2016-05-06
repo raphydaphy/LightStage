@@ -409,7 +409,7 @@
 		
 		public function prepGame(): void
 		{
-			LightStage.instance.gotoAndStop(2); // Go to second frame 'LightStage is starting..'
+			LightStage.instance.setFrame(2); // Go to second frame 'LightStage is starting..'
 			
 			var startGameTimer:Timer = new Timer(3000, 1); // prepare a one second timer to start the game
 			startGameTimer.addEventListener(TimerEvent.TIMER, LightStage.instance.game); // create a listner for the timer
