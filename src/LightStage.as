@@ -35,7 +35,7 @@ package
 		private var levelEdit: Boolean = false;
 		private var resetting: Boolean = false;
 		private var maxLevel = 0;
-		private var deaths = 9;
+		private var deaths = 0;
 		private var lineColors: Array = [0x2ecc71, 0x27ae60, 0x3498db, 0x2980b9, 0x9b59b6, 0x8e44ad, 0x34495e, 0x2c3e50,
 										 0xf1c40f, 0xf1c40f, 0xe67e22, 0xe74c3c, 0xecf0f1, 0x95a5a6, 0xf39c12, 0xd35400,
 										 0xc0392b, 0xbdc3c7, 0x7f8c8d];
@@ -278,7 +278,7 @@ package
 			if (newMoney == money) { simpleDialog("Too poor!","You don't have enough coins to buy Double Coins!"); }
 			else if (newMoney == 1337) { simpleDialog("Already bought!","You already own Double Coins."); }
 			else { simpleDialog("Purchased Double Coins!","You sucessfully purchased Double Coins!"); money = newMoney; }
-			updateText();
+			safeUpdateText()
 		}
 		
 		private function buyBombChance(event:MouseEvent) // purchases bomb defence chance and tells user if it worked
@@ -291,7 +291,7 @@ package
 				simpleDialog("Purchased Bomb Deflection Chance!","You successfully purchased Bomb Deflection Chance!");
 				money = newMoney;
 			}
-			updateText();
+			safeUpdateText()
 		}
 		
 		private function closeShop(event:MouseEvent): void
@@ -347,7 +347,7 @@ package
 			globes = new Vector.<globe>(); // setup globes vector
 			bombs = new Vector.<bomb>(); // setup bombs vector
 			level = "Editor";
-			updateText();
+			safeUpdateText()
 			for (var destroyCoin: int = 0; destroyCoin < coins.length; destroyCoin++) // loop through all the coins
 			{
 				coins[destroyCoin].destroy(); // reset the coin
@@ -509,22 +509,53 @@ package
 			if (badgeManager.stage) { stage.removeChild(badgeManager); }
 		}
 		
+		private function safeUpdateText(): void
+		{
+			if (currentFrame == 3)
+			{
+				updateText();
+			}
+			else
+			{
+				gotoAndStop(3);
+				updateText();
+			}
+		}
 		private function checkBadges(): void
 		{
-			if (deaths > 9 && // if they have died at least 10 times in a row
+			if (deaths > 4 && // if they have died at least 5 times in a row
 				badges.indexOf("crash test dummy 1") == -1 ) // if they don't already have the badge
 			{
 				badges.push("crash test dummy 1");
 				badgeManager = new badgeAlert();
 				badgeManager.badgeHeading.text = "Crash Test Dummy 1";
-				badgeManager.badgeDesc.text = "Die 10 Times";
-				badgeManager.badgeCost.text = "$20";
+				badgeManager.badgeDesc.text = "Die 5 Times in a single game";
+				badgeManager.badgeCost.text = "$10";
 				badgeManager.badgeIcon.gotoAndStop(1);
 				badgeManager.x = 275;
 				badgeManager.y = 350;
 				stage.addChild(badgeManager);
-				money += 20;
-				updateText();
+				money += 10;
+				safeUpdateText()
+				var hideBadgeTimer:Timer = new Timer(2500, 1);
+				hideBadgeTimer.addEventListener(TimerEvent.TIMER, hideBadge);
+				hideBadgeTimer.start();
+			}
+			
+			if (deaths > 9 && // if they have died at least 10 times in a row
+				badges.indexOf("crash test dummy 2") == -1 ) // if they don't already have the badge
+			{
+				badges.push("crash test dummy 2");
+				badgeManager = new badgeAlert();
+				badgeManager.badgeHeading.text = "Crash Test Dummy 2";
+				badgeManager.badgeDesc.text = "Die 10 Times in a single game";
+				badgeManager.badgeCost.text = "$25";
+				badgeManager.badgeIcon.gotoAndStop(1);
+				badgeManager.x = 275;
+				badgeManager.y = 350;
+				stage.addChild(badgeManager);
+				money += 25;
+				safeUpdateText()
 				var hideBadgeTimer:Timer = new Timer(2500, 1);
 				hideBadgeTimer.addEventListener(TimerEvent.TIMER, hideBadge);
 				hideBadgeTimer.start();
@@ -1572,7 +1603,7 @@ package
 					{
 						money += 2;
 					}
-					updateText();
+					safeUpdateText()
 					playerShop.setCoins(money);
 					coins[checkCoin].resetAll(); // reset selected coin
 					stage.removeChild(coins[checkCoin]); // remove the coin from the stage
