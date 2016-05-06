@@ -1,8 +1,8 @@
-﻿/********************************
+﻿/***************************
 LIGHTSTAGE 0.1 BETA 4
 Built by Raph Hennessy
-All Rights Reserved 4th May 2016
-********************************/
+All Rights Reserved May 2016
+***************************/
 package
 {
 	import flash.events.* // Import all flash event modules for enterFrame, mouseEvent etc..
