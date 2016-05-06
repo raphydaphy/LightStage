@@ -53,7 +53,6 @@ package
 		private function keyHandler(event:KeyboardEvent): void // if a key is pressed
 		{
 			var key:uint = event.keyCode;
-			var step:uint = 5
 			switch (key)
 			{
 				case Keyboard.SPACE:
@@ -65,17 +64,19 @@ package
 					break;
 					
 				case Keyboard.R:
+					var noReset: Boolean = false;
 					for (var bombNum: int = 0; bombNum < bombs.length; bombNum++) //iterate through globes
 					{
-						if (bombs[bombNum].exploded == true)
+						if (bombs[bombNum].exploding == true)
 						{
-							if (levelEdit == false && resetting == false)
-							{
-								result = "RESTART"; // make sure the reset function knows that the user restarted the game
-								reset(); // reset the game if the R key is pressed
-								prepGame();
-							}
+							noReset = true;
 						}
+					}
+					if (noReset == false && levelEdit == false && resetting == false)
+					{
+						result = "RESTART"; // make sure the reset function knows that the user restarted the game
+						reset(); // reset the game if the R key is pressed
+						prepGame();
 					}
 					
 					break;
@@ -209,22 +210,28 @@ package
 						var mirrorY = 22;
 						for (var printMirror: int = 0; printMirror < mirrors.length; printMirror++)
 						{
-							trace('\nmirrors.push(new mirror(' + 
-								  mirrorX + 
-								  ', ' + mirrorY +
-								  ', ' + mirrors[printMirror].currentFrame +
-								  '));');
-							trace('stage.addChild(mirrors[mirrors.length - 1]);');
-							if (mirrorX > 197) { mirrorX = -22; mirrorY += 50; }
-							else { mirrorX += 44; }
+							if (mirrors[printMirror].x != -100 && mirrors[printMirror].y != -100)
+							{
+								trace('\nmirrors.push(new mirror(' + 
+									  mirrorX + 
+									  ', ' + mirrorY +
+									  ', ' + mirrors[printMirror].currentFrame +
+									  '));');
+								trace('stage.addChild(mirrors[mirrors.length - 1]);');
+								if (mirrorX > 197) { mirrorX = -22; mirrorY += 50; }
+								else { mirrorX += 44; }
+							}
 						}
 						for (var printGlobe: int = 0; printGlobe < globes.length; printGlobe++)
 						{
-							trace('\nglobes.push(new globe(' + 
-								  globes[printGlobe].x + 
-								  ', ' + globes[printGlobe].y +
-								  '));');
-							trace('stage.addChild(globes[globes.length - 1]);');
+							if (globes[printGlobe].x != -100 && globes[printGlobe].y != -100)
+							{
+								trace('\nglobes.push(new globe(' + 
+									  globes[printGlobe].x + 
+									  ', ' + globes[printGlobe].y +
+									  '));');
+								trace('stage.addChild(globes[globes.length - 1]);');
+							}
 						}
 						
 						if (coins.length > 0)
@@ -246,19 +253,25 @@ package
 						}
 						for (var printWall: int = 0; printWall < walls.length; printWall++)
 						{
-							trace('\nwalls.push(new block(' + 
-								  walls[printWall].x + 
-								  ', ' + walls[printWall].y +
-								  '));');
-							trace('stage.addChild(walls[walls.length - 1]);');
+							if (walls[printWall].x != -100 && walls[printWall].y != -100)
+							{
+								trace('\nwalls.push(new block(' + 
+									  walls[printWall].x + 
+									  ', ' + walls[printWall].y +
+									  '));');
+								trace('stage.addChild(walls[walls.length - 1]);');
+							}
 						}
 						for (var printBomb: int = 0; printBomb < bombs.length; printBomb++)
 						{
-							trace('\nbombs.push(new bomb(' + 
-								  bombs[printBomb].x + 
-								  ', ' + bombs[printBomb].y +
-								  '));');
-							trace('stage.addChild(bombs[bombs.length - 1]);');
+							if (bombs[printBomb].x != -100 && bombs[printBomb].y != -100)
+							{
+								trace('\nbombs.push(new bomb(' + 
+									  bombs[printBomb].x + 
+									  ', ' + bombs[printBomb].y +
+									  '));');
+								trace('stage.addChild(bombs[bombs.length - 1]);');
+							}
 						}
 						trace('====================END LEVEL CODE====================');
 					}
@@ -1141,39 +1154,6 @@ package
 					coins.push(new coin(191, 302));
 					stage.addChild(coins[coins.length - 1]);
 				}
-
-				walls.push(new block(-100, -100));
-				stage.addChild(walls[walls.length - 1]);
-
-				walls.push(new block(-100, -100));
-				stage.addChild(walls[walls.length - 1]);
-
-				walls.push(new block(-100, -100));
-				stage.addChild(walls[walls.length - 1]);
-
-				walls.push(new block(-100, -100));
-				stage.addChild(walls[walls.length - 1]);
-
-				walls.push(new block(-100, -100));
-				stage.addChild(walls[walls.length - 1]);
-
-				walls.push(new block(-100, -100));
-				stage.addChild(walls[walls.length - 1]);
-
-				walls.push(new block(-100, -100));
-				stage.addChild(walls[walls.length - 1]);
-
-				walls.push(new block(-100, -100));
-				stage.addChild(walls[walls.length - 1]);
-
-				walls.push(new block(-100, -100));
-				stage.addChild(walls[walls.length - 1]);
-
-				walls.push(new block(-100, -100));
-				stage.addChild(walls[walls.length - 1]);
-
-				walls.push(new block(-100, -100));
-				stage.addChild(walls[walls.length - 1]);
 
 				walls.push(new block(275, 85));
 				stage.addChild(walls[walls.length - 1]);
