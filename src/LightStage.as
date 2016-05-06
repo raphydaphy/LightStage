@@ -989,97 +989,7 @@ package
 					coins.push(new coin(519, 164));
 					stage.addChild(coins[coins.length - 1]);
 				}
-
-				walls.push(new block(-100, -100));
-				stage.addChild(walls[walls.length - 1]);
-
-				walls.push(new block(-100, -100));
-				stage.addChild(walls[walls.length - 1]);
-
-				walls.push(new block(-100, -100));
-				stage.addChild(walls[walls.length - 1]);
-
-				walls.push(new block(-100, -100));
-				stage.addChild(walls[walls.length - 1]);
-
-				walls.push(new block(-100, -100));
-				stage.addChild(walls[walls.length - 1]);
-
-				walls.push(new block(-100, -100));
-				stage.addChild(walls[walls.length - 1]);
-
-				walls.push(new block(-100, -100));
-				stage.addChild(walls[walls.length - 1]);
-
-				walls.push(new block(-100, -100));
-				stage.addChild(walls[walls.length - 1]);
-
-				walls.push(new block(-100, -100));
-				stage.addChild(walls[walls.length - 1]);
-
-				walls.push(new block(-100, -100));
-				stage.addChild(walls[walls.length - 1]);
-
-				walls.push(new block(-100, -100));
-				stage.addChild(walls[walls.length - 1]);
-
-				walls.push(new block(-100, -100));
-				stage.addChild(walls[walls.length - 1]);
-
-				walls.push(new block(-100, -100));
-				stage.addChild(walls[walls.length - 1]);
-
-				walls.push(new block(-100, -100));
-				stage.addChild(walls[walls.length - 1]);
-
-				walls.push(new block(-100, -100));
-				stage.addChild(walls[walls.length - 1]);
-
-				walls.push(new block(-100, -100));
-				stage.addChild(walls[walls.length - 1]);
-
-				walls.push(new block(-100, -100));
-				stage.addChild(walls[walls.length - 1]);
-
-				walls.push(new block(-100, -100));
-				stage.addChild(walls[walls.length - 1]);
-
-				walls.push(new block(-100, -100));
-				stage.addChild(walls[walls.length - 1]);
-
-				walls.push(new block(-100, -100));
-				stage.addChild(walls[walls.length - 1]);
-
-				walls.push(new block(-100, -100));
-				stage.addChild(walls[walls.length - 1]);
-
-				walls.push(new block(-100, -100));
-				stage.addChild(walls[walls.length - 1]);
-
-				walls.push(new block(-100, -100));
-				stage.addChild(walls[walls.length - 1]);
-
-				walls.push(new block(-100, -100));
-				stage.addChild(walls[walls.length - 1]);
-
-				walls.push(new block(-100, -100));
-				stage.addChild(walls[walls.length - 1]);
-
-				walls.push(new block(-100, -100));
-				stage.addChild(walls[walls.length - 1]);
-
-				walls.push(new block(-100, -100));
-				stage.addChild(walls[walls.length - 1]);
-
-				walls.push(new block(-100, -100));
-				stage.addChild(walls[walls.length - 1]);
-
-				walls.push(new block(-100, -100));
-				stage.addChild(walls[walls.length - 1]);
-
-				walls.push(new block(-100, -100));
-				stage.addChild(walls[walls.length - 1]);
-
+				
 				walls.push(new block(275, 84));
 				stage.addChild(walls[walls.length - 1]);
 
@@ -1558,6 +1468,7 @@ package
 							lines[lineNum].draw(walls[wallNum].x, walls[wallNum].y); // Redraw line
 							walls[wallNum].gotoAndStop(2);
 							walls[wallNum].blocking = true;
+							bringToFront(walls[wallNum]);
 						}
 					}
 					
