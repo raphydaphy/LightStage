@@ -10,7 +10,7 @@
 		public function startEditor(event:MouseEvent): void
 		{
 			randomNum = Math.floor(Math.random() * G.vars.lineColors.length);
-			if (G.vars.dialog.G.vars._stage) { G.vars._stage.removeChild(G.vars.dialog); }
+			if (G.vars.dialog.stage) { G.vars._stage.removeChild(G.vars.dialog); }
 			G.vars.dialog.yesBtn.removeEventListener(MouseEvent.CLICK, G.vars.dialogbox.closeYNDialog);
 			G.vars.dialog.noBtn.removeEventListener(MouseEvent.CLICK, G.vars.dialogbox.closeYNDialog);
 			G.vars._stage.addChild(G.vars.dialog);
@@ -32,17 +32,17 @@
 			G.vars.globes = new Vector.<globe>(); // setup G.vars.globes vector
 			G.vars.bombs = new Vector.<bomb>(); // setup G.vars.bombs vector
 			G.vars.level = "Editor";
-			LightStage.instance.safeUpdateText();
+			G.vars._root.safeUpdateText();
 			for (var destroyCoin: int = 0; destroyCoin < G.vars.coins.length; destroyCoin++) // loop through all the G.vars.coins
 			{
 				G.vars.coins[destroyCoin].destroy(); // reset the coin
-				if (G.vars.coins[destroyCoin].G.vars._stage) { G.vars._stage.removeChild(G.vars.coins[destroyCoin]) }
+				if (G.vars.coins[destroyCoin].stage) { G.vars._stage.removeChild(G.vars.coins[destroyCoin]) }
 			}
 		}
 		
 		private function levelEditorSetLeft(event:MouseEvent)
 		{
-			if (G.vars.dialog.G.vars._stage) { G.vars._stage.removeChild(G.vars.dialog); }
+			if (G.vars.dialog.stage) { G.vars._stage.removeChild(G.vars.dialog); }
 			G.vars.dialog.leftBtn.addEventListener(MouseEvent.MOUSE_DOWN, levelEditorSetLeft);
 			G.vars.dialog.rightBtn.addEventListener(MouseEvent.MOUSE_DOWN, levelEditorSetRight);
 			G.vars.dialog.upBtn.addEventListener(MouseEvent.MOUSE_DOWN, levelEditorSetUp);
@@ -55,7 +55,7 @@
 		
 		private function levelEditorSetRight(event:MouseEvent)
 		{
-			if (G.vars.dialog.G.vars._stage) { G.vars._stage.removeChild(G.vars.dialog); }
+			if (G.vars.dialog.stage) { G.vars._stage.removeChild(G.vars.dialog); }
 			G.vars.dialog.leftBtn.addEventListener(MouseEvent.MOUSE_DOWN, levelEditorSetLeft);
 			G.vars.dialog.rightBtn.addEventListener(MouseEvent.MOUSE_DOWN, levelEditorSetRight);
 			G.vars.dialog.upBtn.addEventListener(MouseEvent.MOUSE_DOWN, levelEditorSetUp);
@@ -68,7 +68,7 @@
 		
 		private function levelEditorSetUp(event:MouseEvent)
 		{
-			if (G.vars.dialog.G.vars._stage) { G.vars._stage.removeChild(G.vars.dialog); }
+			if (G.vars.dialog.stage) { G.vars._stage.removeChild(G.vars.dialog); }
 			G.vars.dialog.leftBtn.addEventListener(MouseEvent.MOUSE_DOWN, levelEditorSetLeft);
 			G.vars.dialog.rightBtn.addEventListener(MouseEvent.MOUSE_DOWN, levelEditorSetRight);
 			G.vars.dialog.upBtn.addEventListener(MouseEvent.MOUSE_DOWN, levelEditorSetUp);
@@ -81,7 +81,7 @@
 		
 		private function levelEditorSetDown(event:MouseEvent)
 		{
-			if (G.vars.dialog.G.vars._stage) { G.vars._stage.removeChild(G.vars.dialog); }
+			if (G.vars.dialog.stage) { G.vars._stage.removeChild(G.vars.dialog); }
 			G.vars.dialog.leftBtn.addEventListener(MouseEvent.MOUSE_DOWN, levelEditorSetLeft);
 			G.vars.dialog.rightBtn.addEventListener(MouseEvent.MOUSE_DOWN, levelEditorSetRight);
 			G.vars.dialog.upBtn.addEventListener(MouseEvent.MOUSE_DOWN, levelEditorSetUp);

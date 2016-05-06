@@ -51,36 +51,36 @@
 			for (var destroyLine: int = 0; destroyLine < G.vars.lines.length; destroyLine++) // loop through G.vars.lines
 			{
 				G.vars.lines[destroyLine].destroy(); // destroy delected line (or at least clear it from the screen)
-				if (G.vars.lines[destroyLine].G.vars._stage) { G.vars._stage.removeChild(G.vars.lines[destroyLine]); } // remove from G.vars._stage
+				if (G.vars.lines[destroyLine].stage) { G.vars._stage.removeChild(G.vars.lines[destroyLine]); } // remove from G.vars._stage
 			}
 			for (var destroyMirror: int = 0; destroyMirror < G.vars.mirrors.length; destroyMirror++) // loop through G.vars.mirrors vector
 			{
 				G.vars.mirrors[destroyMirror].destroy(); // Kind of destroy the mirror (run the function in the class)
-				if (G.vars.mirrors[destroyMirror].G.vars._stage) { G.vars._stage.removeChild(G.vars.mirrors[destroyMirror]); } // remove mirror from G.vars._stage
+				if (G.vars.mirrors[destroyMirror].stage) { G.vars._stage.removeChild(G.vars.mirrors[destroyMirror]); } // remove mirror from G.vars._stage
 			}
 			for (var destroyGlobe: int = 0; destroyGlobe < G.vars.globes.length; destroyGlobe++) // loop through all the G.vars.globes
 			{
 				G.vars.globes[destroyGlobe].resetAll(); // reset the globe
 				G.vars.globes[destroyGlobe].destroy(); // destroy the globe
-				if (G.vars.globes[destroyGlobe].G.vars._stage) { G.vars._stage.removeChild(G.vars.globes[destroyGlobe]) } // remove globe from the G.vars._stage
+				if (G.vars.globes[destroyGlobe].stage) { G.vars._stage.removeChild(G.vars.globes[destroyGlobe]) } // remove globe from the G.vars._stage
 			}
 			for (var destroyBomb: int = 0; destroyBomb < G.vars.bombs.length; destroyBomb++) // loop through all the G.vars.bombs
 			{
 				G.vars.bombs[destroyBomb].destroy(); // destroy the bomb
-				if (G.vars.bombs[destroyBomb].G.vars._stage) { G.vars._stage.removeChild(G.vars.bombs[destroyBomb]) } // remove bomb from the G.vars._stage
+				if (G.vars.bombs[destroyBomb].stage) { G.vars._stage.removeChild(G.vars.bombs[destroyBomb]) } // remove bomb from the G.vars._stage
 			}
 			for (var destroyWall: int = 0; destroyWall < G.vars.walls.length; destroyWall++) // loop through all the G.vars.walls
 			{
 				G.vars.walls[destroyWall].resetAll(); // reset the wall
 				G.vars.walls[destroyWall].destroy(); // destroy the wall
-				if (G.vars.walls[destroyWall].G.vars._stage) { G.vars._stage.removeChild(G.vars.walls[destroyWall]) } // remove G.vars.walls from the G.vars._stage
+				if (G.vars.walls[destroyWall].stage) { G.vars._stage.removeChild(G.vars.walls[destroyWall]) } // remove G.vars.walls from the G.vars._stage
 			}
 			
 			
 			for (var destroyCoin: int = 0; destroyCoin < G.vars.coins.length; destroyCoin++) // loop through all the G.vars.coins
 			{
 				G.vars.coins[destroyCoin].resetAll(); // reset the coin
-				if (G.vars.coins[destroyCoin].G.vars._stage) { G.vars._stage.removeChild(G.vars.coins[destroyCoin]) }
+				if (G.vars.coins[destroyCoin].stage) { G.vars._stage.removeChild(G.vars.coins[destroyCoin]) }
 			}
 			
 			G.vars._stage.removeEventListener(Event.ENTER_FRAME, enterFrame); // stop enterFrame listener
@@ -88,6 +88,15 @@
 		
 		public function enterFrame(event: Event)
 		{
+			for (var fixWallVis: int = 0; fixWallVis < G.vars.walls.length; fixWallVis++)
+			{
+				if (!G.vars.walls[fixWallVis].stage &&
+					G.vars.walls[fixWallVis].x != -100 &&
+					G.vars.walls[fixWallVis].y != -100)
+				{
+					G.vars._stage.addChild(G.vars.walls[fixWallVis]);
+				}
+			}
 			for (var lineNum: int = 0; lineNum < G.vars.lines.length; lineNum++) // Loop through G.vars.lines vector
 			{
 				if (G.vars.lines[lineNum].noLoop == false) // Don't loop through G.vars.lines that we don't need anymore
@@ -139,7 +148,7 @@
 					if (!hit) // If there was no G.vars.mirrors or G.vars.walls interfering with the selected line
 					{
 						G.vars.lines[lineNum].reset(); // Reset the line to the origional X and Y values
-						if (G.vars.lines[lineNum].G.vars._stage && // If the line is on the G.vars._stage
+						if (G.vars.lines[lineNum].stage && // If the line is on the G.vars._stage
 							G.vars.lines[lineNum].disp == true && // If the line is disposible (not base line)
 							lineNum != G.vars.lines.length - 1) // If it is not within the last 1 G.vars.lines made
 						{
@@ -222,7 +231,7 @@
 			
 			for (var checkCoin: int = 0; checkCoin < G.vars.coins.length; checkCoin++) //iterate through G.vars.coins
 			{
-				if (G.vars.coins[checkCoin].full == true && G.vars.coins[checkCoin].G.vars._stage) // If the selected globe is full
+				if (G.vars.coins[checkCoin].full == true && G.vars.coins[checkCoin].stage) // If the selected globe is full
 				{
 					if (G.vars.playerShop.playerItems.indexOf("double G.vars.coins") == -1) // if the player dosen't own the double G.vars.coins upgrade
 					{
@@ -232,7 +241,7 @@
 					{
 						G.vars.money += 2;
 					}
-					LightStage.instance.safeUpdateText(false);
+					G.vars._root.safeUpdateText(false);
 					G.vars.coins[checkCoin].resetAll(); // reset selected coin
 					G.vars._stage.removeChild(G.vars.coins[checkCoin]); // remove the coin from the G.vars._stage
 				}
@@ -404,15 +413,18 @@
 		
 		private function bringToFront(stageItem)
 		{
-			G.vars._stage.setChildIndex(stageItem, G.vars._stage.numChildren-1);
+			if (stageItem.stage)
+			{
+				G.vars._stage.setChildIndex(stageItem, G.vars._stage.numChildren-1);
+			}
 		}
 		
 		public function prepGame(): void
 		{
-			LightStage.instance.setFrame(2); // Go to second frame 'LightStage is starting..'
+			G.vars._root.gotoAndStop(2); // Go to second frame 'LightStage is starting..'
 			
 			var startGameTimer:Timer = new Timer(3000, 1); // prepare a one second timer to start the game
-			startGameTimer.addEventListener(TimerEvent.TIMER, LightStage.instance.game); // create a listner for the timer
+			startGameTimer.addEventListener(TimerEvent.TIMER, G.vars._root.game); // create a listner for the timer
 			startGameTimer.start(); // start the timer
 		}
 		

@@ -47,7 +47,7 @@ package
 		G.vars.playerShop = new shop();
 		G.vars.badgeManager1 = new badgeAlert();
 		G.vars.badgeManager2 = new badgeAlert();
-		G.vars.badges = [];
+		G.vars.badgesArray = [];
 		G.vars.levelEdit = false;
 		G.vars.resetting = false;
 		G.vars.maxLevel = 0;
@@ -66,14 +66,8 @@ package
 			gotoAndStop(1); // go to the first frame 'Welcome to LightStage'
 			stage.addEventListener(KeyboardEvent.KEY_DOWN, keyHandler); // start keyHandler listener
 			G.vars._stage = stage;
-			//stage.addEventListener(Event.ENTER_FRAME, replaceStage);
+			G.vars._root = this;
 		}
-		/*
-		private function replaceStage(event:Event)
-		{
-			stage = G.vars._stage;
-		}
-		*/
 		public function safeUpdateText(changeFrame: Boolean = true): void
 		{
 			if (currentFrame == 3)
@@ -85,11 +79,6 @@ package
 				gotoAndStop(3);
 				updateText();
 			}
-		}
-		
-		public function setFrame(frameNumber: int)
-		{
-			gotoAndStop(frameNumber);
 		}
 		
 		private function keyHandler(event:KeyboardEvent): void // if a key is pressed
@@ -145,14 +134,14 @@ package
 						G.vars.dialog.yesBtn.addEventListener(MouseEvent.MOUSE_DOWN, G.vars.leveleditor.startEditor);
 						G.vars.dialog.noBtn.addEventListener(MouseEvent.MOUSE_DOWN, G.vars.dialogbox.closeYNDialog);
 						G.vars.dialog.headingText.text = "Are you sure?";
-						G.vars.dialog.descText.text = "Do you really want to reset this G.vars.level?";
+						G.vars.dialog.descText.text = "Do you really want to reset this level?";
 					}
 					else
 					{
-						G.vars.dialog.yesBtn.addEventListener(MouseEvent.MOUSE_DOWN, G.vars.leveleditor.levelEditor);
+						G.vars.dialog.yesBtn.addEventListener(MouseEvent.MOUSE_DOWN, G.vars.leveleditor.startEditor);
 						G.vars.dialog.noBtn.addEventListener(MouseEvent.MOUSE_DOWN, G.vars.dialogbox.closeYNDialog);
 						G.vars.dialog.headingText.text = "Are you sure?";
-						G.vars.dialog.descText.text = "Opening the G.vars.level editor will reset your game. Do you really want to open the G.vars.level editor?";
+						G.vars.dialog.descText.text = "Opening the level editor will reset your game. Do you really want to open the level editor?";
 					}
 					
 					break;
