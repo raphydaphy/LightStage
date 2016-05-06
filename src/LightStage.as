@@ -17,6 +17,12 @@ package
 	
 	public class LightStage extends MovieClip // Main class declaration for the LightStage game
 	{
+		/***************************
+		INSTANCE OF LIGHTSTAGE CLASS
+		***************************/
+		private static var _instance:LightStage;
+		public static function get instance():LightStage { return _instance; }
+		
 		/**********************************************
 		PUBLIC VECTORS FOR MOVIECLIPS & CLASS INSTANCES
 		**********************************************/
@@ -34,7 +40,11 @@ package
 		G.vars.level = 1;
 		G.vars.startupMsg = "LightStage is starting...";
 		G.vars.dialog = new openShop();
-		G.vars.playerShop = new shop(G.vars.money);
+		G.vars.dialogbox = new dialogbox();
+		G.vars.leveleditor = new leveleditor();
+		G.vars.backend = new backend();
+		G.vars.badges = new badges();
+		G.vars.playerShop = new shop();
 		G.vars.badgeManager1 = new badgeAlert();
 		G.vars.badgeManager2 = new badgeAlert();
 		G.vars.badges = [];
@@ -46,8 +56,8 @@ package
 		G.vars.escaped = 0;
 		G.vars.curBadgeBox = 0;
 		G.vars.lineColors = [0x2ecc71, 0x27ae60, 0x3498db, 0x2980b9, 0x9b59b6, 0x8e44ad, 0x34495e, 0x2c3e50,
-										 0xf1c40f, 0xf1c40f, 0xe67e22, 0xe74c3c, 0xecf0f1, 0x95a5a6, 0xf39c12, 0xd35400,
-										 0xc0392b, 0xbdc3c7, 0x7f8c8d];
+							 0xf1c40f, 0xf1c40f, 0xe67e22, 0xe74c3c, 0xecf0f1, 0x95a5a6, 0xf39c12, 0xd35400,
+							 0xc0392b, 0xbdc3c7, 0x7f8c8d];
 		G.vars.result = "NEW"; // what happened in the last game that was played?
 		G.vars.spawnCoins = true; // did they win or is it their first game? then we should spawn new G.vars.coins!
 		
@@ -55,6 +65,25 @@ package
 		{
 			gotoAndStop(1); // go to the first frame 'Welcome to LightStage'
 			stage.addEventListener(KeyboardEvent.KEY_DOWN, keyHandler); // start keyHandler listener
+			G.vars._stage = stage;
+			stage.addEventListener(Event.ENTER_FRAME, replaceStage);
+		}
+		
+		private function replaceStage(event:Event)
+		{
+			stage = G.vars._stage;
+		}
+		public function safeUpdateText(changeFrame: Boolean = true): void
+		{
+			if (currentFrame == 3)
+			{
+				updateText();
+			}
+			else if (changeFrame)
+			{
+				gotoAndStop(3);
+				updateText();
+			}
 		}
 		
 		private function keyHandler(event:KeyboardEvent): void // if a key is pressed
@@ -65,8 +94,8 @@ package
 				case Keyboard.SPACE:
 					if (G.vars.result == "NEW")
 					{
-						reset();
-						prepGame();
+						G.vars.backend.reset();
+						G.vars.backend.prepGame();
 					}
 					break;
 					
@@ -82,8 +111,8 @@ package
 					if (noReset == false && G.vars.levelEdit == false && G.vars.resetting == false)
 					{
 						G.vars.result = "RESTART"; // make sure the reset function knows that the user restarted the game
-						reset(); // reset the game if the R key is pressed
-						prepGame();
+						G.vars.backend.reset(); // reset the game if the R key is pressed
+						G.vars.backend.prepGame();
 					}
 					
 					break;
@@ -107,15 +136,15 @@ package
 					
 					if (G.vars.levelEdit == true)
 					{
-						G.vars.dialog.yesBtn.addEventListener(MouseEvent.MOUSE_DOWN, levelEditor);
-						G.vars.dialog.noBtn.addEventListener(MouseEvent.MOUSE_DOWN, closeYNDialog);
+						G.vars.dialog.yesBtn.addEventListener(MouseEvent.MOUSE_DOWN, G.vars.leveleditor.startEditor);
+						G.vars.dialog.noBtn.addEventListener(MouseEvent.MOUSE_DOWN, G.vars.dialogbox.closeYNDialog);
 						G.vars.dialog.headingText.text = "Are you sure?";
 						G.vars.dialog.descText.text = "Do you really want to reset this G.vars.level?";
 					}
 					else
 					{
-						G.vars.dialog.yesBtn.addEventListener(MouseEvent.MOUSE_DOWN, levelEditor);
-						G.vars.dialog.noBtn.addEventListener(MouseEvent.MOUSE_DOWN, closeYNDialog);
+						G.vars.dialog.yesBtn.addEventListener(MouseEvent.MOUSE_DOWN, G.vars.leveleditor.levelEditor);
+						G.vars.dialog.noBtn.addEventListener(MouseEvent.MOUSE_DOWN, G.vars.dialogbox.closeYNDialog);
 						G.vars.dialog.headingText.text = "Are you sure?";
 						G.vars.dialog.descText.text = "Opening the G.vars.level editor will reset your game. Do you really want to open the G.vars.level editor?";
 					}
@@ -128,9 +157,8 @@ package
 						G.vars.levelEdit = false;
 						G.vars.level = 1;
 						G.vars.money = 0;
-						G.vars.playerShop.setCoins(G.vars.money);
-						reset();
-						prepGame();
+						G.vars.backend.reset();
+						G.vars.backend.prepGame();
 					}
 					break;
 					
@@ -179,8 +207,7 @@ package
 						{
 							G.vars.level = 0;
 							G.vars.money = 0;
-							G.vars.playerShop.setCoins(G.vars.money);
-							stage.addEventListener(Event.ENTER_FRAME, enterFrame);
+							stage.addEventListener(Event.ENTER_FRAME, G.vars.backend.enterFrame);
 							
 							var stopGameTimer:Timer = new Timer(500, 1); 
 							stopGameTimer.addEventListener(TimerEvent.TIMER, stopEnterFrame);
@@ -188,7 +215,7 @@ package
 						}
 						else
 						{
-							simpleDialog("Error!","You need to put at least one globe on the stage to test the G.vars.level");
+							G.vars.dialogbox.simpleDialog("Error!","You need to put at least one globe on the stage to test the G.vars.level");
 						}
 					}
 					break;
@@ -285,46 +312,32 @@ package
 			}
 			
 		}
-
-		private function simpleDialog(heading: String, desc: String)
-		{
-			stage.addChild(G.vars.dialog);
-			G.vars.dialog.gotoAndStop(2);
-			G.vars.dialog.visible = true;
-			G.vars.dialog.x = 275;
-			G.vars.dialog.y = 200;
-			G.vars.dialog.okBtn.addEventListener(MouseEvent.MOUSE_DOWN, closeSimpleDialog);
-			G.vars.dialog.headingText.text = heading;
-			G.vars.dialog.descText.text = desc;
-		}
 		
 		private function stopEnterFrame(event:TimerEvent)
 		{
-			stage.removeEventListener(Event.ENTER_FRAME, enterFrame); // stop enterFrame listener
+			stage.removeEventListener(Event.ENTER_FRAME, G.vars.backend.enterFrame); // stop enterFrame listener
 		}
 		
 		private function buyDoubleCoins(event:MouseEvent) // purchases double G.vars.coins and tells the user if it worked
 		{
 			var newMoney = G.vars.playerShop.shopBuy("double G.vars.coins");
-			if (newMoney == G.vars.money) { simpleDialog("Too poor!","You don't have enough G.vars.coins to buy Double Coins!"); }
-			else if (newMoney == 1337) { simpleDialog("Already bought!","You already own Double Coins."); }
-			else { simpleDialog("Purchased Double Coins!","You sucessfully purchased Double Coins!"); G.vars.money = newMoney; }
+			if (newMoney == G.vars.money) { G.vars.dialogbox.simpleDialog("Too poor!","You don't have enough G.vars.coins to buy Double Coins!"); }
+			else if (newMoney == 1337) { G.vars.dialogbox.simpleDialog("Already bought!","You already own Double Coins."); }
+			else { G.vars.dialogbox.simpleDialog("Purchased Double Coins!","You sucessfully purchased Double Coins!"); G.vars.money = newMoney; }
 			safeUpdateText(false);
-			G.vars.playerShop.setCoins(G.vars.money);
 		}
 		
 		private function buyBombChance(event:MouseEvent) // purchases bomb defence chance and tells user if it worked
 		{
 			var newMoney = G.vars.playerShop.shopBuy("bomb deflect chance");
-			if (newMoney == G.vars.money) { simpleDialog("Too poor!","You don't have enough G.vars.coins to buy Bomb Deflection Chance!"); }
-			else if (newMoney == 1337) { simpleDialog("Already bought!","You already own Bomb Deflection Chance."); }
+			if (newMoney == G.vars.money) { G.vars.dialogbox.simpleDialog("Too poor!","You don't have enough G.vars.coins to buy Bomb Deflection Chance!"); }
+			else if (newMoney == 1337) { G.vars.dialogbox.simpleDialog("Already bought!","You already own Bomb Deflection Chance."); }
 			else 
 			{
-				simpleDialog("Purchased Bomb Deflection Chance!","You successfully purchased Bomb Deflection Chance!");
+				G.vars.dialogbox.simpleDialog("Purchased Bomb Deflection Chance!","You successfully purchased Bomb Deflection Chance!");
 				G.vars.money = newMoney;
 			}
 			safeUpdateText(false)
-			G.vars.playerShop.setCoins(G.vars.money);
 		}
 		
 		private function closeShop(event:MouseEvent): void
@@ -335,323 +348,8 @@ package
 			G.vars.playerShop.bombDeflectChance.removeEventListener(MouseEvent.CLICK, buyBombChance);
 		}
 		
-		private function closeSimpleDialog(event:MouseEvent): void
-		{
-			if (G.vars.dialog.stage) { stage.removeChild(G.vars.dialog); }
-			G.vars.dialog.okBtn.removeEventListener(MouseEvent.CLICK, closeSimpleDialog);
-		}
 		
-		private function closeYNDialog(event:MouseEvent): void
-		{
-			if (G.vars.dialog.stage) { stage.removeChild(G.vars.dialog); }
-			G.vars.dialog.yesBtn.removeEventListener(MouseEvent.CLICK, closeYNDialog);
-			G.vars.dialog.noBtn.removeEventListener(MouseEvent.CLICK, closeYNDialog);
-		}
-		
-		private function levelUp(): void // if the user completes the previous G.vars.level
-		{
-			G.vars.level += 1;
-			reset();
-			prepGame();
-		}
-		
-		private function levelEditor(event:MouseEvent): void
-		{
-			var num:int=Math.floor(Math.random() * G.vars.lineColors.length);
-			if (G.vars.dialog.stage) { stage.removeChild(G.vars.dialog); }
-			G.vars.dialog.yesBtn.removeEventListener(MouseEvent.CLICK, closeYNDialog);
-			G.vars.dialog.noBtn.removeEventListener(MouseEvent.CLICK, closeYNDialog);
-			stage.addChild(G.vars.dialog);
-			G.vars.dialog.gotoAndStop(3);
-			G.vars.dialog.visible = true;
-			G.vars.dialog.x = 275;
-			G.vars.dialog.y = 200;
-			G.vars.dialog.leftBtn.addEventListener(MouseEvent.MOUSE_DOWN, levelEditorSetLeft);
-			G.vars.dialog.rightBtn.addEventListener(MouseEvent.MOUSE_DOWN, levelEditorSetRight);
-			G.vars.dialog.upBtn.addEventListener(MouseEvent.MOUSE_DOWN, levelEditorSetUp);
-			G.vars.dialog.downBtn.addEventListener(MouseEvent.MOUSE_DOWN, levelEditorSetDown);
-			G.vars.dialog.headingText.text = "Level Editor Setup";
-			G.vars.dialog.descText.text = "What direction do you want your base line to be going in?";
-			G.vars.spawnCoins = true;
-			G.vars.levelEdit = true;
-			reset();
-			G.vars.mirrors = new Vector.<mirror>(); // setup G.vars.mirrors vector
-			G.vars.lines = new Vector.<line>(); // setup G.vars.lines vector
-			G.vars.globes = new Vector.<globe>(); // setup G.vars.globes vector
-			G.vars.bombs = new Vector.<bomb>(); // setup G.vars.bombs vector
-			G.vars.level = "Editor";
-			safeUpdateText()
-			for (var destroyCoin: int = 0; destroyCoin < G.vars.coins.length; destroyCoin++) // loop through all the G.vars.coins
-			{
-				G.vars.coins[destroyCoin].destroy(); // reset the coin
-				if (G.vars.coins[destroyCoin].stage) { stage.removeChild(G.vars.coins[destroyCoin]) }
-			}
-		}
-		
-		private function levelEditorSetLeft(event:MouseEvent)
-		{
-			if (G.vars.dialog.stage) { stage.removeChild(G.vars.dialog); }
-			G.vars.dialog.leftBtn.addEventListener(MouseEvent.MOUSE_DOWN, levelEditorSetLeft);
-			G.vars.dialog.rightBtn.addEventListener(MouseEvent.MOUSE_DOWN, levelEditorSetRight);
-			G.vars.dialog.upBtn.addEventListener(MouseEvent.MOUSE_DOWN, levelEditorSetUp);
-			G.vars.dialog.downBtn.addEventListener(MouseEvent.MOUSE_DOWN, levelEditorSetDown);
-			
-			G.vars.lines.push(new line(550, 200, -450, 200, 'y', 'LEFT', 9999, G.vars.lineColors[num], false, false));
-			G.vars.lines[G.vars.lines.length - 1].visible = true;
-			stage.addChild(G.vars.lines[G.vars.lines.length - 1]);
-		}
-		
-		private function levelEditorSetRight(event:MouseEvent)
-		{
-			if (G.vars.dialog.stage) { stage.removeChild(G.vars.dialog); }
-			G.vars.dialog.leftBtn.addEventListener(MouseEvent.MOUSE_DOWN, levelEditorSetLeft);
-			G.vars.dialog.rightBtn.addEventListener(MouseEvent.MOUSE_DOWN, levelEditorSetRight);
-			G.vars.dialog.upBtn.addEventListener(MouseEvent.MOUSE_DOWN, levelEditorSetUp);
-			G.vars.dialog.downBtn.addEventListener(MouseEvent.MOUSE_DOWN, levelEditorSetDown);
-			
-			G.vars.lines.push(new line(0, 200, 1000, 200, 'y', 'RIGHT', 9999, G.vars.lineColors[num], false, false));
-			G.vars.lines[G.vars.lines.length - 1].visible = true;
-			stage.addChild(G.vars.lines[G.vars.lines.length - 1]);
-		}
-		
-		private function levelEditorSetUp(event:MouseEvent)
-		{
-			if (G.vars.dialog.stage) { stage.removeChild(G.vars.dialog); }
-			G.vars.dialog.leftBtn.addEventListener(MouseEvent.MOUSE_DOWN, levelEditorSetLeft);
-			G.vars.dialog.rightBtn.addEventListener(MouseEvent.MOUSE_DOWN, levelEditorSetRight);
-			G.vars.dialog.upBtn.addEventListener(MouseEvent.MOUSE_DOWN, levelEditorSetUp);
-			G.vars.dialog.downBtn.addEventListener(MouseEvent.MOUSE_DOWN, levelEditorSetDown);
-			
-			G.vars.lines.push(new line(275, 360, 275, -450, 'x', 'UP', 9999, G.vars.lineColors[num], false, false));
-			G.vars.lines[G.vars.lines.length - 1].visible = true;
-			stage.addChild(G.vars.lines[G.vars.lines.length - 1]);
-		}
-		
-		private function levelEditorSetDown(event:MouseEvent)
-		{
-			if (G.vars.dialog.stage) { stage.removeChild(G.vars.dialog); }
-			G.vars.dialog.leftBtn.addEventListener(MouseEvent.MOUSE_DOWN, levelEditorSetLeft);
-			G.vars.dialog.rightBtn.addEventListener(MouseEvent.MOUSE_DOWN, levelEditorSetRight);
-			G.vars.dialog.upBtn.addEventListener(MouseEvent.MOUSE_DOWN, levelEditorSetUp);
-			G.vars.dialog.downBtn.addEventListener(MouseEvent.MOUSE_DOWN, levelEditorSetDown);
-			
-			G.vars.lines.push(new line(275, 120, 275, 450, 'x', 'DOWN', 9999, G.vars.lineColors[num], false, false));
-			G.vars.lines[G.vars.lines.length - 1].visible = true;
-			stage.addChild(G.vars.lines[G.vars.lines.length - 1]);
-		}
-		
-		private function prepGame(): void
-		{
-			gotoAndStop(2); // Go to second frame 'LightStage is starting..'
-			
-			var startGameTimer:Timer = new Timer(3000, 1); // prepare a one second timer to start the game
-			startGameTimer.addEventListener(TimerEvent.TIMER, game); // create a listner for the timer
-			startGameTimer.start(); // start the timer
-		}
-		
-		private function reset():void //reset game
-		{
-			G.vars.resetting = true;
-			if (G.vars.result == "NEW") // if it is the first game the user has played
-			{
-				G.vars.spawnCoins = true;
-				G.vars.startupMsg = "LightStage is starting..."; // show the initial starting message
-				G.vars.result = "RESTART"; // prepare the next loading message so that it isn't always the default
-			}
-			else if (G.vars.result == "DIED") // if the user died on their last turn
-			{
-				G.vars.deaths += 1;
-				G.vars.spawnCoins = false;
-				G.vars.startupMsg = "You died!"; // the text on the loading screen should be 'You died!'
-				G.vars.level = 1;
-			}
-			else if (G.vars.result == "WON") // if the user completed the last G.vars.level
-			{
-				if (G.vars.level - 1 > G.vars.maxLevel) // if this is the best G.vars.level they have reached
-				{
-					G.vars.maxLevel = G.vars.level - 1;
-					G.vars.money += G.vars.level - 1;
-					G.vars.spawnCoins = true;
-					G.vars.playerShop.setCoins(G.vars.money);
-				}
-				G.vars.startupMsg = "You completed level " + (G.vars.level - 1) + "!"; // show the user what G.vars.level they are on
-			}
-			else if (G.vars.result == "RESTART") // if the user pressed any key to restart
-			{
-				G.vars.spawnCoins = false;
-				G.vars.startupMsg = "Resetting your level..."; // show the user that the G.vars.level is being reset
-			}
-			else if (G.vars.result == "OVER") // if the user completed all the G.vars.levels
-			{
-				G.vars.spawnCoins = true;
-				G.vars.startupMsg = "You completed all the levels!";
-			}
-			else // if the reason for the reset is unknown
-			{
-				G.vars.spawnCoins = false;
-				G.vars.startupMsg = "LightStage is starting..."; // show the default message
-			}
-			for (var destroyLine: int = 0; destroyLine < G.vars.lines.length; destroyLine++) // loop through G.vars.lines
-			{
-				G.vars.lines[destroyLine].destroy(); // destroy delected line (or at least clear it from the screen)
-				if (G.vars.lines[destroyLine].stage) { stage.removeChild(G.vars.lines[destroyLine]); } // remove from stage
-			}
-			for (var destroyMirror: int = 0; destroyMirror < G.vars.mirrors.length; destroyMirror++) // loop through G.vars.mirrors vector
-			{
-				G.vars.mirrors[destroyMirror].destroy(); // Kind of destroy the mirror (run the function in the class)
-				if (G.vars.mirrors[destroyMirror].stage) { stage.removeChild(G.vars.mirrors[destroyMirror]); } // remove mirror from stage
-			}
-			for (var destroyGlobe: int = 0; destroyGlobe < G.vars.globes.length; destroyGlobe++) // loop through all the G.vars.globes
-			{
-				G.vars.globes[destroyGlobe].resetAll(); // reset the globe
-				G.vars.globes[destroyGlobe].destroy(); // destroy the globe
-				if (G.vars.globes[destroyGlobe].stage) { stage.removeChild(G.vars.globes[destroyGlobe]) } // remove globe from the stage
-			}
-			for (var destroyBomb: int = 0; destroyBomb < G.vars.bombs.length; destroyBomb++) // loop through all the G.vars.bombs
-			{
-				G.vars.bombs[destroyBomb].destroy(); // destroy the bomb
-				if (G.vars.bombs[destroyBomb].stage) { stage.removeChild(G.vars.bombs[destroyBomb]) } // remove bomb from the stage
-			}
-			for (var destroyWall: int = 0; destroyWall < G.vars.walls.length; destroyWall++) // loop through all the G.vars.walls
-			{
-				G.vars.walls[destroyWall].resetAll(); // reset the wall
-				G.vars.walls[destroyWall].destroy(); // destroy the wall
-				if (G.vars.walls[destroyWall].stage) { stage.removeChild(G.vars.walls[destroyWall]) } // remove G.vars.walls from the stage
-			}
-			
-			
-			for (var destroyCoin: int = 0; destroyCoin < G.vars.coins.length; destroyCoin++) // loop through all the G.vars.coins
-			{
-				G.vars.coins[destroyCoin].resetAll(); // reset the coin
-				if (G.vars.coins[destroyCoin].stage) { stage.removeChild(G.vars.coins[destroyCoin]) }
-			}
-			
-			stage.removeEventListener(Event.ENTER_FRAME, enterFrame); // stop enterFrame listener
-		}
-		
-		private function hideBadge1(event:TimerEvent): void // hide the badge alert movieclip
-		{
-			if (G.vars.badgeManager1.stage) { stage.removeChild(G.vars.badgeManager1); }
-			G.vars.curBadgeBox -= 1;
-		}
-		
-		private function hideBadge2(event:TimerEvent): void // hide the badge alert movieclip
-		{
-			if (G.vars.badgeManager2.stage) { stage.removeChild(G.vars.badgeManager2); }
-			G.vars.curBadgeBox -= 1;
-		}
-		
-		private function safeUpdateText(changeFrame: Boolean = true): void
-		{
-			if (currentFrame == 3)
-			{
-				updateText();
-			}
-			else if (changeFrame)
-			{
-				gotoAndStop(3);
-				updateText();
-			}
-		}
-		
-		private function showBadge(title: String, desc: String, cost: int, frame: int): void
-		{
-			if (!G.vars.badgeManager1.stage)
-			{
-				G.vars.badges.push(title.toLocaleLowerCase());
-				G.vars.badgeManager1 = new badgeAlert();
-				G.vars.badgeManager1.badgeHeading.text = title;
-				G.vars.badgeManager1.badgeDesc.text = desc;
-				G.vars.badgeManager1.badgeCost.text = "$" + cost;
-				G.vars.badgeManager1.badgeIcon.gotoAndStop(frame);
-				G.vars.badgeManager1.x = 275;
-				G.vars.badgeManager1.y = 350;
-				stage.addChild(G.vars.badgeManager1);
-				
-				var hideBadge1Timer:Timer = new Timer(5000, 1);
-				hideBadge1Timer.addEventListener(TimerEvent.TIMER, hideBadge1);
-				hideBadge1Timer.start();
-			}
-			else if (!G.vars.badgeManager2.stage)
-			{
-				G.vars.badges.push(title.toLocaleLowerCase());
-				G.vars.badgeManager2 = new badgeAlert();
-				G.vars.badgeManager2.badgeHeading.text = title;
-				G.vars.badgeManager2.badgeDesc.text = desc;
-				G.vars.badgeManager2.badgeCost.text = "$" + cost;
-				G.vars.badgeManager2.badgeIcon.gotoAndStop(frame);
-				G.vars.badgeManager2.x = 275;
-				G.vars.badgeManager2.y = 265;
-				stage.addChild(G.vars.badgeManager2);
-				
-				var hideBadge2Timer:Timer = new Timer(5000, 1);
-				hideBadge2Timer.addEventListener(TimerEvent.TIMER, hideBadge2);
-				hideBadge2Timer.start();
-			}
-			G.vars.money += cost;
-			G.vars.playerShop.setCoins(G.vars.money);
-			safeUpdateText(false);
-			G.vars.curBadgeBox += 1;
-		}
-		
-		private function checkBadges(): void
-		{
-			if (G.vars.deaths > 4 && // if they have died at least 5 times in a row
-				G.vars.badges.indexOf("crash test dummy 1") == -1 ) // if they don't already have the badge
-			{
-				showBadge("Crash Test Dummy 1","Die 5 times in a single game",5,1);
-			}
-			
-			if (G.vars.deaths > 9 && // if they have died at least 10 times in a row
-				G.vars.badges.indexOf("crash test dummy 2") == -1 ) // if they don't already have the badge
-			{
-				showBadge("Crash Test Dummy 2","Die 10 times in a single game",10,1);
-			}
-			
-			if (G.vars.playerShop.playerItems.length > 1 && // if they have purchased at least 2 items from the shop
-				G.vars.badges.indexOf("spending spree 1") == -1) // if they don't already have the badge
-			{
-				showBadge("Spending Spree 1","Buy at least two items from the ingame shop",5,2);
-			}
-			
-			if (G.vars.level > 4 &&
-				G.vars.badges.indexOf("survivor 1") == -1)
-			{
-				showBadge("Survivor 1","Complete 4 G.vars.levels in a row without dying",10,3);
-			}
-			
-			if (G.vars.level > 8 &&
-				G.vars.badges.indexOf("survivor 2") == -1)
-			{
-				showBadge("Survivor 2","Complete 8 G.vars.levels in a row without dying",25,3);
-			}
-			
-			if (G.vars.detonated > 5 &&
-				G.vars.badges.indexOf("killing spree 1") == -1)
-			{
-				showBadge("Killing Spree 1","Detonate 5 G.vars.bombs",5,4);
-			}
-			
-			if (G.vars.detonated > 10 &&
-				G.vars.badges.indexOf("killing spree 2") == -1)
-			{
-				showBadge("Killing Spree 2","Detonate 10 G.vars.bombs",15,4);
-			}
-				
-			if (G.vars.escaped > 5 &&
-				G.vars.badges.indexOf("escape artist 1") == -1)
-			{
-				showBadge("Escape Artist 1","Dodge 5 G.vars.bombs using Bomb Deflection Chance",10,5);
-			}
-			
-			if (G.vars.escaped > 10 &&
-				G.vars.badges.indexOf("escape artist 2") == -2)
-			{
-				showBadge("Escape Artist 2","Dodge 10 G.vars.bombs using Bomb Deflection Chance",25,5);
-			}
-		}
-		
-		private function game(event:TimerEvent):void // start the game
+		public function game(event:TimerEvent):void // start the game
 		{
 			G.vars.resetting = false;
 			if (G.vars.result == "OVER") // if the user has won the game
@@ -1427,337 +1125,14 @@ package
 			else
 			{
 				G.vars.result = "OVER";
-				reset();
-				prepGame();
+				G.vars.backend.reset();
+				G.vars.backend.prepGame();
 			}
 			
-			stage.addEventListener(Event.ENTER_FRAME, enterFrame); // Start enterFrame listener
+			stage.addEventListener(Event.ENTER_FRAME, G.vars.backend.enterFrame); // Start enterFrame listener
 		}
 
-		// This function is called once every milisecond, unless it takes longer than that to run
-		// In that case, it is called when it finishes running. Essentially, it runs once each tick.
-		private function enterFrame(event: Event)
-		{
-			
-			for (var lineNum: int = 0; lineNum < G.vars.lines.length; lineNum++) // Loop through G.vars.lines vector
-			{
-				if (G.vars.lines[lineNum].noLoop == false) // Don't loop through G.vars.lines that we don't need anymore
-				{
-					G.vars.lines[lineNum].loops += 1; // increase the amount of times we have looped over this line
-					
-					if (G.vars.lines[lineNum].loops > 1 && G.vars.lines[lineNum].disp == true) // if the line has been iterated already
-					{
-						G.vars.lines[lineNum].noLoop = true; // make sure the line never gets iterated over again
-						stage.removeChild(G.vars.lines[lineNum]); // remove the line from the stage
-					}
-					
-					var hit: Boolean = false; // Set to true later if the selected line has hit a mirror
-
-					for (var mirrorNum: int = 0; mirrorNum < G.vars.mirrors.length; mirrorNum++) // Iterate G.vars.mirrors
-					{
-						if (G.vars.lines[lineNum].owner != mirrorNum) // If mirror is not the one that made this line
-						{
-							if (G.vars.mirrors[mirrorNum].hitTestObject(G.vars.lines[lineNum])) // If mirror is touching line
-							{
-								for (var hitMirror: int = 0; hitMirror < G.vars.mirrors.length; hitMirror++) // iterate again
-								{
-									if (hitMirror != mirrorNum && G.vars.mirrors[hitMirror].hitTestObject(G.vars.mirrors[mirrorNum]))
-									{
-										G.vars.mirrors[hitMirror].x = G.vars.mirrors[hitMirror].oX;
-										G.vars.mirrors[hitMirror].y = G.vars.mirrors[hitMirror].oY;
-									}
-								}
-								hit = true;
-								G.vars.lines[lineNum].draw(G.vars.mirrors[mirrorNum].x, G.vars.mirrors[mirrorNum].y); // Redraw line
-								simBounce(G.vars.lines[lineNum], lineNum, G.vars.mirrors[mirrorNum], mirrorNum); // Run this
-							}
-
-						}
-					}
-					
-					for (var wallNum: int = 0; wallNum < G.vars.walls.length; wallNum++) // Iterate G.vars.walls
-					{
-						if (G.vars.walls[wallNum].hitTestObject(G.vars.lines[lineNum])) // If wall is touching line
-						{
-							hit = true;
-							G.vars.lines[lineNum].draw(G.vars.walls[wallNum].x, G.vars.walls[wallNum].y); // Redraw line
-							G.vars.walls[wallNum].gotoAndStop(2);
-							G.vars.walls[wallNum].blocking = true;
-							bringToFront(G.vars.walls[wallNum]);
-						}
-					}
-					
-					if (!hit) // If there was no G.vars.mirrors or G.vars.walls interfering with the selected line
-					{
-						G.vars.lines[lineNum].reset(); // Reset the line to the origional X and Y values
-						if (G.vars.lines[lineNum].stage && // If the line is on the stage
-							G.vars.lines[lineNum].disp == true && // If the line is disposible (not base line)
-							lineNum != G.vars.lines.length - 1) // If it is not within the last 1 G.vars.lines made
-						{
-							stage.removeChild(G.vars.lines[lineNum]); // Remove the line from the stage
-							G.vars.lines[lineNum].rmLoop(); // Remove it from ever being iterated over again
-						}
-					}
-					
-					for (var globeNum: int = 0; globeNum < G.vars.globes.length; globeNum++) //iterate through G.vars.globes
-					{
-						if (G.vars.lines[lineNum].hitTestObject(G.vars.globes[globeNum])) // If the line is touching the selected globe
-						{
-							G.vars.globes[globeNum].hit = true;
-							G.vars.globes[globeNum].filling = true; // tell that globe that it has been hit by a line
-							G.vars.globes[globeNum].startFill(); // start filling that globe using it's function
-						}
-					}
-					
-					for (var coinNum: int = 0; coinNum < G.vars.coins.length; coinNum++) //iterate through G.vars.coins
-					{
-						if (G.vars.lines[lineNum].hitTestObject(G.vars.coins[coinNum])) // If the line is touching the selected coin
-						{
-							G.vars.coins[coinNum].hit = true;
-							G.vars.coins[coinNum].filling = true; // tell thatcoin that it has been hit by a line
-							G.vars.coins[coinNum].startFill(); // start filling that coin using it's function
-						}
-					}
-					
-					for (var bombNum: int = 0; bombNum < G.vars.bombs.length; bombNum++) //iterate through G.vars.globes
-					{
-						if (G.vars.bombs[bombNum].exploded == true)
-						{
-							if (G.vars.playerShop.playerItems.indexOf("bomb deflect chance") != -1 && // if they have bomb defence chance
-								Math.round(Math.random())) // if they are lucky and manage to dodge the bomb
-							{
-								G.vars.bombs[bombNum].resetAll();
-								G.vars.bombs[bombNum].destroy();
-								if (G.vars.bombs[bombNum].stage) { stage.removeChild(G.vars.bombs[bombNum]); }
-								G.vars.escaped += 1;
-							}
-							else // if they don't have bomb deflect chance, or didn't manage to deflect the bomb (50% chance)
-							{
-								G.vars.result = "DIED";
-								reset();
-								prepGame();
-							}
-						}
-						else if (G.vars.lines[lineNum].hitTestObject(G.vars.bombs[bombNum])) // If the line is touching the selected globe
-						{
-							if (G.vars.bombs[bombNum].exploding == false)
-							{
-								G.vars.detonated += 1;
-							}
-							G.vars.bombs[bombNum].startExplode();
-						}
-					}
-				}
-			}
-			var fullGlobes: int = 0; // set the number of full G.vars.globes to 0
-			
-			for (var checkGlobe: int = 0; checkGlobe < G.vars.globes.length; checkGlobe++) //iterate through G.vars.globes
-			{
-				if (G.vars.globes[checkGlobe].full == true) // If the selected globe is full
-				{
-					fullGlobes++; // increase the total number of G.vars.globes that are full
-				}
-				if (G.vars.globes[checkGlobe].hit == false) // If the globe didn't get hit by a beam last iteration
-				{
-					G.vars.globes[checkGlobe].filling = false; // set the globe's filling property to false
-					G.vars.globes[checkGlobe].resetAll(); // reset the selected globe
-				}
-				G.vars.globes[checkGlobe].hit = false;
-			}
-			if (fullGlobes == G.vars.globes.length) // if all the G.vars.globes are full
-			{
-				G.vars.result = "WON"; // record that the user won
-				levelUp(); // run the G.vars.levelUp function to go to the next G.vars.level
-			}
-			
-			
-			for (var checkCoin: int = 0; checkCoin < G.vars.coins.length; checkCoin++) //iterate through G.vars.coins
-			{
-				if (G.vars.coins[checkCoin].full == true && G.vars.coins[checkCoin].stage) // If the selected globe is full
-				{
-					if (G.vars.playerShop.playerItems.indexOf("double G.vars.coins") == -1) // if the player dosen't own the double G.vars.coins upgrade
-					{
-						G.vars.money += 1; // increase G.vars.money by one coin
-					}
-					else // if they do own the double G.vars.coins upgrade
-					{
-						G.vars.money += 2;
-					}
-					safeUpdateText(false)
-					G.vars.playerShop.setCoins(G.vars.money);
-					G.vars.coins[checkCoin].resetAll(); // reset selected coin
-					stage.removeChild(G.vars.coins[checkCoin]); // remove the coin from the stage
-				}
-				if (G.vars.coins[checkCoin].hit == false) // If the coin didn't get hit by a beam last iteration
-				{
-					G.vars.coins[checkCoin].filling = false; // set the coin's filling property to false
-					G.vars.coins[checkCoin].resetAll(); // reset the selected coin
-				}
-				G.vars.coins[checkCoin].hit = false; // set the hit property to false so that it is only reflecting the last loop
-			}
-			
-			for (var checkWall: int = 0; checkWall < G.vars.walls.length; checkWall++) // Iterate G.vars.walls
-			{
-				if (G.vars.walls[checkWall].blocking == false) // If wall is not touching any line
-				{
-					G.vars.walls[checkWall].gotoAndStop(1);
-				}
-				G.vars.walls[checkWall].blocking = false;
-			}
-			
-			checkBadges(); // check if they should get any new G.vars.badges
-			
-			if (G.vars.badgeManager1.stage)
-			{
-				bringToFront(G.vars.badgeManager1);
-			}
-			
-			if (G.vars.badgeManager2.stage)
-			{
-				bringToFront(G.vars.badgeManager2);
-			}
-			
-			if (G.vars.playerShop.stage)
-			{
-				bringToFront(G.vars.playerShop);
-			}
-			
-			if (G.vars.dialog.stage)
-			{
-				bringToFront(G.vars.dialog);
-			}
-			
-		}
 		
-		private function bringToFront(stageItem)
-		{
-			stage.setChildIndex(stageItem, stage.numChildren-1);
-		}
-
-		// This function simulates a bounce, creates a temporary, invisible line
-		// to test for colisions, stops the line at the collision point if any
-		// is found, adds the new, fixed line to the stage and returns void
-		public function simBounce(_line: line, lineNum: int, _mirror: mirror, mirrorNum: int): void
-		{
-			var tmpLine: line; // Note: stage width is 550, height is 400
-			
-			switch (_line.dir) // Switch between the possible directions the interfering line can be going in
-			{
-				case 'UP':
-					switch (_mirror.currentFrame)
-					{
-						case 1: // A type 1 mirror hitting a line going up should bounce right
-							tmpLine = new line(_mirror.x, _mirror.y, 1000, _mirror.y, 
-											   'y', 'RIGHT', mirrorNum, G.vars.lines[lineNum].lineColor);
-							break;
-						case 2: // A type 2 mirror hitting a line going up should bounce left
-							tmpLine = new line(_mirror.x, _mirror.y, -450, _mirror.y, 
-											   'y', 'LEFT', mirrorNum, G.vars.lines[lineNum].lineColor);
-							break;
-					}
-					break;
-
-				case 'DOWN':
-					switch (_mirror.currentFrame)
-					{
-						case 1: // A type 1 mirror hitting a line going down should bounce left
-							tmpLine = new line(_mirror.x, _mirror.y, -450, _mirror.y, 
-											   'y', 'LEFT', mirrorNum, G.vars.lines[lineNum].lineColor);
-							break;
-						case 2: // A type 2 mirror hitting a line going down should bounce right
-							tmpLine = new line(_mirror.x, _mirror.y, 1000, _mirror.y, 
-											   'y', 'RIGHT', mirrorNum, G.vars.lines[lineNum].lineColor);
-							break;
-					}
-					break;
-					
-				case 'LEFT':
-					switch (_mirror.currentFrame)
-					{
-						case 1: // A type 1 mirror hitting a line going left should bounce down
-							tmpLine = new line(_mirror.x, _mirror.y, _mirror.x, 400, 
-											   'x', 'DOWN', mirrorNum, G.vars.lines[lineNum].lineColor);
-							break;
-						case 2: // A type 2 mirror hitting a line going left should bounce up
-							tmpLine = new line(_mirror.x, _mirror.y, _mirror.x, 0, 
-											   'x', 'UP', mirrorNum, G.vars.lines[lineNum].lineColor);
-							break;
-					}
-					break;
-
-				case 'RIGHT':
-					switch (_mirror.currentFrame)
-					{
-						case 1: // A type 1 mirror hitting a line going right should bounce up
-							tmpLine = new line(_mirror.x, _mirror.y, _mirror.x, 0, 
-											   'x', 'UP', mirrorNum, G.vars.lines[lineNum].lineColor);
-							break;
-						case 2: // A type 2 mirror hitting a line going right should bounce down
-							tmpLine = new line(_mirror.x, _mirror.y, _mirror.x, 400,
-											   'x', 'DOWN', mirrorNum, G.vars.lines[lineNum].lineColor);
-							break;
-					}
-					break;
-			}
-			if (_line.owner == 9999) // If the line that the mirror hit was put there by the G.vars.level
-			{
-				G.vars.lines.push(tmpLine); // Add the temporary line to the G.vars.lines vector for looping
-				stage.addChild(G.vars.lines[G.vars.lines.length - 1]); // Add the temporary line to the stage
-				G.vars.lines[G.vars.lines.length - 1].visible = true; // Make the line visible to the user
-			}
-			else // If the line that the mirror hit was created by another mirror bounce
-			{
-				stage.addChild(tmpLine); // Add the (invisible) temp line to the stage for hit testing
-				var mHit = checkLine(tmpLine); // see if any G.vars.mirrors are in the way of the new line
-				
-				if (mHit != 'OK') // If a mirror was touching the temporary line
-				{
-					
-					tmpLine.startX = G.vars.mirrors[tmpLine.owner].x; // don't change the start x point of the line
-					tmpLine.startY = G.vars.mirrors[tmpLine.owner].y; // also donn't change the starting y point
-					
-					switch (tmpLine.axis)
-					{
-						case 'x':
-							tmpLine.draw(G.vars.mirrors[tmpLine.owner].x, G.vars.mirrors[mHit].y); // only y axis should change
-							break;
-						case 'y':
-							tmpLine.draw(G.vars.mirrors[mHit].x, G.vars.mirrors[tmpLine.owner].y); // only x axis should change
-					}
-					
-					tmpLine.endMirror = mHit; // set the endMirror of the temporary line to the bad mirror
-					
-					tmpLine.inter = true;
-					tmpLine.update(); // update the origional values of the temporary line so they don't reset
-				}
-					
-				stage.removeChild(tmpLine);
-				G.vars.lines.push(tmpLine);
-				G.vars.lines[G.vars.lines.length - 1].visible = true;
-				stage.addChild(G.vars.lines[G.vars.lines.length - 1]);
-			}
-
-		}
-		
-		// This function checks if any G.vars.mirrors are touching the line (passed to the function)
-		// To do this, it loops through the G.vars.mirrors vector and returns any that are touching '_line'
-		// The line that is being tested must be a child of the stage but dosen't have to be visible
-		public function checkLine(_line)
-		{
-			var returned: Boolean = false;
-			for (var mirrorNumber: int = 0; mirrorNumber < G.vars.mirrors.length; mirrorNumber++)
-			{
-				if (mirrorNumber != _line.owner && mirrorNumber != _line.endMirror) // not the owner mirror
-				{
-					if (_line.hitTestObject(G.vars.mirrors[mirrorNumber])) // if the mirror is touching the line
-					{
-						if (returned == false) { return mirrorNumber; } // return the selected mirror number
-						returned = true; // make sure we don't return two values
-					}
-				}
-			}
-			if (returned == false) { return 'OK'; } // If nothing hit the mirror, return 'OK' as mHit
-		}
 	}
 	
 }
