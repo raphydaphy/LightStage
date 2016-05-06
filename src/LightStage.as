@@ -278,7 +278,7 @@ package
 			if (newMoney == money) { simpleDialog("Too poor!","You don't have enough coins to buy Double Coins!"); }
 			else if (newMoney == 1337) { simpleDialog("Already bought!","You already own Double Coins."); }
 			else { simpleDialog("Purchased Double Coins!","You sucessfully purchased Double Coins!"); money = newMoney; }
-			safeUpdateText()
+			safeUpdateText(false)
 		}
 		
 		private function buyBombChance(event:MouseEvent) // purchases bomb defence chance and tells user if it worked
@@ -291,7 +291,7 @@ package
 				simpleDialog("Purchased Bomb Deflection Chance!","You successfully purchased Bomb Deflection Chance!");
 				money = newMoney;
 			}
-			safeUpdateText()
+			safeUpdateText(false)
 		}
 		
 		private function closeShop(event:MouseEvent): void
@@ -509,13 +509,13 @@ package
 			if (badgeManager.stage) { stage.removeChild(badgeManager); }
 		}
 		
-		private function safeUpdateText(): void
+		private function safeUpdateText(changeFrame: Boolean = true): void
 		{
 			if (currentFrame == 3)
 			{
 				updateText();
 			}
-			else
+			else if (changeFrame)
 			{
 				gotoAndStop(3);
 				updateText();
@@ -536,7 +536,7 @@ package
 				badgeManager.y = 350;
 				stage.addChild(badgeManager);
 				money += 10;
-				safeUpdateText()
+				safeUpdateText(false);
 				var hideBadgeTimer:Timer = new Timer(2500, 1);
 				hideBadgeTimer.addEventListener(TimerEvent.TIMER, hideBadge);
 				hideBadgeTimer.start();
@@ -555,7 +555,7 @@ package
 				badgeManager.y = 350;
 				stage.addChild(badgeManager);
 				money += 25;
-				safeUpdateText()
+				safeUpdateText(false);
 				var hideBadgeTimer:Timer = new Timer(2500, 1);
 				hideBadgeTimer.addEventListener(TimerEvent.TIMER, hideBadge);
 				hideBadgeTimer.start();
@@ -564,7 +564,6 @@ package
 		
 		private function game(event:TimerEvent):void // start the game
 		{
-			trace('You have died ' + deaths + ' times');
 			resetting = false;
 			if (result == "OVER") // if the user has won the game
 			{
@@ -572,7 +571,6 @@ package
 			}
 			
 			gotoAndStop(3); // Go to blank frame to start the game on
-			checkBadges(); // check if they should get any new badges
 			
 			mirrors = new Vector.<mirror>(); // setup mirrors vector
 			lines = new Vector.<line>(); // setup lines vector
@@ -1603,7 +1601,7 @@ package
 					{
 						money += 2;
 					}
-					safeUpdateText()
+					safeUpdateText(false)
 					playerShop.setCoins(money);
 					coins[checkCoin].resetAll(); // reset selected coin
 					stage.removeChild(coins[checkCoin]); // remove the coin from the stage
@@ -1623,6 +1621,18 @@ package
 					walls[checkWall].gotoAndStop(1);
 				}
 				walls[checkWall].blocking = false;
+			}
+			
+			checkBadges(); // check if they should get any new badges
+			
+			if (badgeManager.stage)
+			{
+				stage.setChildIndex(badgeManager, stage.numChildren-1);
+			}
+			
+			if (dialog.stage)
+			{
+				stage.setChildIndex(dialog, stage.numChildren-1);
 			}
 		}
 
