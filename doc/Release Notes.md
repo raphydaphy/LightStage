@@ -1,6 +1,15 @@
 # Release Notes
 This page contains information about each minor release of LightStage. LightStage was first added to GitHub when it was in Alpha version 0.13. This page contains information from Alpha 0.01 all the way up to the latest release.
 
+## LightStage 0.1 Beta 4
+- Badge system awards you with a badge & money for completing achievements
+- Fixed badge display glitch in issue #22
+- Fixed wall blocking glitch in issue #21
+- Fixed bomb damage glitch in issue #20
+- Fixed mirror crash in issue #19
+- Fixed shop glitch in issue #18
+- Fixed level changing cash in issue #15
+
 ## LightStage 0.1 Beta 3
 - Added an option to test levels made in the level editor by pressing T
 - Added an option to pick core line direction in level editor
