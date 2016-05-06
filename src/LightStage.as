@@ -30,7 +30,8 @@ package
 		********************************************************/
 		private var dialog: openShop = new openShop();
 		private var playerShop: shop = new shop(money);
-		private var badgeManager: badgeAlert = new badgeAlert();
+		private var badgeManager1: badgeAlert = new badgeAlert();
+		private var badgeManager2: badgeAlert = new badgeAlert();
 		private var badges: Array = [];
 		private var levelEdit: Boolean = false;
 		private var resetting: Boolean = false;
@@ -38,6 +39,7 @@ package
 		private var deaths: int = 0;
 		private var detonated: int = 0;
 		private var escaped: int = 0;
+		private var curBadgeBox: int = 0;
 		private var lineColors: Array = [0x2ecc71, 0x27ae60, 0x3498db, 0x2980b9, 0x9b59b6, 0x8e44ad, 0x34495e, 0x2c3e50,
 										 0xf1c40f, 0xf1c40f, 0xe67e22, 0xe74c3c, 0xecf0f1, 0x95a5a6, 0xf39c12, 0xd35400,
 										 0xc0392b, 0xbdc3c7, 0x7f8c8d];
@@ -522,9 +524,16 @@ package
 			stage.removeEventListener(Event.ENTER_FRAME, enterFrame); // stop enterFrame listener
 		}
 		
-		private function hideBadge(event:TimerEvent): void // hide the badge alert movieclip
+		private function hideBadge1(event:TimerEvent): void // hide the badge alert movieclip
 		{
-			if (badgeManager.stage) { stage.removeChild(badgeManager); }
+			if (badgeManager1.stage) { stage.removeChild(badgeManager1); }
+			curBadgeBox -= 1;
+		}
+		
+		private function hideBadge2(event:TimerEvent): void // hide the badge alert movieclip
+		{
+			if (badgeManager2.stage) { stage.removeChild(badgeManager2); }
+			curBadgeBox -= 1;
 		}
 		
 		private function safeUpdateText(changeFrame: Boolean = true): void
@@ -542,21 +551,42 @@ package
 		
 		private function showBadge(title: String, desc: String, cost: int, frame: int): void
 		{
-			badges.push(title.toLocaleLowerCase());
-			badgeManager = new badgeAlert();
-			badgeManager.badgeHeading.text = title;
-			badgeManager.badgeDesc.text = desc;
-			badgeManager.badgeCost.text = "$" + cost;
-			badgeManager.badgeIcon.gotoAndStop(frame);
-			badgeManager.x = 275;
-			badgeManager.y = 350;
-			stage.addChild(badgeManager);
+			if (!badgeManager1.stage)
+			{
+				badges.push(title.toLocaleLowerCase());
+				badgeManager1 = new badgeAlert();
+				badgeManager1.badgeHeading.text = title;
+				badgeManager1.badgeDesc.text = desc;
+				badgeManager1.badgeCost.text = "$" + cost;
+				badgeManager1.badgeIcon.gotoAndStop(frame);
+				badgeManager1.x = 275;
+				badgeManager1.y = 350;
+				stage.addChild(badgeManager1);
+				
+				var hideBadgeTimer:Timer = new Timer(5000, 1);
+				hideBadgeTimer.addEventListener(TimerEvent.TIMER, hideBadge1);
+				hideBadgeTimer.start();
+			}
+			else if (!badgeManager2.stage)
+			{
+				badges.push(title.toLocaleLowerCase());
+				badgeManager2 = new badgeAlert();
+				badgeManager2.badgeHeading.text = title;
+				badgeManager2.badgeDesc.text = desc;
+				badgeManager2.badgeCost.text = "$" + cost;
+				badgeManager2.badgeIcon.gotoAndStop(frame);
+				badgeManager2.x = 275;
+				badgeManager2.y = 265;
+				stage.addChild(badgeManager2);
+				
+				var hideBadgeTimer:Timer = new Timer(5000, 1);
+				hideBadgeTimer.addEventListener(TimerEvent.TIMER, hideBadge2);
+				hideBadgeTimer.start();
+			}
 			money += cost;
 			playerShop.setCoins(money);
 			safeUpdateText(false);
-			var hideBadgeTimer:Timer = new Timer(2500, 1);
-			hideBadgeTimer.addEventListener(TimerEvent.TIMER, hideBadge);
-			hideBadgeTimer.start();
+			curBadgeBox += 1;
 		}
 		
 		private function checkBadges(): void
@@ -1572,9 +1602,14 @@ package
 			
 			checkBadges(); // check if they should get any new badges
 			
-			if (badgeManager.stage)
+			if (badgeManager1.stage)
 			{
-				bringToFront(badgeManager);
+				bringToFront(badgeManager1);
+			}
+			
+			if (badgeManager2.stage)
+			{
+				bringToFront(badgeManager2);
 			}
 			
 			if (playerShop.stage)
