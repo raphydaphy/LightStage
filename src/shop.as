@@ -6,7 +6,7 @@
 	public class shop extends MovieClip
 	{
 		public var money: int = 0;
-		public var items: Array = [];
+		public var playerItems: Array = [];
 		
 		public function shop(playerCoins: int) 
 		{
@@ -33,9 +33,9 @@
 			
 			if (itemCost <= money)
 			{
-				if (items.indexOf(item) == -1)
+				if (playerItems.indexOf(item) == -1)
 				{
-					items[items.length] = item;
+					playerItems[playerItems.length] = item;
 					money = money - itemCost;
 				}
 				else

@@ -118,6 +118,7 @@ package
 						levelEdit = false;
 						level = 1;
 						money = 0;
+						playerShop.setCoins(money);
 						reset();
 						prepGame();
 					}
@@ -168,6 +169,7 @@ package
 						{
 							level = 0;
 							money = 0;
+							playerShop.setCoins(money);
 							stage.addEventListener(Event.ENTER_FRAME, enterFrame);
 							
 							var stopGameTimer:Timer = new Timer(500, 1); 
@@ -285,7 +287,8 @@ package
 			if (newMoney == money) { simpleDialog("Too poor!","You don't have enough coins to buy Double Coins!"); }
 			else if (newMoney == 1337) { simpleDialog("Already bought!","You already own Double Coins."); }
 			else { simpleDialog("Purchased Double Coins!","You sucessfully purchased Double Coins!"); money = newMoney; }
-			safeUpdateText(false)
+			safeUpdateText(false);
+			playerShop.setCoins(money);
 		}
 		
 		private function buyBombChance(event:MouseEvent) // purchases bomb defence chance and tells user if it worked
@@ -299,6 +302,7 @@ package
 				money = newMoney;
 			}
 			safeUpdateText(false)
+			playerShop.setCoins(money);
 		}
 		
 		private function closeShop(event:MouseEvent): void
@@ -446,6 +450,7 @@ package
 					maxLevel = level - 1;
 					money += level - 1;
 					spawnCoins = true;
+					playerShop.setCoins(money);
 				}
 				startupMsg = "You completed level " + (level - 1) + "!"; // show the user what level they are on
 			}
@@ -519,45 +524,46 @@ package
 				updateText();
 			}
 		}
+		
+		private function showBadge(title: String, desc: String, cost: int, frame: int): void
+		{
+			badges.push(title.toLocaleLowerCase());
+			badgeManager = new badgeAlert();
+			badgeManager.badgeHeading.text = title;
+			badgeManager.badgeDesc.text = desc;
+			badgeManager.badgeCost.text = "$" + cost;
+			badgeManager.badgeIcon.gotoAndStop(frame);
+			badgeManager.x = 275;
+			badgeManager.y = 350;
+			stage.addChild(badgeManager);
+			money += cost;
+			playerShop.setCoins(money);
+			safeUpdateText(false);
+			var hideBadgeTimer:Timer = new Timer(2500, 1);
+			hideBadgeTimer.addEventListener(TimerEvent.TIMER, hideBadge);
+			hideBadgeTimer.start();
+		}
+		
 		private function checkBadges(): void
 		{
 			if (deaths > 4 && // if they have died at least 5 times in a row
 				badges.indexOf("crash test dummy 1") == -1 ) // if they don't already have the badge
 			{
-				badges.push("crash test dummy 1");
-				badgeManager = new badgeAlert();
-				badgeManager.badgeHeading.text = "Crash Test Dummy 1";
-				badgeManager.badgeDesc.text = "Die 5 Times in a single game";
-				badgeManager.badgeCost.text = "$10";
-				badgeManager.badgeIcon.gotoAndStop(1);
-				badgeManager.x = 275;
-				badgeManager.y = 350;
-				stage.addChild(badgeManager);
-				money += 10;
-				safeUpdateText(false);
-				var hideBadgeTimer:Timer = new Timer(2500, 1);
-				hideBadgeTimer.addEventListener(TimerEvent.TIMER, hideBadge);
-				hideBadgeTimer.start();
+				showBadge("Crash Test Dummy 1","Die 5 times in a single game",10,1);
 			}
 			
 			if (deaths > 9 && // if they have died at least 10 times in a row
 				badges.indexOf("crash test dummy 2") == -1 ) // if they don't already have the badge
 			{
-				badges.push("crash test dummy 2");
-				badgeManager = new badgeAlert();
-				badgeManager.badgeHeading.text = "Crash Test Dummy 2";
-				badgeManager.badgeDesc.text = "Die 10 Times in a single game";
-				badgeManager.badgeCost.text = "$25";
-				badgeManager.badgeIcon.gotoAndStop(1);
-				badgeManager.x = 275;
-				badgeManager.y = 350;
-				stage.addChild(badgeManager);
-				money += 25;
-				safeUpdateText(false);
-				var hideBadgeTimer:Timer = new Timer(2500, 1);
-				hideBadgeTimer.addEventListener(TimerEvent.TIMER, hideBadge);
-				hideBadgeTimer.start();
+				showBadge("Crash Test Dummy 2","Die 10 times in a single game",25,1);
 			}
+			
+			if (playerShop.playerItems.length > 1 && // if they have purchased at least 2 items from the shop
+				badges.indexOf("spending spree 1") == -1) // if they don't already have the badge
+			{
+				showBadge("Spending Spree 1","Buy at least two items from the ingame shop",10,2);
+			}
+				
 		}
 		
 		private function game(event:TimerEvent):void // start the game
@@ -1470,6 +1476,7 @@ package
 		// In that case, it is called when it finishes running. Essentially, it runs once each tick.
 		private function enterFrame(event: Event)
 		{
+			
 			for (var lineNum: int = 0; lineNum < lines.length; lineNum++) // Loop through lines vector
 			{
 				if (lines[lineNum].noLoop == false) // Don't loop through lines that we don't need anymore
@@ -1545,7 +1552,7 @@ package
 					{
 						if (bombs[bombNum].exploded == true)
 						{
-							if (playerShop.items.indexOf("bomb deflect chance") != -1 && // if they have bomb defence chance
+							if (playerShop.playerItems.indexOf("bomb deflect chance") != -1 && // if they have bomb defence chance
 								Math.round(Math.random())) // if they are lucky and manage to dodge the bomb
 							{
 								bombs[bombNum].resetAll();
@@ -1591,7 +1598,7 @@ package
 			{
 				if (coins[checkCoin].full == true && coins[checkCoin].stage) // If the selected globe is full
 				{
-					if (playerShop.items.indexOf("double coins") == -1) // if the player dosen't own the double coins upgrade
+					if (playerShop.playerItems.indexOf("double coins") == -1) // if the player dosen't own the double coins upgrade
 					{
 						money += 1; // increase money by one coin
 					}
