@@ -6,19 +6,19 @@
 		
 		private function hideBadge1(event:TimerEvent): void // hide the badge alert movieclip
 		{
-			if (G.vars.badgeManager1.G.vars._stage) { G.vars._stage.removeChild(G.vars.badgeManager1); }
+			if (G.vars.badgeManager1.stage) { G.vars._stage.removeChild(G.vars.badgeManager1); }
 			G.vars.curBadgeBox -= 1;
 		}
 		
 		private function hideBadge2(event:TimerEvent): void // hide the badge alert movieclip
 		{
-			if (G.vars.badgeManager2.G.vars._stage) { G.vars._stage.removeChild(G.vars.badgeManager2); }
+			if (G.vars.badgeManager2.stage) { G.vars._stage.removeChild(G.vars.badgeManager2); }
 			G.vars.curBadgeBox -= 1;
 		}
 		
 		private function showBadge(title: String, desc: String, cost: int, frame: int): void
 		{
-			if (!G.vars.badgeManager1.G.vars._stage)
+			if (!G.vars.badgeManager1.stage)
 			{
 				G.vars.badgesArray.push(title.toLocaleLowerCase());
 				G.vars.badgeManager1 = new badgeAlert();
@@ -34,7 +34,7 @@
 				hideBadge1Timer.addEventListener(TimerEvent.TIMER, hideBadge1);
 				hideBadge1Timer.start();
 			}
-			else if (!G.vars.badgeManager2.G.vars._stage)
+			else if (!G.vars.badgeManager2.G.stage)
 			{
 				G.vars.badgesArray.push(title.toLocaleLowerCase());
 				G.vars.badgeManager2 = new badgeAlert();
@@ -51,7 +51,7 @@
 				hideBadge2Timer.start();
 			}
 			G.vars.money += cost;
-			LightStage.instance.safeUpdateText(false);
+			G.vars._root.safeUpdateText(false);
 			G.vars.curBadgeBox += 1;
 		}
 		
@@ -78,19 +78,19 @@
 			if (G.vars.level > 4 &&
 				G.vars.badgesArray.indexOf("survivor 1") == -1)
 			{
-				showBadge("Survivor 1","Complete 4 G.vars.levels in a row without dying",10,3);
+				showBadge("Survivor 1","Complete 4 levels in a row without dying",10,3);
 			}
 			
 			if (G.vars.level > 8 &&
 				G.vars.badgesArray.indexOf("survivor 2") == -1)
 			{
-				showBadge("Survivor 2","Complete 8 G.vars.levels in a row without dying",25,3);
+				showBadge("Survivor 2","Complete 8 levels in a row without dying",25,3);
 			}
 			
 			if (G.vars.detonated > 5 &&
 				G.vars.badgesArray.indexOf("killing spree 1") == -1)
 			{
-				showBadge("Killing Spree 1","Detonate 5 G.vars.bombs",5,4);
+				showBadge("Killing Spree 1","Detonate 5 bombs",5,4);
 			}
 			
 			if (G.vars.detonated > 10 &&
@@ -102,13 +102,13 @@
 			if (G.vars.escaped > 5 &&
 				G.vars.badgesArray.indexOf("escape artist 1") == -1)
 			{
-				showBadge("Escape Artist 1","Dodge 5 G.vars.bombs using Bomb Deflection Chance",10,5);
+				showBadge("Escape Artist 1","Dodge 5 bombs using Bomb Deflection Chance",10,5);
 			}
 			
 			if (G.vars.escaped > 10 &&
 				G.vars.badgesArray.indexOf("escape artist 2") == -2)
 			{
-				showBadge("Escape Artist 2","Dodge 10 G.vars.bombs using Bomb Deflection Chance",25,5);
+				showBadge("Escape Artist 2","Dodge 10 bombs using Bomb Deflection Chance",25,5);
 			}
 		}
 
