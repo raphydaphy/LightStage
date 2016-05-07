@@ -1,6 +1,11 @@
 # Release Notes
 This page contains information about each minor release of LightStage. LightStage was first added to GitHub when it was in Alpha version 0.13. This page contains information from Alpha 0.01 all the way up to the latest release.
 
+## LightStage 0.1 Final
+- Globalised everything & added new files for different functions!
+- Fixed wall invisibility glitch from issue #16 
+- Fixed stage rewrite crash in issue #23 
+
 ## LightStage 0.1 Beta 4
 - Badge system awards you with a badge & money for completing achievements
 - Fixed badge display glitch in issue #22
