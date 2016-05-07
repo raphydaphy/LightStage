@@ -299,6 +299,20 @@
 			
 		}
 		
+		public function drawUp(_mirrorNum, _lineNum): line
+		{
+			return new line(G.vars.mirrors[_mirrorNum].x, G.vars.mirrors[_mirrorNum].y, 
+							G.vars.mirrors[_mirrorNum].x, -450, 
+							'x', 'DOWN', _mirrorNum, G.vars.lines[_lineNum].lineColor);
+		}
+		
+		public function drawDown(_mirrorNum, _lineNum): line
+		{
+			return new line(G.vars.mirrors[_mirrorNum].x, G.vars.mirrors[_mirrorNum].y, 
+							G.vars.mirrors[_mirrorNum].x, 1000, 
+							'x', 'DOWN', _mirrorNum, G.vars.lines[_lineNum].lineColor);
+		}
+		
 		// This function simulates a bounce, creates a temporary, invisible line
 		// to test for colisions, stops the line at the collision point if any
 		// is found, adds the new, fixed line to the stage and returns void
@@ -344,7 +358,7 @@
 							tmpLine = new line(_mirror.x, _mirror.y, _mirror.x - 400, _mirror.y - 400,
 											   'd', 'UP LEFT', mirrorNum, G.vars.lines[lineNum].lineColor);
 							break;
-						case 6: // a type 2 refractor hitting a line going up and right should bounce right
+						case 7: // a type 3 refractor hitting a line going up and right should bounce right
 							tmpLine = new line(_mirror.x, _mirror.y, 1000, _mirror.y,
 											   'y', 'RIGHT', mirrorNum, G.vars.lines[lineNum].lineColor);
 							break;
@@ -362,6 +376,7 @@
 							tmpLine = new line(_mirror.x, _mirror.y, 1000, _mirror.y, 
 											   'y', 'RIGHT', mirrorNum, G.vars.lines[lineNum].lineColor);
 							break;
+						case 6: // a type 2 refractor hitting a line going down should bounce down and left
 					}
 					break;
 				
@@ -372,7 +387,7 @@
 							tmpLine = new line(_mirror.x, _mirror.y, _mirror.x + 400, _mirror.y + 400,
 											   'd', 'DOWN RIGHT', mirrorNum, G.vars.lines[lineNum].lineColor);
 							break;
-						case 6: // a type 2 refractor hitting a line going down and left should bounce left
+						case 7: // a type 3 refractor hitting a line going down and left should bounce left
 							tmpLine = new line(_mirror.x, _mirror.y, -450, _mirror.y,
 											   'y', 'LEFT', mirrorNum, G.vars.lines[lineNum].lineColor);
 							break;
@@ -390,7 +405,7 @@
 							tmpLine = new line(_mirror.x, _mirror.y, _mirror.x + 400, _mirror.y - 400,
 											   'd', 'UP RIGHT', mirrorNum, G.vars.lines[lineNum].lineColor);
 							break;
-						case 5: // a type 1 refractor hitting a line going down and right should bounce straight right
+						case 5: // a type 1 refractor hitting a line going down and right should bounce right
 							tmpLine = new line(_mirror.x, _mirror.y, 1000, _mirror.y, 
 											   'y', 'RIGHT', mirrorNum, G.vars.lines[lineNum].lineColor);
 							break;
@@ -401,18 +416,16 @@
 					switch (_mirror.currentFrame)
 					{
 						case 1: // A type 1 mirror hitting a line going left should bounce down
-							tmpLine = new line(_mirror.x, _mirror.y, _mirror.x, 400, 
-											   'x', 'DOWN', mirrorNum, G.vars.lines[lineNum].lineColor);
+							tmpLine = drawDown(mirrorNum, lineNum);
 							break;
 						case 3: // A type 3 mirror hitting a line going left should bounce up
-							tmpLine = new line(_mirror.x, _mirror.y, _mirror.x, 0, 
-											   'x', 'UP', mirrorNum, G.vars.lines[lineNum].lineColor);
+							tmpLine = drawUp(mirrorNum, lineNum);
 							break;
 						case 5: // a type 1 refractor hitting a line going left should bounce up and left
 							tmpLine = new line(_mirror.x, _mirror.y, _mirror.x - 400, _mirror.y - 400,
 											   'd', 'UP LEFT', mirrorNum, G.vars.lines[lineNum].lineColor);
 							break;
-						case 6: // a type 2 refractor hitting a line going left should bounce down and left
+						case 7: // a type 3 refractor hitting a line going left should bounce down and left
 							tmpLine = new line(_mirror.x, _mirror.y, _mirror.x - 400, _mirror.y + 400,
 											   'd', 'DOWN LEFT', mirrorNum, G.vars.lines[lineNum].lineColor);
 							break;
@@ -423,12 +436,10 @@
 					switch (_mirror.currentFrame)
 					{
 						case 1: // A type 1 mirror hitting a line going right should bounce up
-							tmpLine = new line(_mirror.x, _mirror.y, _mirror.x, 0, 
-											   'x', 'UP', mirrorNum, G.vars.lines[lineNum].lineColor);
+							tmpLine = drawUp(mirrorNum, lineNum);
 							break;
 						case 3: // A type 3 mirror hitting a line going right should bounce down
-							tmpLine = new line(_mirror.x, _mirror.y, _mirror.x, 400,
-											   'x', 'DOWN', mirrorNum, G.vars.lines[lineNum].lineColor);
+							tmpLine = drawDown(mirrorNum, lineNum);
 							break;
 						case 5: // a type 1 refractor hitting a line going right should bounce down and right
 							tmpLine = new line(_mirror.x, _mirror.y, _mirror.x + 400, _mirror.y + 400,
