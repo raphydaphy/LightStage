@@ -369,6 +369,10 @@
 							tmpLine = new line(_mirror.x, _mirror.y, _mirror.x + 400, _mirror.y + 400,
 											   'd', 'DOWN RIGHT', mirrorNum, G.vars.lines[lineNum].lineColor);
 							break;
+						case 6: // a type 2 refractor hitting a line going down and left should bounce left
+							tmpLine = new line(_mirror.x, _mirror.y, -450, _mirror.y,
+											   'y', 'LEFT', mirrorNum, G.vars.lines[lineNum].lineColor);
+							break;
 					}
 					break;
 					

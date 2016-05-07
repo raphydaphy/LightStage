@@ -6,10 +6,6 @@
 		public function demoLevel() // a level for testing
 		{
 			var num:int=Math.floor(Math.random() * G.vars.lineColors.length);
-			
-			G.vars.lines.push(new line(50, 200, 1000, 200, 'y', 'RIGHT', 9999, G.vars.lineColors[num], false, false));
-			G.vars.lines[G.vars.lines.length - 1].visible = true;
-			G.vars._stage.addChild(G.vars.lines[G.vars.lines.length - 1])
 
 			G.vars.mirrors.push(new mirror(22, 22, 5));
 			G.vars._stage.addChild(G.vars.mirrors[G.vars.mirrors.length - 1]);
@@ -39,6 +35,10 @@
 
 				G.vars.coins.push(new coin(155, 382));
 				G.vars._stage.addChild(G.vars.coins[G.vars.coins.length - 1]);
+				
+				G.vars.lines.push(new line(50, 200, 1000, 200, 'y', 'RIGHT', 9999, G.vars.lineColors[num], false, false));
+				G.vars.lines[G.vars.lines.length - 1].visible = true;
+				G.vars._stage.addChild(G.vars.lines[G.vars.lines.length - 1])
 			}
 		}
 		public function setupLevel()
