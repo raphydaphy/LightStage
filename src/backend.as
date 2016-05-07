@@ -435,6 +435,11 @@
 			prepGame();
 		}
 		
+		public function stopEnterFrame(event:TimerEvent)
+		{
+			G.vars._stage.removeEventListener(Event.ENTER_FRAME, G.vars.backend.enterFrame); // stop enterFrame listener
+		}
+		
 	}
 	
 }
