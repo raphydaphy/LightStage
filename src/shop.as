@@ -6,9 +6,7 @@
 	
 	public class shop extends MovieClip
 	{
-		public var playerItems: Array = [];
-		
-		public function shopBuy(item: String): int
+		public function shopBuy(item: String)
 		{
 			var itemCost: int = 0;
 			if (item == "double coins")
@@ -22,19 +20,21 @@
 			
 			if (itemCost <= G.vars.money)
 			{
-				if (playerItems.indexOf(item) == -1)
+				if (G.vars.playerItems.indexOf(item) == -1)
 				{
-					playerItems[playerItems.length] = item;
+					G.vars.playerItems[G.vars.playerItems.length] = item;
 					G.vars.money = G.vars.money - itemCost;
-					return G.vars.money;
+					G.vars.shopResult = "purchased";
 				}
 				else
 				{
-					
-					return 1337;
+					G.vars.shopResult = "already got";
 				}
 			}
-			return 9876;
+			else
+			{
+				G.vars.shopResult = "poor";
+			}
 		}
 	}
 }

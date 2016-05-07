@@ -56,6 +56,7 @@ package
 		G.vars.badgesArray = [];
 		G.vars.levelEdit = false;
 		G.vars.resetting = false;
+		G.vars.playerItems = [];
 		G.vars.maxLevel = 0;
 		G.vars.deaths = 0;
 		G.vars.detonated = 0;

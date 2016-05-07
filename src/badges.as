@@ -69,7 +69,7 @@
 				showBadge("Crash Test Dummy 2","Die 10 times in a single game",10,1);
 			}
 			
-			if (G.vars.playerShop.playerItems.length > 1 && // if they have purchased at least 2 items from the shop
+			if (G.vars.playerItems.length > 1 && // if they have purchased at least 2 items from the shop
 				G.vars.badgesArray.indexOf("spending spree 1") == -1) // if they don't already have the badge
 			{
 				showBadge("Spending Spree 1","Buy at least two items from the ingame shop",5,2);
