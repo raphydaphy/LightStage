@@ -1,6 +1,10 @@
 # Release Notes
 This page contains information about each minor release of LightStage. LightStage was first added to GitHub when it was in Alpha version 0.13. This page contains information from Alpha 0.01 all the way up to the latest release.
 
+## LightStage 0.2 Final
+- Gave mirrors a hit-box to prevent you from dying due to a glitch
+- Fixed light bending glitch in issue #36 which was caused by an error in 0.2 Beta 3
+
 ## LightStage 0.2 Beta 3
 - Finished adding refractors and closed issue #33 
 - Every single possible light direction and mirror combination now works
