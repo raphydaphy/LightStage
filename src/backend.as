@@ -291,7 +291,7 @@
 		// is found, adds the new, fixed line to the stage and returns void
 		public function simBounce(_line: line, lineNum: int, _mirror: mirror, mirrorNum: int): void
 		{
-			var tmpLine: line; // Note: stage width is 550, height is 400
+			var tmpLine: line = new line(-100,-100,-100,-100,'','',mirrorNum,G.vars.lines[lineNum].lineColor);
 			
 			switch (_line.dir) // Switch between the possible directions the interfering line can be going in
 			{
@@ -308,6 +308,16 @@
 							break;
 					}
 					break;
+				
+				case 'UP LEFT':
+					switch (_mirror.currentFrame)
+					{
+						case 5: // a type 1 refractor hitting a line going up and left should bounce stright left
+							tmpLine = new line(_mirror.x, _mirror.y, -450, _mirror.y,
+											   'y', 'LEFT', mirrorNum, G.vars.lines[lineNum].lineColor);
+							break;
+							
+					}
 
 				case 'DOWN':
 					switch (_mirror.currentFrame)
@@ -322,6 +332,15 @@
 							break;
 					}
 					break;
+				
+				case 'DOWN RIGHT':
+					switch (_mirror.currentFrame)
+					{
+						case 5: // a type 1 refractor hitting a line going down and right should bounce straight right
+							tmpLine = new line(_mirror.x, _mirror.y, 1000, _mirror.y,
+											   'y','RIGHT', mirrorNum, G.vars.lines[lineNum].lineColor);
+							break;
+					}
 					
 				case 'LEFT':
 					switch (_mirror.currentFrame)
@@ -334,7 +353,7 @@
 							tmpLine = new line(_mirror.x, _mirror.y, _mirror.x, 0, 
 											   'x', 'UP', mirrorNum, G.vars.lines[lineNum].lineColor);
 							break;
-						case 5:
+						case 5: // a type 1 refractor hitting a line going left should bounce up and left
 							tmpLine = new line(_mirror.x, _mirror.y, _mirror.x - 400, _mirror.y - 400,
 											   'd', 'UP LEFT', mirrorNum, G.vars.lines[lineNum].lineColor);
 							break;
@@ -352,7 +371,7 @@
 							tmpLine = new line(_mirror.x, _mirror.y, _mirror.x, 400,
 											   'x', 'DOWN', mirrorNum, G.vars.lines[lineNum].lineColor);
 							break;
-						case 5:
+						case 5: // a type 1 refractor hitting a line going right should bounce down and right
 							tmpLine = new line(_mirror.x, _mirror.y, _mirror.x + 400, _mirror.y + 400,
 											   'd', 'DOWN RIGHT', mirrorNum, G.vars.lines[lineNum].lineColor);
 							break;
