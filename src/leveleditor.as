@@ -48,7 +48,7 @@
 			G.vars.dialog.upBtn.addEventListener(MouseEvent.MOUSE_DOWN, levelEditorSetUp);
 			G.vars.dialog.downBtn.addEventListener(MouseEvent.MOUSE_DOWN, levelEditorSetDown);
 			
-			G.vars.lines.push(new line(550, 200, -450, 200, 'y', 'LEFT', 9999, G.vars.lineColors[randomNum], false, false));
+			G.vars.lines.push(new line(500, 200, -450, 200, 'y', 'LEFT', 9999, G.vars.lineColors[randomNum], false, false));
 			G.vars.lines[G.vars.lines.length - 1].visible = true;
 			G.vars._stage.addChild(G.vars.lines[G.vars.lines.length - 1]);
 		}
@@ -61,7 +61,7 @@
 			G.vars.dialog.upBtn.addEventListener(MouseEvent.MOUSE_DOWN, levelEditorSetUp);
 			G.vars.dialog.downBtn.addEventListener(MouseEvent.MOUSE_DOWN, levelEditorSetDown);
 			
-			G.vars.lines.push(new line(0, 200, 1000, 200, 'y', 'RIGHT', 9999, G.vars.lineColors[randomNum], false, false));
+			G.vars.lines.push(new line(50, 200, 1000, 200, 'y', 'RIGHT', 9999, G.vars.lineColors[randomNum], false, false));
 			G.vars.lines[G.vars.lines.length - 1].visible = true;
 			G.vars._stage.addChild(G.vars.lines[G.vars.lines.length - 1]);
 		}
@@ -74,7 +74,7 @@
 			G.vars.dialog.upBtn.addEventListener(MouseEvent.MOUSE_DOWN, levelEditorSetUp);
 			G.vars.dialog.downBtn.addEventListener(MouseEvent.MOUSE_DOWN, levelEditorSetDown);
 			
-			G.vars.lines.push(new line(275, 360, 275, -450, 'x', 'UP', 9999, G.vars.lineColors[randomNum], false, false));
+			G.vars.lines.push(new line(275, 350, 275, -450, 'x', 'UP', 9999, G.vars.lineColors[randomNum], false, false));
 			G.vars.lines[G.vars.lines.length - 1].visible = true;
 			G.vars._stage.addChild(G.vars.lines[G.vars.lines.length - 1]);
 		}

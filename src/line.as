@@ -141,6 +141,10 @@
 			{
 				graphics.lineTo(toX, origEndY);
 			}
+			else if (axis == 'd') // diagonal
+			{
+				graphics.lineTo(toX, toY);
+			}
 
 
 			endX = toX;
