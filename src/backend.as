@@ -186,7 +186,7 @@
 							{
 								G.vars.bombs[bombNum].resetAll();
 								G.vars.bombs[bombNum].destroy();
-								if (G.vars.bombs[bombNum].G.vars._stage) { G.vars._stage.removeChild(G.vars.bombs[bombNum]); }
+								if (G.vars.bombs[bombNum].stage) { G.vars._stage.removeChild(G.vars.bombs[bombNum]); }
 								G.vars.escaped += 1;
 							}
 							else // if they don't have bomb deflect chance, or didn't manage to deflect the bomb (50% chance)

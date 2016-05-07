@@ -7,7 +7,7 @@
 		public function buyDoubleCoins(event:MouseEvent) // purchases double G.vars.coins and tells the user if it worked
 		{
 			var newMoney = G.vars.playerShop.shopBuy("double G.vars.coins");
-			if (newMoney == G.vars.money) { G.vars.dialogbox.simpleDialog("Too poor!","You don't have enough coins to buy Double Coins!"); }
+			if (newMoney == 9876) { G.vars.dialogbox.simpleDialog("Too poor!","You don't have enough coins to buy Double Coins!"); }
 			else if (newMoney == 1337) { G.vars.dialogbox.simpleDialog("Already bought!","You already own Double Coins."); }
 			else { G.vars.dialogbox.simpleDialog("Purchased Double Coins!","You sucessfully purchased Double Coins!"); G.vars.money = newMoney; }
 			G.vars._root.safeUpdateText(false);
@@ -16,7 +16,8 @@
 		public function buyBombChance(event:MouseEvent) // purchases bomb defence chance and tells user if it worked
 		{
 			var newMoney = G.vars.playerShop.shopBuy("bomb deflect chance");
-			if (newMoney == G.vars.money) { G.vars.dialogbox.simpleDialog("Too poor!","You don't have enough coins to buy Bomb Deflection Chance!"); }
+			trace(newMoney);
+			if (newMoney == 9876) { G.vars.dialogbox.simpleDialog("Too poor!","You don't have enough coins to buy Bomb Deflection Chance!"); }
 			else if (newMoney == 1337) { G.vars.dialogbox.simpleDialog("Already bought!","You already own Bomb Deflection Chance."); }
 			else 
 			{

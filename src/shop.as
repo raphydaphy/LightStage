@@ -26,6 +26,7 @@
 				{
 					playerItems[playerItems.length] = item;
 					G.vars.money = G.vars.money - itemCost;
+					return G.vars.money;
 				}
 				else
 				{
@@ -33,7 +34,7 @@
 					return 1337;
 				}
 			}
-			return G.vars.money;
+			return 9876;
 		}
 	}
 }
