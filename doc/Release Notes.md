@@ -1,6 +1,13 @@
 # Release Notes
 This page contains information about each minor release of LightStage. LightStage was first added to GitHub when it was in Alpha version 0.13. This page contains information from Alpha 0.01 all the way up to the latest release.
 
+## LightStage 0.2 Beta 3
+- Finished adding refractors and closed issue #33 
+- Every single possible light direction and mirror combination now works
+- Mirrors have been enlarged to make them easier to drag
+- Added rotated versions of refractors
+- Properly implemented all rotations of the standard, flat mirrors
+
 ## LightStage 0.2 Beta 2
 - Added two new rotation states of the standard mirror, made one of them work (Frame 2)
 - Added refractors from issue #33 but still work needed to close the issue
