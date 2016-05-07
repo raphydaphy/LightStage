@@ -114,8 +114,8 @@ package
 				}
 			}
 			
-			G.vars.levels.setupLevel();
-			//G.vars.levels.demoLevel();
+			//G.vars.levels.setupLevel();
+			G.vars.levels.demoLevel();
 			
 			stage.addEventListener(Event.ENTER_FRAME, G.vars.backend.enterFrame); // Start enterFrame listener
 		}
