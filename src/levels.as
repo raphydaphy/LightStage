@@ -3,43 +3,60 @@
 	import G;
 	public class levels 
 	{
-		public function demoLevel() // a level for testing
+		public function demoLevel() // a level for testing new features
 		{
 			var num:int=Math.floor(Math.random() * G.vars.lineColors.length);
 
 			G.vars.mirrors.push(new mirror(22, 22, 5));
-			G.vars._stage.addChild(G.vars.mirrors[G.vars.mirrors.length - 1]);
+	G.vars._stage.addChild(G.vars.mirrors[G.vars.mirrors.length - 1]);
 
-			G.vars.mirrors.push(new mirror(66, 22, 2));
-			G.vars._stage.addChild(G.vars.mirrors[G.vars.mirrors.length - 1]);
+	G.vars.mirrors.push(new mirror(66, 22, 4));
+	G.vars._stage.addChild(G.vars.mirrors[G.vars.mirrors.length - 1]);
 
-			G.vars.mirrors.push(new mirror(110, 22, 6));
-			G.vars._stage.addChild(G.vars.mirrors[G.vars.mirrors.length - 1]);
+	G.vars.mirrors.push(new mirror(110, 22, 2));
+	G.vars._stage.addChild(G.vars.mirrors[G.vars.mirrors.length - 1]);
 
-			G.vars.globes.push(new globe(481, 47));
-			G.vars._stage.addChild(G.vars.globes[G.vars.globes.length - 1]);
+	G.vars.mirrors.push(new mirror(154, 22, 5));
+	G.vars._stage.addChild(G.vars.mirrors[G.vars.mirrors.length - 1]);
 
-			G.vars.globes.push(new globe(274, 270));
-			G.vars._stage.addChild(G.vars.globes[G.vars.globes.length - 1]);
+	G.vars.mirrors.push(new mirror(198, 22, 1));
+	G.vars._stage.addChild(G.vars.mirrors[G.vars.mirrors.length - 1]);
 
-			G.vars.globes.push(new globe(94, 374));
-			G.vars._stage.addChild(G.vars.globes[G.vars.globes.length - 1]);
-			if (G.vars.spawnCoins)
-			{
+	G.vars.globes.push(new globe(151, 252));
+	G.vars._stage.addChild(G.vars.globes[G.vars.globes.length - 1]);
 
-				G.vars.coins.push(new coin(247, 242));
-				G.vars._stage.addChild(G.vars.coins[G.vars.coins.length - 1]);
+	G.vars.globes.push(new globe(362, 189));
+	G.vars._stage.addChild(G.vars.globes[G.vars.globes.length - 1]);
 
-				G.vars.coins.push(new coin(273, 338));
-				G.vars._stage.addChild(G.vars.coins[G.vars.coins.length - 1]);
+	G.vars.globes.push(new globe(382, 85));
+	G.vars._stage.addChild(G.vars.globes[G.vars.globes.length - 1]);
 
-				G.vars.coins.push(new coin(155, 382));
-				G.vars._stage.addChild(G.vars.coins[G.vars.coins.length - 1]);
-				
-				G.vars.lines.push(new line(50, 200, 1000, 200, 'y', 'RIGHT', 9999, G.vars.lineColors[num], false, false));
-				G.vars.lines[G.vars.lines.length - 1].visible = true;
-				G.vars._stage.addChild(G.vars.lines[G.vars.lines.length - 1])
-			}
+	G.vars.globes.push(new globe(209, 39));
+	G.vars._stage.addChild(G.vars.globes[G.vars.globes.length - 1]);
+
+	G.vars.globes.push(new globe(139, 378));
+	G.vars._stage.addChild(G.vars.globes[G.vars.globes.length - 1]);
+	if (G.vars.spawnCoins)
+	{
+
+		G.vars.coins.push(new coin(177, 281));
+		G.vars._stage.addChild(G.vars.coins[G.vars.coins.length - 1]);
+
+		G.vars.coins.push(new coin(280, 272));
+		G.vars._stage.addChild(G.vars.coins[G.vars.coins.length - 1]);
+
+		G.vars.coins.push(new coin(320, 232));
+		G.vars._stage.addChild(G.vars.coins[G.vars.coins.length - 1]);
+
+		G.vars.coins.push(new coin(136, 97));
+		G.vars._stage.addChild(G.vars.coins[G.vars.coins.length - 1]);
+
+		G.vars.coins.push(new coin(137, 167));
+		G.vars._stage.addChild(G.vars.coins[G.vars.coins.length - 1]);
+	}
+	G.vars.lines.push(new line(50, 200, 1000, 200, 'y', 'RIGHT', 9999, G.vars.lineColors[num], false, false));
+	G.vars.lines[G.vars.lines.length - 1].visible = true;
+	G.vars._stage.addChild(G.vars.lines[G.vars.lines.length - 1])
 		}
 		public function setupLevel()
 		{

@@ -203,7 +203,7 @@
 								prepGame();
 							}
 						}
-						else if (G.vars.lines[lineNum].hitTestObject(G.vars.bombs[bombNum])) // If the line is touching the selected globe
+						else if (G.vars.collisiontest.collision(G.vars.lines[lineNum],G.vars.bombs[bombNum]))
 						{
 							if (G.vars.bombs[bombNum].exploding == false)
 							{
@@ -345,6 +345,10 @@
 							tmpLine = new line(_mirror.x, _mirror.y, _mirror.x - 400, _mirror.y - 400,
 											   'd', 'UP LEFT', mirrorNum, G.vars.lines[lineNum].lineColor);
 							break;
+						case 6: // a type 2 refractor hitting a line going up and right should bounce right
+							tmpLine = new line(_mirror.x, _mirror.y, 1000, _mirror.y,
+											   'y', 'RIGHT', mirrorNum, G.vars.lines[lineNum].lineColor);
+							break;
 					}
 					break;
 
@@ -382,6 +386,10 @@
 						case 2: // a type 2 mirror hitting a line doing down and right should bounce down and left
 							tmpLine = new line(_mirror.x, _mirror.y, _mirror.x -400, _mirror.y + 400,
 											   'd', 'DOWN LEFT', mirrorNum, G.vars.lines[lineNum].lineColor);
+							break;
+						case 4: // a type 4 mirror hitting a line going down and right should bounce up and right
+							tmpLine = new line(_mirror.x, _mirror.y, _mirror.x + 400, _mirror.y - 400,
+											   'd', 'UP RIGHT', mirrorNum, G.vars.lines[lineNum].lineColor);
 							break;
 						case 5: // a type 1 refractor hitting a line going down and right should bounce straight right
 							tmpLine = new line(_mirror.x, _mirror.y, 1000, _mirror.y, 
@@ -447,17 +455,20 @@
 				
 				if (mHit != 'OK') // If a mirror was touching the temporary line
 				{
-					
 					tmpLine.startX = G.vars.mirrors[tmpLine.owner].x; // don't change the start x point of the line
 					tmpLine.startY = G.vars.mirrors[tmpLine.owner].y; // also donn't change the starting y point
 					
-					switch (tmpLine.axis)
+					switch (tmpLine.axis) // i don't think this does anything :/ the <line>.draw method handles it
 					{
 						case 'x':
 							tmpLine.draw(G.vars.mirrors[tmpLine.owner].x, G.vars.mirrors[mHit].y); // only y axis should change
 							break;
 						case 'y':
 							tmpLine.draw(G.vars.mirrors[mHit].x, G.vars.mirrors[tmpLine.owner].y); // only x axis should change
+							break;
+						case 'd':
+							// not sure...
+							break;
 					}
 					
 					tmpLine.endMirror = mHit; // set the endMirror of the temporary line to the bad mirror

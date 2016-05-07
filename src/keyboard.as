@@ -150,23 +150,6 @@
 					if (G.vars.levelEdit == true)
 					{
 						trace('===================START LEVEL CODE===================');
-						for (var printLine: int = 0; printLine < G.vars.lines.length; printLine++)
-						{
-							if (G.vars.lines[printLine].disp == false)
-							{
-								trace('G.vars.lines.push(new line(' + G.vars.lines[printLine].origStartX +
-									   ', ' + G.vars.lines[printLine].origStartY +
-									   ', ' + G.vars.lines[printLine].origEndX +
-									   ', ' + G.vars.lines[printLine].origEndY +
-									   ", '" + G.vars.lines[printLine].axis + "'" +
-									   ", '" + G.vars.lines[printLine].dir + "'" +
-									   ', 9999, G.vars.lineColors[num]' +
-									   ', false, false));');
-								trace('G.vars.lines[G.vars.lines.length - 1].visible = true;');
-								trace('stage.addChild(G.vars.lines[G.vars.lines.length - 1])');
-							}
-						}
-						
 						var mirrorX = 22;
 						var mirrorY = 22;
 						for (var printMirror: int = 0; printMirror < G.vars.mirrors.length; printMirror++)
@@ -178,7 +161,7 @@
 									  ', ' + mirrorY +
 									  ', ' + G.vars.mirrors[printMirror].currentFrame +
 									  '));');
-								trace('stage.addChild(G.vars.mirrors[G.vars.mirrors.length - 1]);');
+								trace('G.vars._stage.addChild(G.vars.mirrors[G.vars.mirrors.length - 1]);');
 								if (mirrorX > 197) { mirrorX = 22; mirrorY += 50; }
 								else { mirrorX += 44; }
 							}
@@ -191,7 +174,7 @@
 									  G.vars.globes[printGlobe].x + 
 									  ', ' + G.vars.globes[printGlobe].y +
 									  '));');
-								trace('stage.addChild(G.vars.globes[G.vars.globes.length - 1]);');
+								trace('G.vars._stage.addChild(G.vars.globes[G.vars.globes.length - 1]);');
 							}
 						}
 						
@@ -207,7 +190,7 @@
 										  G.vars.coins[printCoin].x + 
 										  ', ' + G.vars.coins[printCoin].y +
 										  '));');
-									trace('\tstage.addChild(G.vars.coins[G.vars.coins.length - 1]);');
+									trace('\tG.vars._stage.addChild(G.vars.coins[G.vars.coins.length - 1]);');
 								}
 							}
 							trace('}');
@@ -220,7 +203,7 @@
 									  G.vars.walls[printWall].x + 
 									  ', ' + G.vars.walls[printWall].y +
 									  '));');
-								trace('stage.addChild(G.vars.walls[G.vars.walls.length - 1]);');
+								trace('G.vars._stage.addChild(G.vars.walls[G.vars.walls.length - 1]);');
 							}
 						}
 						for (var printBomb: int = 0; printBomb < G.vars.bombs.length; printBomb++)
@@ -231,7 +214,23 @@
 									  G.vars.bombs[printBomb].x + 
 									  ', ' + G.vars.bombs[printBomb].y +
 									  '));');
-								trace('stage.addChild(G.vars.bombs[G.vars.bombs.length - 1]);');
+								trace('G.vars._stage.addChild(G.vars.bombs[G.vars.bombs.length - 1]);');
+							}
+						}
+						for (var printLine: int = 0; printLine < G.vars.lines.length; printLine++)
+						{
+							if (G.vars.lines[printLine].disp == false)
+							{
+								trace('G.vars.lines.push(new line(' + G.vars.lines[printLine].origStartX +
+									   ', ' + G.vars.lines[printLine].origStartY +
+									   ', ' + G.vars.lines[printLine].origEndX +
+									   ', ' + G.vars.lines[printLine].origEndY +
+									   ", '" + G.vars.lines[printLine].axis + "'" +
+									   ", '" + G.vars.lines[printLine].dir + "'" +
+									   ', 9999, G.vars.lineColors[num]' +
+									   ', false, false));');
+								trace('G.vars.lines[G.vars.lines.length - 1].visible = true;');
+								trace('G.vars._stage.addChild(G.vars.lines[G.vars.lines.length - 1])');
 							}
 						}
 						trace('====================END LEVEL CODE====================');
