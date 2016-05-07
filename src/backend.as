@@ -1,12 +1,12 @@
 ﻿package  {
-	import flash.display.Stage;
+	import flash.display.*;
 	import flash.events.*;
 	import flash.utils.Timer;
 	
 	import G;
 
 	public class backend {
-		
+
 		public function reset():void //reset game
 		{
 			G.vars.resetting = true;
@@ -115,11 +115,12 @@
 					{
 						if (G.vars.lines[lineNum].owner != mirrorNum) // If mirror is not the one that made this line
 						{
-							if (G.vars.mirrors[mirrorNum].hitTestObject(G.vars.lines[lineNum])) // If mirror is touching line
+							if (G.vars.collisiontest.collision(G.vars.mirrors[mirrorNum],G.vars.lines[lineNum]))
 							{
 								for (var hitMirror: int = 0; hitMirror < G.vars.mirrors.length; hitMirror++) // iterate again
 								{
-									if (hitMirror != mirrorNum && G.vars.mirrors[hitMirror].hitTestObject(G.vars.mirrors[mirrorNum]))
+									if (hitMirror != mirrorNum && 
+										G.vars.collisiontest.collision(G.vars.mirrors[hitMirror],G.vars.mirrors[mirrorNum]))
 									{
 										G.vars.mirrors[hitMirror].x = G.vars.mirrors[hitMirror].oX;
 										G.vars.mirrors[hitMirror].y = G.vars.mirrors[hitMirror].oY;
@@ -135,7 +136,7 @@
 					
 					for (var wallNum: int = 0; wallNum < G.vars.walls.length; wallNum++) // Iterate G.vars.walls
 					{
-						if (G.vars.walls[wallNum].hitTestObject(G.vars.lines[lineNum])) // If wall is touching line
+						if (G.vars.collisiontest.collision(G.vars.walls[wallNum],G.vars.lines[lineNum]))
 						{
 							hit = true;
 							G.vars.lines[lineNum].draw(G.vars.walls[wallNum].x, G.vars.walls[wallNum].y); // Redraw line
@@ -159,17 +160,19 @@
 					
 					for (var globeNum: int = 0; globeNum < G.vars.globes.length; globeNum++) //iterate through G.vars.globes
 					{
-						if (G.vars.lines[lineNum].hitTestObject(G.vars.globes[globeNum])) // If the line is touching the selected globe
+						if (G.vars.collisiontest.collision(G.vars.lines[lineNum], G.vars.globes[globeNum]))
 						{
+							trace('collision');
 							G.vars.globes[globeNum].hit = true;
 							G.vars.globes[globeNum].filling = true; // tell that globe that it has been hit by a line
 							G.vars.globes[globeNum].startFill(); // start filling that globe using it's function
 						}
+						
 					}
 					
 					for (var coinNum: int = 0; coinNum < G.vars.coins.length; coinNum++) //iterate through G.vars.coins
 					{
-						if (G.vars.lines[lineNum].hitTestObject(G.vars.coins[coinNum])) // If the line is touching the selected coin
+						if (G.vars.collisiontest.collision(G.vars.lines[lineNum],G.vars.coins[coinNum]))
 						{
 							G.vars.coins[coinNum].hit = true;
 							G.vars.coins[coinNum].filling = true; // tell thatcoin that it has been hit by a line

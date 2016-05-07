@@ -46,6 +46,7 @@ package
 		G.vars.keyboard = new keyboard();
 		G.vars.shopmanager = new shopmanager();
 		G.vars.levels = new levels();
+		G.vars.collisiontest = new collisiontest();
 		
 		/*********************************************
 		GLOBAL VARIABLES FOR COUNTING SCORES & STRINGS
