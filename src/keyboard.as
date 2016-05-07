@@ -142,7 +142,7 @@
 						}
 						else
 						{
-							G.vars.dialogbox.simpleDialog("Error!","You need to put at least one globe on the stage to test the G.vars.level");
+							G.vars.dialogbox.simpleDialog("Error!","You need to put at least one globe on the stage to test the level");
 						}
 					}
 					break;
