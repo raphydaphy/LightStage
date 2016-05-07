@@ -304,7 +304,7 @@
 		{
 			return new line(G.vars.mirrors[_mirrorNum].x, G.vars.mirrors[_mirrorNum].y, 
 							G.vars.mirrors[_mirrorNum].x, -450, 
-							'x', 'DOWN', _mirrorNum, G.vars.lines[_lineNum].lineColor);
+							'x', 'UP', _mirrorNum, G.vars.lines[_lineNum].lineColor);
 		}
 		
 		public function drawUpLeft(_mirrorNum, _lineNum): line
@@ -365,7 +365,7 @@
 			
 			switch (_line.dir) // Switch between the possible directions the interfering line can be going in
 			{
-				case 'UP': // case 1 and case 3 not working
+				case 'UP': // FINISHED FOR MIRRORS FRAME 1-8
 					switch (_mirror.currentFrame)
 					{
 						case 1: tmpLine = drawRight(mirrorNum, lineNum); break;
@@ -464,16 +464,13 @@
 					switch (tmpLine.axis) // i don't think this does anything :/ the <line>.draw method handles it
 					{
 						case 'x':
-							trace('x intercepted');
 							tmpLine.draw(G.vars.mirrors[tmpLine.owner].x, G.vars.mirrors[mHit].y); // only y axis should change
 							break;
 						case 'y':
-							trace('y intercepted');
 							tmpLine.draw(G.vars.mirrors[mHit].x, G.vars.mirrors[tmpLine.owner].y); // only x axis should change
 							break;
 						case 'd':
 							// not sure...
-							trace('d intercepted');
 							break;
 					}
 					
