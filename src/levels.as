@@ -27,7 +27,7 @@
 					G.vars._stage.addChild(G.vars.coins[0]); // add the new coin to the stage
 				}
 				
-				G.vars.lines.push(new line(0, 200, 1000, 200, 'y', 'RIGHT', 9999, G.vars.lineColors[num], false, false)); // add core line
+				G.vars.lines.push(new line(50, 200, 1000, 200, 'y', 'RIGHT', 9999, G.vars.lineColors[num], false, false)); // add core line
 				G.vars.lines[0].visible = true; // Make the baseline visible
 				G.vars._stage.addChild(G.vars.lines[0]); // Add baseline to the stage
 			}
@@ -54,7 +54,7 @@
 					G.vars._stage.addChild(G.vars.coins[0]); // add the new coin to the stage
 				}
 				
-				G.vars.lines.push(new line(400, 370, 400, 0, 'x', 'UP', 9999, G.vars.lineColors[num], false, false)); // add core line
+				G.vars.lines.push(new line(400, 350, 400, 0, 'x', 'UP', 9999, G.vars.lineColors[num], false, false)); // add core line
 				G.vars.lines[0].visible = true; // Make the baseline visible
 				G.vars._stage.addChild(G.vars.lines[0]); // Add baseline to the stage
 			}
@@ -90,15 +90,12 @@
 					G.vars._stage.addChild(G.vars.coins[1]); // add the new coin to the stage
 				}
 				
-				G.vars.lines.push(new line(0, 200, 1000, 200, 'y', 'RIGHT', 9999, G.vars.lineColors[num], false, false)); // add core line
+				G.vars.lines.push(new line(50, 200, 1000, 200, 'y', 'RIGHT', 9999, G.vars.lineColors[num], false, false)); // add core line
 				G.vars.lines[0].visible = true; // Make the baseline visible
 				G.vars._stage.addChild(G.vars.lines[0]); // Add baseline to the stage
 			}
 			else if (G.vars.level == 4)
 			{
-				G.vars.mirrors.push(new mirror(-37, 20.45));
-				G.vars._stage.addChild(G.vars.mirrors[G.vars.mirrors.length - 1]);
-				
 				G.vars.mirrors.push(new mirror(3.45, 21.45, 2));
 				G.vars._stage.addChild(G.vars.mirrors[G.vars.mirrors.length - 1]);
 				
@@ -107,6 +104,10 @@
 				
 				G.vars.mirrors.push(new mirror(84.45, 20.05, 2));
 				G.vars._stage.addChild(G.vars.mirrors[G.vars.mirrors.length - 1]);
+				
+				G.vars.mirrors.push(new mirror(120, 20.45));
+				G.vars._stage.addChild(G.vars.mirrors[G.vars.mirrors.length - 1]);
+				
 				
 				if (G.vars.spawnCoins)
 				{
@@ -135,7 +136,7 @@
 				G.vars.bombs.push(new bomb(234.75, 216.5));
 				G.vars._stage.addChild(G.vars.bombs[G.vars.bombs.length - 1]);
 				
-				G.vars.lines.push(new line(550, 383.75, -450, 383.75, 'y', 'LEFT', 9999, G.vars.lineColors[num], false, false)); // add core line
+				G.vars.lines.push(new line(500, 383.75, -450, 383.75, 'y', 'LEFT', 9999, G.vars.lineColors[num], false, false)); // add core line
 				G.vars.lines[0].visible = true; // Make the baseline visible
 				G.vars._stage.addChild(G.vars.lines[0]); // Add baseline to the stage
 				
@@ -146,14 +147,15 @@
 				G.vars.lines[0].visible = true; // Make the baseline visible
 				G.vars._stage.addChild(G.vars.lines[0]); // Add baseline to the stage
 				
-				G.vars.mirrors.push(new mirror(-22, 22, 1));
-				G.vars._stage.addChild(G.vars.mirrors[G.vars.mirrors.length - 1]);
-
 				G.vars.mirrors.push(new mirror(22, 22, 1));
 				G.vars._stage.addChild(G.vars.mirrors[G.vars.mirrors.length - 1]);
 
 				G.vars.mirrors.push(new mirror(66, 22, 2));
 				G.vars._stage.addChild(G.vars.mirrors[G.vars.mirrors.length - 1]);
+				
+				G.vars.mirrors.push(new mirror(102, 22, 1));
+				G.vars._stage.addChild(G.vars.mirrors[G.vars.mirrors.length - 1]);
+
 
 				G.vars.globes.push(new globe(361, 153));
 				G.vars._stage.addChild(G.vars.globes[G.vars.globes.length - 1]);
@@ -191,17 +193,17 @@
 			}
 			else if (G.vars.level == 6)
 			{
-				G.vars.lines.push(new line(480, 370, 480, 0, 'x', 'UP', 9999, G.vars.lineColors[num], false, false)); // add core line
+				G.vars.lines.push(new line(480, 350, 480, 0, 'x', 'UP', 9999, G.vars.lineColors[num], false, false)); // add core line
 				G.vars.lines[0].visible = true; // Make the baseline visible
 				G.vars._stage.addChild(G.vars.lines[0]); // Add baseline to the stage
 				
-				G.vars.mirrors.push(new mirror(-22, 22, 2));
-				G.vars._stage.addChild(G.vars.mirrors[G.vars.mirrors.length - 1]);
-
 				G.vars.mirrors.push(new mirror(22, 22, 2));
 				G.vars._stage.addChild(G.vars.mirrors[G.vars.mirrors.length - 1]);
 
 				G.vars.mirrors.push(new mirror(66, 22, 1));
+				G.vars._stage.addChild(G.vars.mirrors[G.vars.mirrors.length - 1]);
+				
+				G.vars.mirrors.push(new mirror(110, 22, 2));
 				G.vars._stage.addChild(G.vars.mirrors[G.vars.mirrors.length - 1]);
 
 				G.vars.globes.push(new globe(387, 296));
@@ -321,17 +323,17 @@
 			}
 			else if (G.vars.level == 7)
 			{
-				G.vars.lines.push(new line(275, 370, 275, 0, 'x', 'UP', 9999, G.vars.lineColors[num], false, false)); // add core line
+				G.vars.lines.push(new line(275, 350, 275, 0, 'x', 'UP', 9999, G.vars.lineColors[num], false, false)); // add core line
 				G.vars.lines[0].visible = true; // Make the baseline visible
 				G.vars._stage.addChild(G.vars.lines[0]); // Add baseline to the stage
 				
-				G.vars.mirrors.push(new mirror(-22, 22, 1));
-				G.vars._stage.addChild(G.vars.mirrors[G.vars.mirrors.length - 1]);
-
 				G.vars.mirrors.push(new mirror(22, 22, 1));
 				G.vars._stage.addChild(G.vars.mirrors[G.vars.mirrors.length - 1]);
 
 				G.vars.mirrors.push(new mirror(66, 22, 1));
+				G.vars._stage.addChild(G.vars.mirrors[G.vars.mirrors.length - 1]);
+				
+				G.vars.mirrors.push(new mirror(110, 22, 1));
 				G.vars._stage.addChild(G.vars.mirrors[G.vars.mirrors.length - 1]);
 
 				G.vars.globes.push(new globe(360, 230));
@@ -466,12 +468,9 @@
 			}
 			else if (G.vars.level == 8)
 			{
-				G.vars.lines.push(new line(275, 360, 275, -450, 'x', 'UP', 9999, G.vars.lineColors[num], false, false));
+				G.vars.lines.push(new line(275, 350, 275, -450, 'x', 'UP', 9999, G.vars.lineColors[num], false, false));
 				G.vars.lines[G.vars.lines.length - 1].visible = true;
 				G.vars._stage.addChild(G.vars.lines[G.vars.lines.length - 1])
-
-				G.vars.mirrors.push(new mirror(-22, 22, 1));
-				G.vars._stage.addChild(G.vars.mirrors[G.vars.mirrors.length - 1]);
 
 				G.vars.mirrors.push(new mirror(22, 22, 2));
 				G.vars._stage.addChild(G.vars.mirrors[G.vars.mirrors.length - 1]);
@@ -486,6 +485,9 @@
 				G.vars._stage.addChild(G.vars.mirrors[G.vars.mirrors.length - 1]);
 
 				G.vars.mirrors.push(new mirror(198, 22, 1));
+				G.vars._stage.addChild(G.vars.mirrors[G.vars.mirrors.length - 1]);
+				
+				G.vars.mirrors.push(new mirror(22, 22, 1));
 				G.vars._stage.addChild(G.vars.mirrors[G.vars.mirrors.length - 1]);
 
 				G.vars.globes.push(new globe(374, 135));
@@ -609,7 +611,7 @@
 			}
 			else if (G.vars.level == 9)
 			{
-				G.vars.lines.push(new line(550, 200, -450, 200, 'y', 'LEFT', 9999, G.vars.lineColors[num], false, false));
+				G.vars.lines.push(new line(500, 200, -450, 200, 'y', 'LEFT', 9999, G.vars.lineColors[num], false, false));
 				G.vars.lines[G.vars.lines.length - 1].visible = true;
 				G.vars._stage.addChild(G.vars.lines[G.vars.lines.length - 1])
 
@@ -687,7 +689,7 @@
 			}
 			else if (G.vars.level == 10)
 			{
-				G.vars.lines.push(new line(0, 200, 1000, 200, 'y', 'RIGHT', 9999, G.vars.lineColors[num], false, false));
+				G.vars.lines.push(new line(50, 200, 1000, 200, 'y', 'RIGHT', 9999, G.vars.lineColors[num], false, false));
 				G.vars.lines[G.vars.lines.length - 1].visible = true;
 				G.vars._stage.addChild(G.vars.lines[G.vars.lines.length - 1])
 

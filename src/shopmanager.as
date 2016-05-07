@@ -7,7 +7,6 @@
 		public function buyDoubleCoins(event:MouseEvent) // purchases double G.vars.coins and tells the user if it worked
 		{
 			G.vars.playerShop.shopBuy("double coins");
-			trace(G.vars.shopResult);
 			if (G.vars.shopResult == "poor") 
 			{ 
 				G.vars.dialogbox.simpleDialog("Too poor!","You don't have enough coins to buy Double Coins!"); 
@@ -26,7 +25,6 @@
 		public function buyBombChance(event:MouseEvent) // purchases bomb defence chance and tells user if it worked
 		{
 			G.vars.playerShop.shopBuy("bomb deflect chance");
-			trace(G.vars.shopResult);
 			if (G.vars.shopResult == "poor") 
 			{ 
 				G.vars.dialogbox.simpleDialog("Too poor!","You don't have enough coins to buy Bomb Deflection Chance!"); 

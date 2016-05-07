@@ -233,7 +233,7 @@
 			{
 				if (G.vars.coins[checkCoin].full == true && G.vars.coins[checkCoin].stage) // If the selected globe is full
 				{
-					if (G.vars.playerItems.indexOf("double G.vars.coins") == -1) // if the player dosen't own the double G.vars.coins upgrade
+					if (G.vars.playerItems.indexOf("double coins") == -1) // if the player dosen't own the double G.vars.coins upgrade
 					{
 						G.vars.money += 1; // increase G.vars.money by one coin
 					}

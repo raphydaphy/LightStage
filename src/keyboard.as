@@ -167,7 +167,7 @@
 							}
 						}
 						
-						var mirrorX = -22
+						var mirrorX = 22;
 						var mirrorY = 22;
 						for (var printMirror: int = 0; printMirror < G.vars.mirrors.length; printMirror++)
 						{
@@ -179,7 +179,7 @@
 									  ', ' + G.vars.mirrors[printMirror].currentFrame +
 									  '));');
 								trace('stage.addChild(G.vars.mirrors[G.vars.mirrors.length - 1]);');
-								if (mirrorX > 197) { mirrorX = -22; mirrorY += 50; }
+								if (mirrorX > 197) { mirrorX = 22; mirrorY += 50; }
 								else { mirrorX += 44; }
 							}
 						}
