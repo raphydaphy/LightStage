@@ -3,7 +3,7 @@ This page contains information about each minor release of LightStage. LightStag
 
 ## LightStage 0.2 Beta 2
 - Added two new rotation states of the standard mirror, made one of them work (Frame 2)
-- Added refractors from issue #33
+- Added refractors from issue #33 but still work needed to close the issue
 - Made non-straight collisions possible from issue #34
 - Fixed collisions crash from issue #35
 - Closed mirror enhancement from issue #4 and replaced with seperate issues for each kind of mirror
