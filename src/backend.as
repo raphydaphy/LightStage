@@ -99,7 +99,11 @@
 			}
 			for (var lineNum: int = 0; lineNum < G.vars.lines.length; lineNum++) // Loop through G.vars.lines vector
 			{
-				if (G.vars.lines[lineNum].noLoop == false) // Don't loop through G.vars.lines that we don't need anymore
+				if (G.vars.lines[lineNum].noLoop == false && // Don't loop through lines that we don't need anymore
+					(G.vars.lines[lineNum].startX != -100 && // if the line is not a super temporary line
+					G.vars.lines[lineNum].startY != -100 && // same as above
+					G.vars.lines[lineNum].endX != -100 && // also same as above :)
+					G.vars.lines[lineNum].endY != -100))
 				{
 					G.vars.lines[lineNum].loops += 1; // increase the amount of times we have looped over this line
 					
@@ -207,6 +211,13 @@
 							}
 							G.vars.bombs[bombNum].startExplode();
 						}
+					}
+				}
+				else if (G.vars.lines[lineNum].noLoop == false)
+				{
+					if (G.vars.lines[lineNum].stage)
+					{
+						G.vars._stage.removeChild(G.vars.lines[lineNum]);
 					}
 				}
 			}
