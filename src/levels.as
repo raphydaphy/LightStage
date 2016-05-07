@@ -614,10 +614,6 @@
 				G.vars.lines.push(new line(500, 200, -450, 200, 'y', 'LEFT', 9999, G.vars.lineColors[num], false, false));
 				G.vars.lines[G.vars.lines.length - 1].visible = true;
 				G.vars._stage.addChild(G.vars.lines[G.vars.lines.length - 1])
-
-				G.vars.mirrors.push(new mirror(-22, 22, 2));
-				G.vars._stage.addChild(G.vars.mirrors[G.vars.mirrors.length - 1]);
-
 				G.vars.mirrors.push(new mirror(22, 22, 1));
 				G.vars._stage.addChild(G.vars.mirrors[G.vars.mirrors.length - 1]);
 
@@ -630,6 +626,9 @@
 				G.vars.mirrors.push(new mirror(154, 22, 2));
 				G.vars._stage.addChild(G.vars.mirrors[G.vars.mirrors.length - 1]);
 
+				G.vars.mirrors.push(new mirror(198, 22, 2));
+				G.vars._stage.addChild(G.vars.mirrors[G.vars.mirrors.length - 1]);
+				
 				G.vars.globes.push(new globe(108, 126));
 				G.vars._stage.addChild(G.vars.globes[G.vars.globes.length - 1]);
 
@@ -693,9 +692,6 @@
 				G.vars.lines[G.vars.lines.length - 1].visible = true;
 				G.vars._stage.addChild(G.vars.lines[G.vars.lines.length - 1])
 
-				G.vars.mirrors.push(new mirror(-22, 22, 1));
-				G.vars._stage.addChild(G.vars.mirrors[G.vars.mirrors.length - 1]);
-
 				G.vars.mirrors.push(new mirror(22, 22, 1));
 				G.vars._stage.addChild(G.vars.mirrors[G.vars.mirrors.length - 1]);
 
@@ -706,6 +702,9 @@
 				G.vars._stage.addChild(G.vars.mirrors[G.vars.mirrors.length - 1]);
 
 				G.vars.mirrors.push(new mirror(154, 22, 2));
+				G.vars._stage.addChild(G.vars.mirrors[G.vars.mirrors.length - 1]);
+				
+				G.vars.mirrors.push(new mirror(198, 22, 1));
 				G.vars._stage.addChild(G.vars.mirrors[G.vars.mirrors.length - 1]);
 
 				G.vars.globes.push(new globe(163, 130));
