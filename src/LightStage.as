@@ -50,8 +50,8 @@ package
 		/*********************************************
 		GLOBAL VARIABLES FOR COUNTING SCORES & STRINGS
 		*********************************************/
-		G.vars.money = 5;
-		G.vars.level = 5;
+		G.vars.money = 0;
+		G.vars.level = 1;
 		G.vars.startupMsg = "LightStage is starting...";
 		G.vars.badgesArray = [];
 		G.vars.levelEdit = false;
