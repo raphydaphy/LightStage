@@ -1,6 +1,13 @@
 # Release Notes
 This page contains information about each minor release of LightStage. LightStage was first added to GitHub when it was in Alpha version 0.13. This page contains information from Alpha 0.01 all the way up to the latest release.
 
+## LightStage 0.2 Beta 2
+- Added two new rotation states of the standard mirror, made one of them work (Frame 2)
+- Added refractors from issue #33
+- Made non-straight collisions possible from issue #34
+- Fixed collisions crash from issue #35
+- Closed mirror enhancement from issue #4 and replaced with seperate issues for each kind of mirror
+
 ## LightStage 0.2 Beta 1
 - Fixed duplicate badge glitch in issue #31
 - Fixed corner mirror visibility glitch in issue #30
