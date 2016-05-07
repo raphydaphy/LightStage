@@ -119,6 +119,7 @@
 					{
 						if (G.vars.lines[lineNum].owner != mirrorNum) // If mirror is not the one that made this line
 						{
+							G.vars.mirrors[mirrorNum].hitbox.visible = true;
 							if (G.vars.collisiontest.collision(G.vars.mirrors[mirrorNum],G.vars.lines[lineNum]))
 							{
 								for (var hitMirror: int = 0; hitMirror < G.vars.mirrors.length; hitMirror++) // iterate again
@@ -134,7 +135,7 @@
 								G.vars.lines[lineNum].draw(G.vars.mirrors[mirrorNum].x, G.vars.mirrors[mirrorNum].y); // Redraw line
 								simBounce(G.vars.lines[lineNum], lineNum, G.vars.mirrors[mirrorNum], mirrorNum); // Run this
 							}
-
+							G.vars.mirrors[mirrorNum].hitbox.visible = false;
 						}
 					}
 					
@@ -364,7 +365,7 @@
 			
 			switch (_line.dir) // Switch between the possible directions the interfering line can be going in
 			{
-				case 'UP': // FINISHED FOR MIRRORS FRAME 1-8
+				case 'UP': // case 1 and case 3 not working
 					switch (_mirror.currentFrame)
 					{
 						case 1: tmpLine = drawRight(mirrorNum, lineNum); break;
@@ -463,13 +464,16 @@
 					switch (tmpLine.axis) // i don't think this does anything :/ the <line>.draw method handles it
 					{
 						case 'x':
+							trace('x intercepted');
 							tmpLine.draw(G.vars.mirrors[tmpLine.owner].x, G.vars.mirrors[mHit].y); // only y axis should change
 							break;
 						case 'y':
+							trace('y intercepted');
 							tmpLine.draw(G.vars.mirrors[mHit].x, G.vars.mirrors[tmpLine.owner].y); // only x axis should change
 							break;
 						case 'd':
 							// not sure...
+							trace('d intercepted');
 							break;
 					}
 					

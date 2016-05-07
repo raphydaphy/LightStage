@@ -1,5 +1,5 @@
 ﻿/***************************
-LIGHTSTAGE 0.2 BETA 3
+LIGHTSTAGE 0.2 FINAL
 Built by Raph Hennessy
 All Rights Reserved May 2016
 ***************************/
@@ -114,8 +114,8 @@ package
 				}
 			}
 			
-			//G.vars.levels.setupLevel();
-			G.vars.levels.demoLevel();
+			G.vars.levels.setupLevel();
+			//G.vars.levels.demoLevel();
 			
 			stage.addEventListener(Event.ENTER_FRAME, G.vars.backend.enterFrame); // Start enterFrame listener
 		}

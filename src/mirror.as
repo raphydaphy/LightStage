@@ -14,6 +14,8 @@
 		
 		public function mirror(mirrorX: int, mirrorY: int, frame: int = 1)
 		{
+			this.hitbox.visible = false;
+			
 			this.addEventListener(MouseEvent.MOUSE_DOWN, onDown, false, 0, true);
 			x = mirrorX;
 			y = mirrorY;
