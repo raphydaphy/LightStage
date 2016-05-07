@@ -364,58 +364,67 @@
 			
 			switch (_line.dir) // Switch between the possible directions the interfering line can be going in
 			{
-				case 'UP':
+				case 'UP': // FINISHED FOR MIRRORS FRAME 1-8
 					switch (_mirror.currentFrame)
 					{
 						case 1: tmpLine = drawRight(mirrorNum, lineNum); break;
 						case 3: tmpLine = drawLeft(mirrorNum, lineNum); break;
+						case 6: tmpLine = drawUpRight(mirrorNum, lineNum); break;
+						case 8: tmpLine = drawUpLeft(mirrorNum, lineNum); break;
 					}
 					break;
 				
-				case 'UP LEFT':
+				case 'UP LEFT': // FINISHED FOR MIRRORS FRAME 1-8
 					switch (_mirror.currentFrame)
 					{
 						case 2: tmpLine = drawUpRight(mirrorNum, lineNum); break;
+						case 4: tmpLine = drawDownLeft(mirrorNum, lineNum); break;
 						case 5: tmpLine = drawLeft(mirrorNum, lineNum); break;
-							
+						case 8: tmpLine = drawUp(mirrorNum, lineNum); break;
 					}
 					break;
 					
-				case 'UP RIGHT':
+				case 'UP RIGHT': // FINISHED FOR MIRRORS FRAME 1-8
 					switch (_mirror.currentFrame)
 					{
 						case 2: tmpLine = drawUpLeft(mirrorNum, lineNum); break;
+						case 4: tmpLine = drawDownRight(mirrorNum, lineNum); break;
+						case 6: tmpLine = drawUp(mirrorNum, lineNum); break;
 						case 7: tmpLine = drawRight(mirrorNum, lineNum); break;
 					}
 					break;
 
-				case 'DOWN':
+				case 'DOWN': // FINISHED FOR MIRRORS FRAME 1-8
 					switch (_mirror.currentFrame)
 					{
 						case 1: tmpLine = drawLeft(mirrorNum, lineNum); break;
 						case 3: tmpLine = drawRight(mirrorNum, lineNum); break;
 						case 6: tmpLine = drawDownLeft(mirrorNum, lineNum); break;
+						case 8: tmpLine = drawDownRight(mirrorNum, lineNum); break;
 					}
 					break;
 				
-				case 'DOWN LEFT':
+				case 'DOWN LEFT': // FINISHED FOR MIRRORS FRAME 1-8
 					switch (_mirror.currentFrame)
 					{
 						case 2: tmpLine = drawDownRight(mirrorNum, lineNum); break;
+						case 4: tmpLine = drawUpLeft(mirrorNum, lineNum); break;
+						case 6: tmpLine = drawDown(mirrorNum, lineNum); break;
 						case 7: tmpLine = drawLeft(mirrorNum, lineNum); break;
 					}
 					break;
 					
-				case 'DOWN RIGHT':
+				case 'DOWN RIGHT': // FINISHED FOR MIRRORS FRAME 1-8
 					switch (_mirror.currentFrame)
 					{
 						case 2: tmpLine = drawDownLeft(mirrorNum, lineNum); break;
 						case 4: tmpLine = drawUpRight(mirrorNum, lineNum); break;
 						case 5: tmpLine = drawRight(mirrorNum, lineNum); break;
+						case 8: tmpLine = drawDown(mirrorNum, lineNum); break;
 					}
 					break;
 					
-				case 'LEFT':
+				case 'LEFT': // FINISHED FOR MIRRORS FRAME 1-8
 					switch (_mirror.currentFrame)
 					{
 						case 1: tmpLine = drawDown(mirrorNum, lineNum); break;
@@ -425,7 +434,7 @@
 					}
 					break;
 
-				case 'RIGHT':
+				case 'RIGHT': // FINISHED FOR MIRRORS FRAME 1-8
 					switch (_mirror.currentFrame)
 					{
 						case 1: tmpLine = drawUp(mirrorNum, lineNum); break;
