@@ -1,6 +1,16 @@
 # Release Notes
 This page contains information about each minor release of LightStage. LightStage was first added to GitHub when it was in Alpha version 0.13. This page contains information from Alpha 0.01 all the way up to the latest release.
 
+## LightStage 0.2 Beta 1
+- Fixed duplicate badge glitch in issue #31
+- Fixed corner mirror visibility glitch in issue #30
+- Fixed double coins upgrade glitch in issue #29
+- Fixed flashlights not visible in fullscreen glitch in issue #28
+- Fixed infinite purchase glitch in issue #27
+- Fixed bomb deflect chance glitch in issue #26
+- Fixed badge crash in issue #25
+- Fixed shop glitch in issue #24
+
 ## LightStage 0.1 Final
 - Globalised everything & added new files for different functions!
 - Fixed wall invisibility glitch from issue #16 
