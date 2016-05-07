@@ -12,7 +12,7 @@
 				G.vars.mirrors.push(new mirror(100, 350)); // Make a testing mirror to deflect UP / RIGHT
 				G.vars._stage.addChild(G.vars.mirrors[0]); // Add the new mirror to the stage
 				
-				G.vars.mirrors.push(new mirror(300, 350, 2)); // Make a nw mirror
+				G.vars.mirrors.push(new mirror(300, 350, 3)); // Make a nw mirror
 				G.vars._stage.addChild(G.vars.mirrors[1]); // Add the new mirror to the stage
 				
 				G.vars.globes.push(new globe(100, 250)); // add a new globe to the G.vars.globes array
@@ -36,7 +36,7 @@
 				G.vars.mirrors.push(new mirror(450, 200)); // Make a mirror
 				G.vars._stage.addChild(G.vars.mirrors[0]); // Add the new mirror to the stage
 				
-				G.vars.mirrors.push(new mirror(450, 300, 2)); // Make a mirror
+				G.vars.mirrors.push(new mirror(450, 300, 3)); // Make a mirror
 				G.vars._stage.addChild(G.vars.mirrors[1]); // Add the new mirror to the stage
 				
 				G.vars.globes.push(new globe(225, 300)); // add a new globe to the G.vars.globes vector
@@ -63,10 +63,10 @@
 				G.vars.mirrors.push(new mirror(191, 300)); // Make a new mirror
 				G.vars._stage.addChild(G.vars.mirrors[0]); // Add the new mirror to the stage
 				
-				G.vars.mirrors.push(new mirror(332, 300, 2)); // Make a new mirror
+				G.vars.mirrors.push(new mirror(332, 300, 3)); // Make a new mirror
 				G.vars._stage.addChild(G.vars.mirrors[1]); // Add the new mirror to the stage
 				
-				G.vars.mirrors.push(new mirror(498, 300, 2)); // Make a new mirror
+				G.vars.mirrors.push(new mirror(498, 300, 3)); // Make a new mirror
 				G.vars._stage.addChild(G.vars.mirrors[2]); // Add the new mirror to the stage
 				
 				G.vars.globes.push(new globe(191, 250)); // add a new globe to the G.vars.globes array
@@ -96,13 +96,13 @@
 			}
 			else if (G.vars.level == 4)
 			{
-				G.vars.mirrors.push(new mirror(3.45, 21.45, 2));
+				G.vars.mirrors.push(new mirror(3.45, 21.45, 3));
 				G.vars._stage.addChild(G.vars.mirrors[G.vars.mirrors.length - 1]);
 				
-				G.vars.mirrors.push(new mirror(41.2, 21.45, 2));
+				G.vars.mirrors.push(new mirror(41.2, 21.45, 3));
 				G.vars._stage.addChild(G.vars.mirrors[G.vars.mirrors.length - 1]);
 				
-				G.vars.mirrors.push(new mirror(84.45, 20.05, 2));
+				G.vars.mirrors.push(new mirror(84.45, 20.05, 3));
 				G.vars._stage.addChild(G.vars.mirrors[G.vars.mirrors.length - 1]);
 				
 				G.vars.mirrors.push(new mirror(120, 20.45));
@@ -150,7 +150,7 @@
 				G.vars.mirrors.push(new mirror(22, 22, 1));
 				G.vars._stage.addChild(G.vars.mirrors[G.vars.mirrors.length - 1]);
 
-				G.vars.mirrors.push(new mirror(66, 22, 2));
+				G.vars.mirrors.push(new mirror(66, 22, 3));
 				G.vars._stage.addChild(G.vars.mirrors[G.vars.mirrors.length - 1]);
 				
 				G.vars.mirrors.push(new mirror(102, 22, 1));
@@ -197,13 +197,13 @@
 				G.vars.lines[0].visible = true; // Make the baseline visible
 				G.vars._stage.addChild(G.vars.lines[0]); // Add baseline to the stage
 				
-				G.vars.mirrors.push(new mirror(22, 22, 2));
+				G.vars.mirrors.push(new mirror(22, 22, 3));
 				G.vars._stage.addChild(G.vars.mirrors[G.vars.mirrors.length - 1]);
 
 				G.vars.mirrors.push(new mirror(66, 22, 1));
 				G.vars._stage.addChild(G.vars.mirrors[G.vars.mirrors.length - 1]);
 				
-				G.vars.mirrors.push(new mirror(110, 22, 2));
+				G.vars.mirrors.push(new mirror(110, 22, 3));
 				G.vars._stage.addChild(G.vars.mirrors[G.vars.mirrors.length - 1]);
 
 				G.vars.globes.push(new globe(387, 296));
@@ -472,7 +472,7 @@
 				G.vars.lines[G.vars.lines.length - 1].visible = true;
 				G.vars._stage.addChild(G.vars.lines[G.vars.lines.length - 1])
 
-				G.vars.mirrors.push(new mirror(22, 22, 2));
+				G.vars.mirrors.push(new mirror(22, 22, 3));
 				G.vars._stage.addChild(G.vars.mirrors[G.vars.mirrors.length - 1]);
 
 				G.vars.mirrors.push(new mirror(66, 22, 1));
@@ -481,7 +481,7 @@
 				G.vars.mirrors.push(new mirror(110, 22, 1));
 				G.vars._stage.addChild(G.vars.mirrors[G.vars.mirrors.length - 1]);
 
-				G.vars.mirrors.push(new mirror(154, 22, 2));
+				G.vars.mirrors.push(new mirror(154, 22, 3));
 				G.vars._stage.addChild(G.vars.mirrors[G.vars.mirrors.length - 1]);
 
 				G.vars.mirrors.push(new mirror(198, 22, 1));
@@ -617,16 +617,16 @@
 				G.vars.mirrors.push(new mirror(22, 22, 1));
 				G.vars._stage.addChild(G.vars.mirrors[G.vars.mirrors.length - 1]);
 
-				G.vars.mirrors.push(new mirror(66, 22, 2));
+				G.vars.mirrors.push(new mirror(66, 22, 3));
 				G.vars._stage.addChild(G.vars.mirrors[G.vars.mirrors.length - 1]);
 
 				G.vars.mirrors.push(new mirror(110, 22, 1));
 				G.vars._stage.addChild(G.vars.mirrors[G.vars.mirrors.length - 1]);
 
-				G.vars.mirrors.push(new mirror(154, 22, 2));
+				G.vars.mirrors.push(new mirror(154, 22, 3));
 				G.vars._stage.addChild(G.vars.mirrors[G.vars.mirrors.length - 1]);
 
-				G.vars.mirrors.push(new mirror(198, 22, 2));
+				G.vars.mirrors.push(new mirror(198, 22, 3));
 				G.vars._stage.addChild(G.vars.mirrors[G.vars.mirrors.length - 1]);
 				
 				G.vars.globes.push(new globe(108, 126));
@@ -695,13 +695,13 @@
 				G.vars.mirrors.push(new mirror(22, 22, 1));
 				G.vars._stage.addChild(G.vars.mirrors[G.vars.mirrors.length - 1]);
 
-				G.vars.mirrors.push(new mirror(66, 22, 2));
+				G.vars.mirrors.push(new mirror(66, 22, 3));
 				G.vars._stage.addChild(G.vars.mirrors[G.vars.mirrors.length - 1]);
 
 				G.vars.mirrors.push(new mirror(110, 22, 1));
 				G.vars._stage.addChild(G.vars.mirrors[G.vars.mirrors.length - 1]);
 
-				G.vars.mirrors.push(new mirror(154, 22, 2));
+				G.vars.mirrors.push(new mirror(154, 22, 3));
 				G.vars._stage.addChild(G.vars.mirrors[G.vars.mirrors.length - 1]);
 				
 				G.vars.mirrors.push(new mirror(198, 22, 1));

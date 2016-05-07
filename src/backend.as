@@ -302,7 +302,7 @@
 							tmpLine = new line(_mirror.x, _mirror.y, 1000, _mirror.y, 
 											   'y', 'RIGHT', mirrorNum, G.vars.lines[lineNum].lineColor);
 							break;
-						case 2: // A type 2 mirror hitting a line going up should bounce left
+						case 3: // A type 3 mirror hitting a line going up should bounce left
 							tmpLine = new line(_mirror.x, _mirror.y, -450, _mirror.y, 
 											   'y', 'LEFT', mirrorNum, G.vars.lines[lineNum].lineColor);
 							break;
@@ -316,7 +316,7 @@
 							tmpLine = new line(_mirror.x, _mirror.y, -450, _mirror.y, 
 											   'y', 'LEFT', mirrorNum, G.vars.lines[lineNum].lineColor);
 							break;
-						case 2: // A type 2 mirror hitting a line going down should bounce right
+						case 3: // A type 3 mirror hitting a line going down should bounce right
 							tmpLine = new line(_mirror.x, _mirror.y, 1000, _mirror.y, 
 											   'y', 'RIGHT', mirrorNum, G.vars.lines[lineNum].lineColor);
 							break;
@@ -330,7 +330,7 @@
 							tmpLine = new line(_mirror.x, _mirror.y, _mirror.x, 400, 
 											   'x', 'DOWN', mirrorNum, G.vars.lines[lineNum].lineColor);
 							break;
-						case 2: // A type 2 mirror hitting a line going left should bounce up
+						case 3: // A type 3 mirror hitting a line going left should bounce up
 							tmpLine = new line(_mirror.x, _mirror.y, _mirror.x, 0, 
 											   'x', 'UP', mirrorNum, G.vars.lines[lineNum].lineColor);
 							break;
@@ -344,7 +344,7 @@
 							tmpLine = new line(_mirror.x, _mirror.y, _mirror.x, 0, 
 											   'x', 'UP', mirrorNum, G.vars.lines[lineNum].lineColor);
 							break;
-						case 2: // A type 2 mirror hitting a line going right should bounce down
+						case 3: // A type 3 mirror hitting a line going right should bounce down
 							tmpLine = new line(_mirror.x, _mirror.y, _mirror.x, 400,
 											   'x', 'DOWN', mirrorNum, G.vars.lines[lineNum].lineColor);
 							break;
