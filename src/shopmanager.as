@@ -6,7 +6,7 @@
 		
 		public function buyDoubleCoins(event:MouseEvent) // purchases double G.vars.coins and tells the user if it worked
 		{
-			var newMoney = G.vars.playerShop.shopBuy("double G.vars.coins");
+			var newMoney = G.vars.playerShop.shopBuy("double coins");
 			if (newMoney == 9876) { G.vars.dialogbox.simpleDialog("Too poor!","You don't have enough coins to buy Double Coins!"); }
 			else if (newMoney == 1337) { G.vars.dialogbox.simpleDialog("Already bought!","You already own Double Coins."); }
 			else { G.vars.dialogbox.simpleDialog("Purchased Double Coins!","You sucessfully purchased Double Coins!"); G.vars.money = newMoney; }
