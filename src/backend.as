@@ -312,7 +312,7 @@
 				case 'UP LEFT':
 					switch (_mirror.currentFrame)
 					{
-						case 2: // a type 2 mirror hitting a line doing up and left should bounce up and right
+						case 2: // a type 2 mirror hitting a line going up and left should bounce up and right
 							tmpLine = new line(_mirror.x, _mirror.y, _mirror.x + 400, _mirror.y - 400,
 											   'd', 'UP RIGHT', mirrorNum, G.vars.lines[lineNum].lineColor);
 							break;
@@ -321,6 +321,16 @@
 											   'y', 'LEFT', mirrorNum, G.vars.lines[lineNum].lineColor);
 							break;
 							
+					}
+					break;
+					
+				case 'UP RIGHT':
+					switch (_mirror.currentFrame)
+					{
+						case 2: // a type 2 mirror hitting a line going up and right should bounce up and left
+							tmpLine = new line(_mirror.x, _mirror.y, _mirror.x - 400, _mirror.y - 400,
+											   'd', 'UP LEFT', mirrorNum, G.vars.lines[lineNum].lineColor);
+							break;
 					}
 					break;
 
@@ -338,6 +348,16 @@
 					}
 					break;
 				
+				case 'DOWN LEFT':
+					switch (_mirror.currentFrame)
+					{
+						case 2: // a type 2 mirror hitting a line going down and left should bounce down and right
+							tmpLine = new line(_mirror.x, _mirror.y, _mirror.x + 400, _mirror.y + 400,
+											   'd', 'DOWN RIGHT', mirrorNum, G.vars.lines[lineNum].lineColor);
+							break;
+					}
+					break;
+					
 				case 'DOWN RIGHT':
 					switch (_mirror.currentFrame)
 					{
@@ -367,6 +387,10 @@
 							tmpLine = new line(_mirror.x, _mirror.y, _mirror.x - 400, _mirror.y - 400,
 											   'd', 'UP LEFT', mirrorNum, G.vars.lines[lineNum].lineColor);
 							break;
+						case 6: // a type 2 refractor hitting a line going left should bounce down and left
+							tmpLine = new line(_mirror.x, _mirror.y, _mirror.x - 400, _mirror.y + 400,
+											   'd', 'DOWN LEFT', mirrorNum, G.vars.lines[lineNum].lineColor);
+							break;
 					}
 					break;
 
@@ -384,6 +408,10 @@
 						case 5: // a type 1 refractor hitting a line going right should bounce down and right
 							tmpLine = new line(_mirror.x, _mirror.y, _mirror.x + 400, _mirror.y + 400,
 											   'd', 'DOWN RIGHT', mirrorNum, G.vars.lines[lineNum].lineColor);
+							break;
+						case 6: // a type 2 refractor hitting a line going right should bounce up and right
+							tmpLine = new line(_mirror.x, _mirror.y, _mirror.x +400, _mirror.y - 400,
+											   'd', 'UP RIGHT', mirrorNum, G.vars.lines[lineNum].lineColor);
 							break;
 					}
 					break;
