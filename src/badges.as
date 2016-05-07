@@ -34,7 +34,7 @@
 				hideBadge1Timer.addEventListener(TimerEvent.TIMER, hideBadge1);
 				hideBadge1Timer.start();
 			}
-			else if (!G.vars.badgeManager2.G.stage)
+			else if (!G.vars.badgeManager2.stage)
 			{
 				G.vars.badgesArray.push(title.toLocaleLowerCase());
 				G.vars.badgeManager2 = new badgeAlert();
