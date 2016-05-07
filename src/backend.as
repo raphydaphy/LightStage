@@ -166,7 +166,6 @@
 					{
 						if (G.vars.collisiontest.collision(G.vars.lines[lineNum], G.vars.globes[globeNum]))
 						{
-							trace('collision');
 							G.vars.globes[globeNum].hit = true;
 							G.vars.globes[globeNum].filling = true; // tell that globe that it has been hit by a line
 							G.vars.globes[globeNum].startFill(); // start filling that globe using it's function

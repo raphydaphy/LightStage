@@ -8,34 +8,34 @@
 			var num:int=Math.floor(Math.random() * G.vars.lineColors.length);
 
 			G.vars.mirrors.push(new mirror(22, 22, 5));
-	G.vars._stage.addChild(G.vars.mirrors[G.vars.mirrors.length - 1]);
+			G.vars._stage.addChild(G.vars.mirrors[G.vars.mirrors.length - 1]);
 
-	G.vars.mirrors.push(new mirror(66, 22, 4));
-	G.vars._stage.addChild(G.vars.mirrors[G.vars.mirrors.length - 1]);
+			G.vars.mirrors.push(new mirror(66, 22, 4));
+			G.vars._stage.addChild(G.vars.mirrors[G.vars.mirrors.length - 1]);
 
-	G.vars.mirrors.push(new mirror(110, 22, 2));
-	G.vars._stage.addChild(G.vars.mirrors[G.vars.mirrors.length - 1]);
+			G.vars.mirrors.push(new mirror(110, 22, 2));
+			G.vars._stage.addChild(G.vars.mirrors[G.vars.mirrors.length - 1]);
 
-	G.vars.mirrors.push(new mirror(154, 22, 5));
-	G.vars._stage.addChild(G.vars.mirrors[G.vars.mirrors.length - 1]);
+			G.vars.mirrors.push(new mirror(154, 22, 5));
+			G.vars._stage.addChild(G.vars.mirrors[G.vars.mirrors.length - 1]);
 
-	G.vars.mirrors.push(new mirror(198, 22, 1));
-	G.vars._stage.addChild(G.vars.mirrors[G.vars.mirrors.length - 1]);
+			G.vars.mirrors.push(new mirror(198, 22, 1));
+			G.vars._stage.addChild(G.vars.mirrors[G.vars.mirrors.length - 1]);
 
-	G.vars.globes.push(new globe(151, 252));
-	G.vars._stage.addChild(G.vars.globes[G.vars.globes.length - 1]);
+			G.vars.globes.push(new globe(151, 252));
+			G.vars._stage.addChild(G.vars.globes[G.vars.globes.length - 1]);
 
-	G.vars.globes.push(new globe(362, 189));
-	G.vars._stage.addChild(G.vars.globes[G.vars.globes.length - 1]);
+			G.vars.globes.push(new globe(362, 189));
+			G.vars._stage.addChild(G.vars.globes[G.vars.globes.length - 1]);
 
-	G.vars.globes.push(new globe(382, 85));
-	G.vars._stage.addChild(G.vars.globes[G.vars.globes.length - 1]);
+			G.vars.globes.push(new globe(382, 85));
+			G.vars._stage.addChild(G.vars.globes[G.vars.globes.length - 1]);
 
-	G.vars.globes.push(new globe(209, 39));
-	G.vars._stage.addChild(G.vars.globes[G.vars.globes.length - 1]);
+			G.vars.globes.push(new globe(209, 39));
+			G.vars._stage.addChild(G.vars.globes[G.vars.globes.length - 1]);
 
-	G.vars.globes.push(new globe(139, 378));
-	G.vars._stage.addChild(G.vars.globes[G.vars.globes.length - 1]);
+			G.vars.globes.push(new globe(139, 378));
+			G.vars._stage.addChild(G.vars.globes[G.vars.globes.length - 1]);
 	if (G.vars.spawnCoins)
 	{
 
