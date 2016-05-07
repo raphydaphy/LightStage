@@ -16,12 +16,6 @@ package
 	
 	public class LightStage extends MovieClip // Main class declaration for the LightStage game
 	{
-		/***************************
-		INSTANCE OF LIGHTSTAGE CLASS
-		***************************/
-		private static var _instance:LightStage;
-		public static function get instance():LightStage { return _instance; }
-		
 		/**********************************************
 		PUBLIC VECTORS FOR MOVIECLIPS & CLASS INSTANCES
 		**********************************************/
@@ -120,8 +114,8 @@ package
 				}
 			}
 			
-			//G.vars.levels.setupLevel();
-			G.vars.levels.demoLevel();
+			G.vars.levels.setupLevel();
+			//G.vars.levels.demoLevel();
 			
 			stage.addEventListener(Event.ENTER_FRAME, G.vars.backend.enterFrame); // Start enterFrame listener
 		}

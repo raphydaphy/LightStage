@@ -22,7 +22,6 @@
 				var blueClipBmpData = new BitmapData(blueRect.width, blueRect.height, true, 0);
 				blueClipBmpData.draw(blueClip, blueOffset);     
 
-
 				var redRect:Rectangle = redClip.getBounds(G.vars._root);
 				var redClipBmpData = new BitmapData(redRect.width, redRect.height, true, 0);
 
