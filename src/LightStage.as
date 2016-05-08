@@ -75,6 +75,7 @@ package
 			G.vars.mirrorDown = false;
 			G.vars.tutstage = 0;
 			
+			G.vars.completedLevels = 0;
 		}
 		
 		public function safeUpdateText(changeFrame: Boolean = true): void

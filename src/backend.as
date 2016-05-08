@@ -677,6 +677,10 @@
 		
 		private function levelUp(): void // if the user completes the previous G.vars.level
 		{
+			if (G.vars.tutorial == false)
+			{
+				G.vars.completedLevels += 1;
+			}
 			G.vars.level += 1;
 			reset();
 			prepGame();

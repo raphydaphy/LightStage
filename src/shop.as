@@ -35,7 +35,7 @@
 			{
 				if (G.vars.playerItems.indexOf(item) == -1)
 				{
-					G.vars.itemsPurchases += 1;
+					G.vars.itemsPurchased += 1;
 					if (item != "skip level" && item != "remove bomb")
 					{
 						G.vars.playerItems[G.vars.playerItems.length] = item;

@@ -75,24 +75,24 @@
 				showBadge("Spending Spree 1","Buy at least three items from the ingame shop",5,2);
 			}
 			
-			if (G.vars.itemsPurchases > 5 && // if they have purchased at least 6 items from the shop
+			if (G.vars.itemsPurchased > 5 && // if they have purchased at least 6 items from the shop
 				G.vars.badgesArray.indexOf("spending spree 2") == -1) // if they don't already have the badge
 			{
 				showBadge("Spending Spree 2","Buy at least six items from the ingame shop",10,2);
 			}
 			
-			if (G.vars.level > 4 &&
+			if (G.vars.completedLevels > 3 &&
 				G.vars.tutorial == false &&
 				G.vars.badgesArray.indexOf("survivor 1") == -1)
 			{
-				showBadge("Survivor 1","Complete 4 levels in a row without dying",10,3);
+				showBadge("Survivor 1","Complete 4 levels without skipping the level",10,3);
 			}
 			
-			if (G.vars.level > 8 &&
+			if (G.vars.completedLevels > 7 &&
 				G.vars.tutorial == false &&
 				G.vars.badgesArray.indexOf("survivor 2") == -1)
 			{
-				showBadge("Survivor 2","Complete 8 levels in a row without dying",25,3);
+				showBadge("Survivor 2","Complete 8 levels without skipping the level",25,3);
 			}
 			
 			if (G.vars.detonated > 5 &&
