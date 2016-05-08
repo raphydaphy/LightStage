@@ -57,7 +57,7 @@
 				G.vars.deaths += 1;
 				G.vars.spawnCoins = false;
 				G.vars.startupMsg = "You died!"; // the text on the loading screen should be 'You died!'
-				G.vars.level = 1;
+				//G.vars.level = 1;
 			}
 			else if (G.vars.result == "WON") // if the user completed the last G.vars.level
 			{
@@ -226,21 +226,24 @@
 						
 					}
 					
-					for (var coinNum: int = 0; coinNum < G.vars.coins.length; coinNum++) //iterate through G.vars.coins
+					if (G.vars.spawnCoins == true)
 					{
-						if (G.vars.collisiontest.collision(G.vars.lines[lineNum],G.vars.coins[coinNum]))
+						for (var coinNum: int = 0; coinNum < G.vars.coins.length; coinNum++) //iterate through G.vars.coins
 						{
-							if (G.vars.tutorial == true && G.vars.level == 3)
+							if (G.vars.collisiontest.collision(G.vars.lines[lineNum],G.vars.coins[coinNum]))
 							{
-								G.vars.tutstage = 4;
-								G.vars.hint1.gotoAndStop(5);
-								G.vars.hint1.hint.text = "press 's' to open the shop and spend your coins.";
-								G.vars.hint1.x = 380;
-								G.vars.hint1.y = 120;
+								if (G.vars.tutorial == true && G.vars.level == 3)
+								{
+									G.vars.tutstage = 4;
+									G.vars.hint1.gotoAndStop(5);
+									G.vars.hint1.hint.text = "press 's' to open the shop and spend your coins.";
+									G.vars.hint1.x = 380;
+									G.vars.hint1.y = 120;
+								}
+								G.vars.coins[coinNum].hit = true;
+								G.vars.coins[coinNum].filling = true; // tell thatcoin that it has been hit by a line
+								G.vars.coins[coinNum].startFill(); // start filling that coin using it's function
 							}
-							G.vars.coins[coinNum].hit = true;
-							G.vars.coins[coinNum].filling = true; // tell thatcoin that it has been hit by a line
-							G.vars.coins[coinNum].startFill(); // start filling that coin using it's function
 						}
 					}
 					
