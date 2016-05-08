@@ -1,5 +1,5 @@
 ﻿/***************************
-LIGHTSTAGE 0.3 BETA 2
+LIGHTSTAGE 0.3 BETA 3
 Built by Raph Hennessy
 All Rights Reserved May 2016
 ***************************/
@@ -74,6 +74,7 @@ package
 			G.vars.tutorial = true;
 			G.vars.mirrorDown = false;
 			G.vars.tutstage = 0;
+			
 		}
 		
 		public function safeUpdateText(changeFrame: Boolean = true): void
