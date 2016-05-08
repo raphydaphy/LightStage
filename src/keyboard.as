@@ -48,7 +48,7 @@
 					G.vars._stage.addChild(G.vars.playerShop);
 					G.vars.playerShop.x = 275;
 					G.vars.playerShop.y = 200;
-					
+					G.vars.playerShop.gotoAndStop(1);
 					G.vars.playerShop.exitShop.addEventListener(MouseEvent.CLICK, G.vars.shopmanager.closeShop);
 					G.vars.playerShop.doubleCoins.addEventListener(MouseEvent.CLICK, G.vars.shopmanager.buyDoubleCoins);
 					G.vars.playerShop.bombDeflectChance.addEventListener(MouseEvent.CLICK, G.vars.shopmanager.buyBombChance);
