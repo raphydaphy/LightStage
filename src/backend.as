@@ -158,11 +158,11 @@
 							G.vars.mirrors[mirrorNum].hitbox.visible = true;
 							if (G.vars.collisiontest.collision(G.vars.mirrors[mirrorNum],G.vars.lines[lineNum]))
 							{
-								if (G.vars.tutorial == true && G.vars.tutstage < 4 && G.vars.level == 1)
+								if (G.vars.tutorial == true && G.vars.tutstage < 5 && G.vars.level == 1)
 								{
 									G.vars.tutstage = 5;
 									G.vars.hint1.gotoAndStop(3);
-									G.vars.hint1.hint.text = "reflect the laser onto the globe to win.";
+									G.vars.hint1.hint.text = "deflect the laser onto the globe to win.";
 									G.vars.hint1.x = 100;
 									G.vars.hint1.y = 289;
 								}
