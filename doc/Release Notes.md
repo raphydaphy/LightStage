@@ -1,6 +1,14 @@
 # Release Notes
 This page contains information about each minor release of LightStage. LightStage was first added to GitHub when it was in Alpha version 0.13. This page contains information from Alpha 0.01 all the way up to the latest release.
 
+## LightStage 0.3 Beta 2
+- Fixed useless next page buttons in the shop in issue #17
+- Added Remove Bomb in the shop for $10 in-game money
+- Added Skip Level in the shop for $25 in-game money
+- Fixed Remove Bomb glitch in issue #38 
+- Fixed tutorial level 1 glitch in issue #37
+- Fixed opening shop glitch in issue #39
+
 ## LightStage 0.3 Beta 1
 - Added a tutorial at the start of the game from issue #32 
 
