@@ -1,5 +1,5 @@
 # LightStage features
-This page is a list of the currently supported gameplay and features in the latest version of LightStage. This page was last updated for LightStage 0.1 Final, which was the latest at the time (7th May 2016).
+This page is a list of the currently supported gameplay and features in the latest version of LightStage. This page was last updated for LightStage 0.3 Beta 2, which was the latest at the time (8th May 2016).
 
 ## Game features
 - Deflect base lazer beams
@@ -27,3 +27,8 @@ This page is a list of the currently supported gameplay and features in the late
 - Getting a badge gives you money
 - You get money for completing levels, but only on the first time you complete them
 - You can test your levels made in the level editor by pressing T
+- Remove a random bomb from the level for $10 with the Remove Bomb purchase in the shop
+- Skip a level for $25 in the in-game shop
+- Complete the tutorial at the start of the game to learn how to play
+- Deflect lines by 45 degrees using refractors
+- Deflect lines by 90 degrees using flat mirrors
