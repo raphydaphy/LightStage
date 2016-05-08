@@ -26,6 +26,32 @@
 				G.vars.lines[G.vars.lines.length - 1].visible = true;
 				G.vars._stage.addChild(G.vars.lines[G.vars.lines.length - 1]);
 			}
+			else if (G.vars.level == 2)
+			{
+				G.vars.hint1.gotoAndStop(5);
+				G.vars.hint1.hint.text = "this is a bomb. don't direct light at it!";
+				G.vars.tutstage = 1;
+				G.vars.hint1.x = 180;
+				G.vars.hint1.y = 245;
+				G.vars._stage.addChild(G.vars.hint1);
+				
+				G.vars.mirrors.push(new mirror(22, 22, 1));
+				G.vars._stage.addChild(G.vars.mirrors[G.vars.mirrors.length - 1]);
+
+				G.vars.globes.push(new globe(72, 301));
+				G.vars._stage.addChild(G.vars.globes[G.vars.globes.length - 1]);
+
+				G.vars.bombs.push(new bomb(75, 180));
+				G.vars._stage.addChild(G.vars.bombs[G.vars.bombs.length - 1]);
+				
+				G.vars.lines.push(new line(275, 120, 275, 450, 'x', 'DOWN', 9999, G.vars.lineColors[num], false, false));
+				G.vars.lines[G.vars.lines.length - 1].visible = true;
+				G.vars._stage.addChild(G.vars.lines[G.vars.lines.length - 1])
+			}
+			else if (G.vars.level == 3)
+			{
+				
+			}
 		}
 		public function demoLevel() // a level for testing new features
 		{

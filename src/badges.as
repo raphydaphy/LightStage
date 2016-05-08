@@ -16,7 +16,7 @@
 			G.vars.curBadgeBox -= 1;
 		}
 		
-		private function showBadge(title: String, desc: String, cost: int, frame: int): void
+		public function showBadge(title: String, desc: String, cost: int, frame: int): void
 		{
 			if (!G.vars.badgeManager1.stage)
 			{
@@ -106,7 +106,7 @@
 			}
 			
 			if (G.vars.escaped > 10 &&
-				G.vars.badgesArray.indexOf("escape artist 2") == -2)
+				G.vars.badgesArray.indexOf("escape artist 2") == -1)
 			{
 				showBadge("Escape Artist 2","Dodge 10 bombs using Bomb Deflection Chance",25,5);
 			}

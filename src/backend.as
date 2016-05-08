@@ -12,13 +12,38 @@
 			G.vars.resetting = true;
 			if (G.vars.tutorial == true)
 			{
-				if (G.vars.result == "WON")
+				if (G.vars.hint1.stage) { G.vars._stage.removeChild(G.vars.hint1); }
+				if (G.vars.level == 2)
 				{
 					G.vars.startupMsg = "You completed the tutorial!";
-					G.vars.spawnCoins = true;
-					G.vars.level = 1;
-					G.vars.tutorial = false;
 				}
+				else if (G.vars.level == 3)
+				{
+					if (G.vars.result == "WON")
+					{
+						G.vars.startupMsg = "You completed the tutorial!";
+					}
+					else if (G.vars.result == "DIED")
+					{
+						G.vars.startupMsg = "You died! Try again...";
+					}
+				}
+				else if (G.vars.level == 4)
+				{
+					if (G.vars.result == "WON")
+					{
+						G.vars.startupMsg = "You completed all the tutorials!";
+						G.vars.badges.showBadge("Student","Complete all the tutorials.",4,6);
+						G.vars.spawnCoins = true;
+						G.vars.level = 1;
+						G.vars.tutorial = false;
+					}
+					else if (G.vars.result == "DIED")
+					{
+						G.vars.startupMsg = "You died! Try again...";
+					}
+				}
+				
 			}
 			else if (G.vars.result == "NEW") // if it is the first game the user has played
 			{
