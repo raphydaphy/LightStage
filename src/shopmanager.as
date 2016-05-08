@@ -66,6 +66,8 @@
 			else if (G.vars.shopResult == "purchased")
 			{
 				var rmBomb:int=Math.floor(Math.random() * G.vars.bombs.length);
+				G.vars.bombs[rmBomb].resetAll();
+				G.vars.bombs[rmBomb].destroy();
 				if (G.vars.bombs[rmBomb].stage) { G.vars._stage.removeChild(G.vars.bombs[rmBomb]); }
 				G.vars.dialogbox.simpleDialog("Removed a bomb!","You successfully removed a bomb!");
 			}
