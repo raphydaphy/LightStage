@@ -12,23 +12,14 @@
 			G.vars.resetting = true;
 			if (G.vars.tutorial == true)
 			{
-				if (G.vars.hint1.stage) { G.vars._stage.removeChild(G.vars.hint1); }
-				if (G.vars.level == 2)
-				{
-					G.vars.startupMsg = "You completed the tutorial!";
+				G.vars.mirrorDown = false;
+				
+				if (G.vars.hint1.stage) 
+				{ 
+					G.vars._stage.removeChild(G.vars.hint1); 
 				}
-				else if (G.vars.level == 3)
-				{
-					if (G.vars.result == "WON")
-					{
-						G.vars.startupMsg = "You completed the tutorial!";
-					}
-					else if (G.vars.result == "DIED")
-					{
-						G.vars.startupMsg = "You died! Try again...";
-					}
-				}
-				else if (G.vars.level == 4)
+				
+				if (G.vars.level == 4)
 				{
 					if (G.vars.result == "WON")
 					{
@@ -40,10 +31,20 @@
 					}
 					else if (G.vars.result == "DIED")
 					{
+						G.vars.spawnCoins = true;
 						G.vars.startupMsg = "You died! Try again...";
 					}
 				}
-				
+				else if (G.vars.result == "WON")
+				{
+					G.vars.spawnCoins = true;
+					G.vars.startupMsg = "You completed the tutorial!";
+				}
+				else if (G.vars.result == "DIED")
+				{
+					G.vars.spawnCoins = true;
+					G.vars.startupMsg = "You died! Try again...";
+				}
 			}
 			else if (G.vars.result == "NEW") // if it is the first game the user has played
 			{
@@ -229,6 +230,17 @@
 					{
 						if (G.vars.collisiontest.collision(G.vars.lines[lineNum],G.vars.coins[coinNum]))
 						{
+							if (G.vars.tutorial == true)
+							{
+								if (G.vars.tutstage == 3 && G.vars.level == 3)
+								{
+									G.vars.tutstage = 4;
+									G.vars.hint1.gotoAndStop(5);
+									G.vars.hint1.hint.text = "press 's' to open the shop and spend your coins.";
+									G.vars.hint1.x = 380;
+									G.vars.hint1.y = 120;
+								}
+							}
 							G.vars.coins[coinNum].hit = true;
 							G.vars.coins[coinNum].filling = true; // tell thatcoin that it has been hit by a line
 							G.vars.coins[coinNum].startFill(); // start filling that coin using it's function
@@ -334,22 +346,37 @@
 			
 			G.vars.badges.checkBadges(); // check if they should get any new G.vars.badges
 			
-			if (G.vars.tutorial == true && G.vars.level == 1)
+			if (G.vars.tutorial == true && 
+				G.vars.level == 1 &&
+				G.vars.mirrorDown == true && 
+				G.vars.hint1.stage && 
+				G.vars.tutstage == 1)
 			{
-				if (G.vars.mirrorDown == true && 
-					G.vars.hint1.stage && 
-					G.vars.tutstage == 1)
-				{
-					G.vars.tutstage = 2;
-					G.vars.hint1.gotoAndStop(3);
-					G.vars.hint1.hint.text = "this is a globe. globes are the key to winning.";
-					G.vars.hint1.x = 100;
-					G.vars.hint1.y = 289;
-					
-					var tutTimer1:Timer = new Timer(4000, 1);
-					tutTimer1.addEventListener(TimerEvent.TIMER, continueTut);
-					tutTimer1.start();
-				}
+				G.vars.tutstage = 2;
+				G.vars.hint1.gotoAndStop(3);
+				G.vars.hint1.hint.text = "this is a globe. globes are the key to winning.";
+				G.vars.hint1.x = 100;
+				G.vars.hint1.y = 289;
+				
+				var tutTimer1:Timer = new Timer(4000, 1);
+				tutTimer1.addEventListener(TimerEvent.TIMER, continueTut);
+				tutTimer1.start();
+			}
+			else if (G.vars.tutorial == true && 
+				G.vars.level == 3 &&
+				G.vars.mirrorDown == true && 
+				G.vars.hint1.stage && 
+				G.vars.tutstage == 1)
+			{
+				G.vars.tutstage = 2;
+				G.vars.hint1.gotoAndStop(4);
+				G.vars.hint1.hint.text = "this is a coin. you can spend coins in the shop.";
+				G.vars.hint1.x = 400;
+				G.vars.hint1.y = 289;
+				
+				var tutTimer3:Timer = new Timer(4000, 1);
+				tutTimer3.addEventListener(TimerEvent.TIMER, continueTut);
+				tutTimer3.start();
 			}
 			
 			if (G.vars.badgeManager1.stage)
@@ -376,26 +403,40 @@
 		
 		public function continueTut(event:TimerEvent)
 		{
-			if (G.vars.tutstage == 2)
+			if (G.vars.level == 1)
 			{
-				G.vars.tutstage = 3;
-				G.vars.hint1.gotoAndStop(2);
-				G.vars.hint1.hint.text = "this is a laser beam. it comes from a flashlight.";
-				G.vars.hint1.x = 400;
-				G.vars.hint1.y = 80;
+				if (G.vars.tutstage == 2)
+				{
+					G.vars.tutstage = 3;
+					G.vars.hint1.gotoAndStop(2);
+					G.vars.hint1.hint.text = "this is a laser beam. it comes from a flashlight.";
+					G.vars.hint1.x = 400;
+					G.vars.hint1.y = 80;
+					
+					var tutTimer2:Timer = new Timer(4000, 1);
+					tutTimer2.addEventListener(TimerEvent.TIMER, continueTut);
+					tutTimer2.start();
+				}
 				
-				var tutTimer2:Timer = new Timer(4000, 1);
-				tutTimer2.addEventListener(TimerEvent.TIMER, continueTut);
-				tutTimer2.start();
+				else if (G.vars.tutstage == 3)
+				{
+					G.vars.tutstage = 4;
+					G.vars.hint1.gotoAndStop(1);
+					G.vars.hint1.hint.text = "drag the mirror onto the laser to continue.";
+					G.vars.hint1.x = 400;
+					G.vars.hint1.y = 330;
+				}
 			}
-			
-			else if (G.vars.tutstage == 3)
+			else if (G.vars.level == 3)
 			{
-				G.vars.tutstage = 4;
-				G.vars.hint1.gotoAndStop(1);
-				G.vars.hint1.hint.text = "drag the mirror onto the laser to continue.";
-				G.vars.hint1.x = 400;
-				G.vars.hint1.y = 330;
+				if (G.vars.tutstage == 2)
+				{
+					G.vars.tutstage = 3;
+					G.vars.hint1.gotoAndStop(2);
+					G.vars.hint1.hint.text = "deflect light into the coin to get it.";
+					G.vars.hint1.x = 400;
+					G.vars.hint1.y = 80;
+				}
 			}
 		}
 		

@@ -9,11 +9,11 @@
 			
 			if (G.vars.level == 1)
 			{
+				G.vars.hint1.gotoAndStop(1);
 				G.vars.hint1.hint.text = "this is a mirror. you can drag it around.";
 				G.vars.tutstage = 1;
 				G.vars.hint1.x = 70;
 				G.vars.hint1.y = 150;
-				G.vars.hint1.gotoAndStop(1);
 				G.vars._stage.addChild(G.vars.hint1);
 				
 				G.vars.mirrors.push(new mirror(22, 22, 3));
@@ -49,8 +49,27 @@
 				G.vars._stage.addChild(G.vars.lines[G.vars.lines.length - 1])
 			}
 			else if (G.vars.level == 3)
-			{
+			{		
+				G.vars.hint1.gotoAndStop(1);
+				G.vars.hint1.hint.text = "this is a refractor. try it out :)";
+				G.vars.tutstage = 1;
+				G.vars.hint1.x = 80;
+				G.vars.hint1.y = 150;
+				G.vars._stage.addChild(G.vars.hint1);
 				
+				G.vars.mirrors.push(new mirror(22, 22, 7));
+				G.vars._stage.addChild(G.vars.mirrors[G.vars.mirrors.length - 1]);
+
+				G.vars.globes.push(new globe(179, 318));
+				G.vars._stage.addChild(G.vars.globes[G.vars.globes.length - 1]);
+				if (G.vars.spawnCoins)
+				{
+					G.vars.coins.push(new coin(223, 279));
+					G.vars._stage.addChild(G.vars.coins[G.vars.coins.length - 1]);
+				}
+				G.vars.lines.push(new line(500, 200, -450, 200, 'y', 'LEFT', 9999, G.vars.lineColors[num], false, false));
+				G.vars.lines[G.vars.lines.length - 1].visible = true;
+				G.vars._stage.addChild(G.vars.lines[G.vars.lines.length - 1])
 			}
 		}
 		public function demoLevel() // a level for testing new features
@@ -88,7 +107,6 @@
 			G.vars._stage.addChild(G.vars.globes[G.vars.globes.length - 1]);
 	if (G.vars.spawnCoins)
 	{
-
 		G.vars.coins.push(new coin(177, 281));
 		G.vars._stage.addChild(G.vars.coins[G.vars.coins.length - 1]);
 
