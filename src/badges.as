@@ -76,12 +76,14 @@
 			}
 			
 			if (G.vars.level > 4 &&
+				G.vars.tutorial == false &&
 				G.vars.badgesArray.indexOf("survivor 1") == -1)
 			{
 				showBadge("Survivor 1","Complete 4 levels in a row without dying",10,3);
 			}
 			
 			if (G.vars.level > 8 &&
+				G.vars.tutorial == false &&
 				G.vars.badgesArray.indexOf("survivor 2") == -1)
 			{
 				showBadge("Survivor 2","Complete 8 levels in a row without dying",25,3);

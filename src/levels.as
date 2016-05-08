@@ -51,7 +51,7 @@
 			else if (G.vars.level == 3)
 			{		
 				G.vars.hint1.gotoAndStop(1);
-				G.vars.hint1.hint.text = "this is a refractor. try it out :)";
+				G.vars.hint1.hint.text = "this is a refractor. it's another kind of mirror.";
 				G.vars.tutstage = 1;
 				G.vars.hint1.x = 80;
 				G.vars.hint1.y = 150;
@@ -89,6 +89,35 @@
 				G.vars.walls.push(new block(501, 315));
 				G.vars._stage.addChild(G.vars.walls[G.vars.walls.length - 1]);
 				
+				G.vars.lines.push(new line(50, 200, 1000, 200, 'y', 'RIGHT', 9999, G.vars.lineColors[num], false, false));
+				G.vars.lines[G.vars.lines.length - 1].visible = true;
+				G.vars._stage.addChild(G.vars.lines[G.vars.lines.length - 1])
+			}
+			else if (G.vars.level == 5)
+			{
+				G.vars.hint1.gotoAndStop(1);
+				G.vars.hint1.hint.text = "some levels have multiple mirrors. you will need both of them.";
+				G.vars.tutstage = 1;
+				G.vars.hint1.x = 80;
+				G.vars.hint1.y = 150;
+				G.vars._stage.addChild(G.vars.hint1);
+				
+				G.vars.mirrors.push(new mirror(22, 22, 5));
+				G.vars._stage.addChild(G.vars.mirrors[G.vars.mirrors.length - 1]);
+
+				G.vars.mirrors.push(new mirror(66, 22, 4));
+				G.vars._stage.addChild(G.vars.mirrors[G.vars.mirrors.length - 1]);
+
+				G.vars.globes.push(new globe(207, 263));
+				G.vars._stage.addChild(G.vars.globes[G.vars.globes.length - 1]);
+
+				G.vars.globes.push(new globe(494, 123));
+				G.vars._stage.addChild(G.vars.globes[G.vars.globes.length - 1]);
+				if (G.vars.spawnCoins)
+				{
+					G.vars.coins.push(new coin(238, 293));
+					G.vars._stage.addChild(G.vars.coins[G.vars.coins.length - 1]);
+				}
 				G.vars.lines.push(new line(50, 200, 1000, 200, 'y', 'RIGHT', 9999, G.vars.lineColors[num], false, false));
 				G.vars.lines[G.vars.lines.length - 1].visible = true;
 				G.vars._stage.addChild(G.vars.lines[G.vars.lines.length - 1])

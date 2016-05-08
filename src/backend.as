@@ -19,7 +19,7 @@
 					G.vars._stage.removeChild(G.vars.hint1); 
 				}
 				
-				if (G.vars.level == 5)
+				if (G.vars.level == 6)
 				{
 					if (G.vars.result == "WON")
 					{
@@ -195,7 +195,7 @@
 						}
 					}
 					
-					if (!hit) // If there was no G.vars.mirrors or G.vars.walls interfering with the selected line
+					if (!hit) // If there was no mirrors or walls interfering with the selected line
 					{
 						G.vars.lines[lineNum].reset(); // Reset the line to the origional X and Y values
 						if (G.vars.lines[lineNum].stage && // If the line is on the G.vars._stage
@@ -281,13 +281,13 @@
 					}
 				}
 			}
-			var fullGlobes: int = 0; // set the number of full G.vars.globes to 0
+			var fullGlobes: int = 0; // set the number of globes to 0
 			
-			for (var checkGlobe: int = 0; checkGlobe < G.vars.globes.length; checkGlobe++) //iterate through G.vars.globes
+			for (var checkGlobe: int = 0; checkGlobe < G.vars.globes.length; checkGlobe++) //iterate globes
 			{
 				if (G.vars.globes[checkGlobe].full == true) // If the selected globe is full
 				{
-					fullGlobes++; // increase the total number of G.vars.globes that are full
+					fullGlobes++; // increase the total number of globes that are full
 				}
 				if (G.vars.globes[checkGlobe].hit == false) // If the globe didn't get hit by a beam last iteration
 				{
@@ -374,6 +374,15 @@
 				var tutTimer3:Timer = new Timer(4000, 1);
 				tutTimer3.addEventListener(TimerEvent.TIMER, continueTut);
 				tutTimer3.start();
+			}
+			
+			else if (G.vars.tutorial == true && 
+				G.vars.level == 5 &&
+				G.vars.mirrorDown == true && 
+				G.vars.hint1.stage && 
+				G.vars.tutstage == 1)
+			{
+				G.vars._stage.removeChild(G.vars.hint1);
 			}
 			
 			if (G.vars.badgeManager1.stage)
