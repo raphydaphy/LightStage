@@ -75,7 +75,7 @@
 						G.vars.dialog.yesBtn.addEventListener(MouseEvent.MOUSE_DOWN, G.vars.leveleditor.startEditor);
 						G.vars.dialog.noBtn.addEventListener(MouseEvent.MOUSE_DOWN, G.vars.dialogbox.closeYNDialog);
 						G.vars.dialog.headingText.text = "Are you sure?";
-						G.vars.dialog.descText.text = "Opening the level editor will reset your game. Do you really want to open the level editor?";
+						G.vars.dialog.descText.text = "Opening the level editor will reset your game. Do you really want to open the editor?";
 					}
 					
 					break;
