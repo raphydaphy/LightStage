@@ -278,6 +278,27 @@
 			
 			G.vars.badges.checkBadges(); // check if they should get any new G.vars.badges
 			
+			if (G.vars.tutorial == true)
+			{
+				if (G.vars.level == 1)
+				{
+					if (G.vars.mirrorDown == true)
+					{
+						if (G.vars.hint1.stage)
+						{
+							G.vars.hint1.gotoAndStop(3);
+							G.vars.hint1.hint.text = "this is a globe. globes are the key to winning.";
+							G.vars.hint1.x = 100;
+							G.vars.hint1.y = 289;
+						}
+					}
+				}
+			}
+			
+			
+			
+			
+			
 			if (G.vars.badgeManager1.stage)
 			{
 				bringToFront(G.vars.badgeManager1);

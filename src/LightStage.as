@@ -1,5 +1,5 @@
 ﻿/***************************
-LIGHTSTAGE 0.2 FINAL
+LIGHTSTAGE 0.3 BETA 1
 Built by Raph Hennessy
 All Rights Reserved May 2016
 ***************************/
@@ -41,6 +41,7 @@ package
 		G.vars.shopmanager = new shopmanager();
 		G.vars.levels = new levels();
 		G.vars.collisiontest = new collisiontest();
+		G.vars.hint1 = new hintText();
 		
 		/*********************************************
 		GLOBAL VARIABLES FOR COUNTING SCORES & STRINGS
@@ -69,6 +70,8 @@ package
 			stage.addEventListener(KeyboardEvent.KEY_DOWN, G.vars.keyboard.keyHandler); // start keyHandler listener
 			G.vars._stage = stage;
 			G.vars._root = this;
+			
+			G.vars.tutorial = true;
 		}
 		
 		public function safeUpdateText(changeFrame: Boolean = true): void
@@ -114,8 +117,9 @@ package
 				}
 			}
 			
-			G.vars.levels.setupLevel();
+			//G.vars.levels.setupLevel();
 			//G.vars.levels.demoLevel();
+			G.vars.levels.tutorial();
 			
 			stage.addEventListener(Event.ENTER_FRAME, G.vars.backend.enterFrame); // Start enterFrame listener
 		}

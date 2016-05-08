@@ -3,6 +3,29 @@
 	import G;
 	public class levels 
 	{
+		public function tutorial() // a tutorial level set for the first time you play the game
+		{
+			var num:int=Math.floor(Math.random() * G.vars.lineColors.length);
+			
+			if (G.vars.level == 1)
+			{
+				G.vars.hint1.hint.text = "this is a mirror. you can drag it around.";
+				G.vars.hint1.x = 40;
+				G.vars.hint1.y = 150;
+				G.vars.hint1.gotoAndStop(1);
+				G.vars._stage.addChild(G.vars.hint1);
+				
+				G.vars.mirrors.push(new mirror(22, 22, 3));
+				G.vars._stage.addChild(G.vars.mirrors[G.vars.mirrors.length - 1]);
+
+				G.vars.globes.push(new globe(269, 289));
+				G.vars._stage.addChild(G.vars.globes[G.vars.globes.length - 1]);
+				
+				G.vars.lines.push(new line(50, 200, 1000, 200, 'y', 'RIGHT', 9999, G.vars.lineColors[num], false, false));
+				G.vars.lines[G.vars.lines.length - 1].visible = true;
+				G.vars._stage.addChild(G.vars.lines[G.vars.lines.length - 1]);
+			}
+		}
 		public function demoLevel() // a level for testing new features
 		{
 			var num:int=Math.floor(Math.random() * G.vars.lineColors.length);

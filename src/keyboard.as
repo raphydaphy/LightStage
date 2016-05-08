@@ -35,7 +35,7 @@
 							noReset = true;
 						}
 					}
-					if (noReset == false && G.vars.levelEdit == false && G.vars.resetting == false)
+					if (noReset == false && G.vars.levelEdit == false && G.vars.resetting == false && G.vars.tutorial == false)
 					{
 						G.vars.result = "RESTART"; // make sure the reset function knows that the user restarted the game
 						G.vars.backend.reset(); // reset the game if the R key is pressed

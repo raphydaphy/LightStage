@@ -2,6 +2,7 @@
 {
 	import flash.display.MovieClip;
 	import flash.events.MouseEvent;
+	import G;
 	
 	public class mirror extends MovieClip
 	{
@@ -75,6 +76,10 @@
 
 		private function onDown(event: MouseEvent): void
 		{
+			if (G.vars.tutorial == true)
+			{
+				G.vars.mirrorDown = true;
+			}
 			dragging = true;
 			
 			// add the mouse up listener on the stage, that way it's consistent even if
