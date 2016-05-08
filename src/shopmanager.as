@@ -54,6 +54,7 @@
 				G.vars.backend.reset();
 				G.vars.backend.prepGame();
 			}
+			G.vars._root.safeUpdateText(false);
 		}
 		
 		public function buyRemoveBomb(event:MouseEvent)
@@ -71,6 +72,7 @@
 				if (G.vars.bombs[rmBomb].stage) { G.vars._stage.removeChild(G.vars.bombs[rmBomb]); }
 				G.vars.dialogbox.simpleDialog("Removed a bomb!","You successfully removed a bomb!");
 			}
+			G.vars._root.safeUpdateText(false);
 		}
 		
 		public function nextPage(event:MouseEvent): void
