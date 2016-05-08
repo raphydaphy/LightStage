@@ -10,7 +10,17 @@
 		public function reset():void //reset game
 		{
 			G.vars.resetting = true;
-			if (G.vars.result == "NEW") // if it is the first game the user has played
+			if (G.vars.tutorial == true)
+			{
+				if (G.vars.result == "WON")
+				{
+					G.vars.startupMsg = "You completed the tutorial!";
+					G.vars.spawnCoins = true;
+					G.vars.level = 1;
+					G.vars.tutorial = false;
+				}
+			}
+			else if (G.vars.result == "NEW") // if it is the first game the user has played
 			{
 				G.vars.spawnCoins = true;
 				G.vars.startupMsg = "LightStage is starting..."; // show the initial starting message
@@ -122,6 +132,14 @@
 							G.vars.mirrors[mirrorNum].hitbox.visible = true;
 							if (G.vars.collisiontest.collision(G.vars.mirrors[mirrorNum],G.vars.lines[lineNum]))
 							{
+								if (G.vars.tutorial == true && G.vars.tutstage == 4 && G.vars.level == 1)
+								{
+									G.vars.tutstage = 5;
+									G.vars.hint1.gotoAndStop(3);
+									G.vars.hint1.hint.text = "reflect the laser onto the globe to win.";
+									G.vars.hint1.x = 100;
+									G.vars.hint1.y = 289;
+								}
 								for (var hitMirror: int = 0; hitMirror < G.vars.mirrors.length; hitMirror++) // iterate again
 								{
 									if (hitMirror != mirrorNum && 
@@ -167,6 +185,14 @@
 					{
 						if (G.vars.collisiontest.collision(G.vars.lines[lineNum], G.vars.globes[globeNum]))
 						{
+							if (G.vars.tutorial == true && G.vars.tutstage == 5 && G.vars.level == 1)
+							{
+								G.vars.tutstage = 6;
+								G.vars.hint1.gotoAndStop(4);
+								G.vars.hint1.hint.text = "don't move the mirror while the globe fills up.";
+								G.vars.hint1.x = 450;
+								G.vars.hint1.y = 289;
+							}
 							G.vars.globes[globeNum].hit = true;
 							G.vars.globes[globeNum].filling = true; // tell that globe that it has been hit by a line
 							G.vars.globes[globeNum].startFill(); // start filling that globe using it's function
@@ -238,6 +264,11 @@
 			}
 			if (fullGlobes == G.vars.globes.length) // if all the G.vars.globes are full
 			{
+				if (G.vars.tutorial == true && G.vars.tutstage == 6 && G.vars.level == 1)
+				{
+					G.vars.tutstage = 7;
+					if (G.vars.hint1.stage) { G.vars._stage.removeChild(G.vars.hint1); }
+				}
 				G.vars.result = "WON"; // record that the user won
 				levelUp(); // run the G.vars.levelUp function to go to the next G.vars.level
 			}
@@ -278,26 +309,23 @@
 			
 			G.vars.badges.checkBadges(); // check if they should get any new G.vars.badges
 			
-			if (G.vars.tutorial == true)
+			if (G.vars.tutorial == true && G.vars.level == 1)
 			{
-				if (G.vars.level == 1)
+				if (G.vars.mirrorDown == true && 
+					G.vars.hint1.stage && 
+					G.vars.tutstage == 1)
 				{
-					if (G.vars.mirrorDown == true)
-					{
-						if (G.vars.hint1.stage)
-						{
-							G.vars.hint1.gotoAndStop(3);
-							G.vars.hint1.hint.text = "this is a globe. globes are the key to winning.";
-							G.vars.hint1.x = 100;
-							G.vars.hint1.y = 289;
-						}
-					}
+					G.vars.tutstage = 2;
+					G.vars.hint1.gotoAndStop(3);
+					G.vars.hint1.hint.text = "this is a globe. globes are the key to winning.";
+					G.vars.hint1.x = 100;
+					G.vars.hint1.y = 289;
+					
+					var tutTimer1:Timer = new Timer(4000, 1);
+					tutTimer1.addEventListener(TimerEvent.TIMER, continueTut);
+					tutTimer1.start();
 				}
 			}
-			
-			
-			
-			
 			
 			if (G.vars.badgeManager1.stage)
 			{
@@ -319,6 +347,31 @@
 				bringToFront(G.vars.dialog);
 			}
 			
+		}
+		
+		public function continueTut(event:TimerEvent)
+		{
+			if (G.vars.tutstage == 2)
+			{
+				G.vars.tutstage = 3;
+				G.vars.hint1.gotoAndStop(2);
+				G.vars.hint1.hint.text = "this is a laser beam. it comes from a flashlight.";
+				G.vars.hint1.x = 400;
+				G.vars.hint1.y = 80;
+				
+				var tutTimer2:Timer = new Timer(4000, 1);
+				tutTimer2.addEventListener(TimerEvent.TIMER, continueTut);
+				tutTimer2.start();
+			}
+			
+			else if (G.vars.tutstage == 3)
+			{
+				G.vars.tutstage = 4;
+				G.vars.hint1.gotoAndStop(1);
+				G.vars.hint1.hint.text = "drag the mirror onto the laser to continue.";
+				G.vars.hint1.x = 400;
+				G.vars.hint1.y = 330;
+			}
 		}
 		
 		public function drawUp(_mirrorNum, _lineNum): line

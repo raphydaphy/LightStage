@@ -10,7 +10,8 @@
 			if (G.vars.level == 1)
 			{
 				G.vars.hint1.hint.text = "this is a mirror. you can drag it around.";
-				G.vars.hint1.x = 40;
+				G.vars.tutstage = 1;
+				G.vars.hint1.x = 70;
 				G.vars.hint1.y = 150;
 				G.vars.hint1.gotoAndStop(1);
 				G.vars._stage.addChild(G.vars.hint1);

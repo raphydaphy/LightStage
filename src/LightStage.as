@@ -72,6 +72,8 @@ package
 			G.vars._root = this;
 			
 			G.vars.tutorial = true;
+			G.vars.mirrorDown = false;
+			G.vars.tutstage = 0;
 		}
 		
 		public function safeUpdateText(changeFrame: Boolean = true): void
@@ -117,9 +119,14 @@ package
 				}
 			}
 			
-			//G.vars.levels.setupLevel();
-			//G.vars.levels.demoLevel();
-			G.vars.levels.tutorial();
+			if (G.vars.tutorial == true)
+			{
+				G.vars.levels.tutorial();
+			}
+			else
+			{
+				G.vars.levels.setupLevel();
+			}
 			
 			stage.addEventListener(Event.ENTER_FRAME, G.vars.backend.enterFrame); // Start enterFrame listener
 		}
