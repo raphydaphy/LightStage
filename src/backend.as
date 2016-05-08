@@ -19,7 +19,7 @@
 					G.vars._stage.removeChild(G.vars.hint1); 
 				}
 				
-				if (G.vars.level == 4)
+				if (G.vars.level == 5)
 				{
 					if (G.vars.result == "WON")
 					{
@@ -158,7 +158,7 @@
 							G.vars.mirrors[mirrorNum].hitbox.visible = true;
 							if (G.vars.collisiontest.collision(G.vars.mirrors[mirrorNum],G.vars.lines[lineNum]))
 							{
-								if (G.vars.tutorial == true && G.vars.tutstage == 4 && G.vars.level == 1)
+								if (G.vars.tutorial == true && G.vars.tutstage < 4 && G.vars.level == 1)
 								{
 									G.vars.tutstage = 5;
 									G.vars.hint1.gotoAndStop(3);
@@ -211,7 +211,7 @@
 					{
 						if (G.vars.collisiontest.collision(G.vars.lines[lineNum], G.vars.globes[globeNum]))
 						{
-							if (G.vars.tutorial == true && G.vars.tutstage == 5 && G.vars.level == 1)
+							if (G.vars.tutorial == true && G.vars.level == 1 && G.vars.tutstage < 6)
 							{
 								G.vars.tutstage = 6;
 								G.vars.hint1.gotoAndStop(4);
@@ -230,16 +230,13 @@
 					{
 						if (G.vars.collisiontest.collision(G.vars.lines[lineNum],G.vars.coins[coinNum]))
 						{
-							if (G.vars.tutorial == true)
+							if (G.vars.tutorial == true && G.vars.level == 3)
 							{
-								if (G.vars.tutstage == 3 && G.vars.level == 3)
-								{
-									G.vars.tutstage = 4;
-									G.vars.hint1.gotoAndStop(5);
-									G.vars.hint1.hint.text = "press 's' to open the shop and spend your coins.";
-									G.vars.hint1.x = 380;
-									G.vars.hint1.y = 120;
-								}
+								G.vars.tutstage = 4;
+								G.vars.hint1.gotoAndStop(5);
+								G.vars.hint1.hint.text = "press 's' to open the shop and spend your coins.";
+								G.vars.hint1.x = 380;
+								G.vars.hint1.y = 120;
 							}
 							G.vars.coins[coinNum].hit = true;
 							G.vars.coins[coinNum].filling = true; // tell thatcoin that it has been hit by a line
