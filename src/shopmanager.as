@@ -40,12 +40,91 @@
 			G.vars._root.safeUpdateText(false)
 		}
 		
+		public function buySkipLevel(event:MouseEvent)
+		{
+			G.vars.playerShop.shopBuy("skip level");
+			if (G.vars.shopResult == "poor")
+			{
+				G.vars.dialogbox.simpleDialog("Too poor!","You don't have enough coins to skip this level!"); 
+			}
+			else if (G.vars.shopResult == "purchased")
+			{
+				G.vars.dialogbox.simpleDialog("Skipped the level!","You successfully purchased Skip Level!");
+				G.vars.level = G.vars.level + 1;
+				G.vars.backend.reset();
+				G.vars.backend.prepGame();
+			}
+		}
+		
+		public function buyRemoveBomb(event:MouseEvent)
+		{
+			G.vars.playerShop.shopBuy("remove bomb");
+			if (G.vars.shopResult == "poor")
+			{
+				G.vars.dialogbox.simpleDialog("Too poor!","You don't have enough coins to remove a bomb!"); 
+			}
+			else if (G.vars.shopResult == "purchased")
+			{
+				var rmBomb:int=Math.floor(Math.random() * G.vars.bombs.length);
+				if (G.vars.bombs[rmBomb].stage) { G.vars._stage.removeChild(G.vars.bombs[rmBomb]); }
+				G.vars.dialogbox.simpleDialog("Removed a bomb!","You successfully removed a bomb!");
+			}
+		}
+		
+		public function nextPage(event:MouseEvent): void
+		{
+			if (G.vars.playerShop.currentFrame == 1)
+			{
+				G.vars.playerShop.doubleCoins.removeEventListener(MouseEvent.CLICK, buyDoubleCoins);
+				G.vars.playerShop.bombDeflectChance.removeEventListener(MouseEvent.CLICK, buyBombChance);
+			}
+			
+			if (G.vars.playerShop.currentFrame != G.vars.playerShop.totalFrames)
+			{
+				G.vars.playerShop.nextFrame();
+			}
+			
+			if (G.vars.playerShop.currentFrame == 2)
+			{
+				G.vars.playerShop.skipLevel.addEventListener(MouseEvent.CLICK, buySkipLevel);
+				G.vars.playerShop.removeBomb.addEventListener(MouseEvent.CLICK, buyRemoveBomb);
+			}
+		}
+		
+		public function prevPage(event:MouseEvent): void
+		{
+			if (G.vars.playerShop.currentFrame == 2)
+			{
+				G.vars.playerShop.skipLevel.removeEventListener(MouseEvent.CLICK, buySkipLevel);
+				G.vars.playerShop.removeBomb.removeEventListener(MouseEvent.CLICK, buyRemoveBomb);
+			}
+			
+			if (G.vars.playerShop.currentFrame != 1)
+			{
+				G.vars.playerShop.prevFrame();
+			}
+			
+			if (G.vars.playerShop.currentFrame == 1)
+			{
+				G.vars.playerShop.doubleCoins.addEventListener(MouseEvent.CLICK, buyDoubleCoins);
+				G.vars.playerShop.bombDeflectChance.addEventListener(MouseEvent.CLICK, buyBombChance);
+			}
+		}
 		public function closeShop(event:MouseEvent): void
 		{
 			G.vars._stage.removeChild(G.vars.playerShop);
+			if (G.vars.playerShop.currentFrame == 1)
+			{
+				G.vars.playerShop.doubleCoins.removeEventListener(MouseEvent.CLICK, buyDoubleCoins);
+				G.vars.playerShop.bombDeflectChance.removeEventListener(MouseEvent.CLICK, buyBombChance);
+			}
+			else if (G.vars.playerShop.currentFrame == 2)
+			{
+				G.vars.playerShop.skipLevel.removeEventListener(MouseEvent.CLICK, buySkipLevel);
+				G.vars.playerShop.removeBomb.removeEventListener(MouseEvent.CLICK, buyRemoveBomb);
+			}
 			G.vars.playerShop.exitShop.removeEventListener(MouseEvent.CLICK, closeShop);
-			G.vars.playerShop.doubleCoins.removeEventListener(MouseEvent.CLICK, buyDoubleCoins);
-			G.vars.playerShop.bombDeflectChance.removeEventListener(MouseEvent.CLICK, buyBombChance);
+			
 		}
 
 	}

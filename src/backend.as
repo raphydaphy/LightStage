@@ -382,7 +382,11 @@
 				G.vars.hint1.stage && 
 				G.vars.tutstage == 1)
 			{
-				G.vars._stage.removeChild(G.vars.hint1);
+				G.vars.tutstage = 2;
+				G.vars.hint1.gotoAndStop(3);
+				G.vars.hint1.hint.text = "you need to fill up both globes at the same time.";
+				G.vars.hint1.x = 310;
+				G.vars.hint1.y = 123;
 			}
 			
 			if (G.vars.badgeManager1.stage)

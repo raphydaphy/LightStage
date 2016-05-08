@@ -51,7 +51,9 @@
 					
 					G.vars.playerShop.exitShop.addEventListener(MouseEvent.CLICK, G.vars.shopmanager.closeShop);
 					G.vars.playerShop.doubleCoins.addEventListener(MouseEvent.CLICK, G.vars.shopmanager.buyDoubleCoins);
-					G.vars.playerShop.bombDeflectChance.addEventListener(MouseEvent.CLICK, G.vars.shopmanager.buyBombChance);	
+					G.vars.playerShop.bombDeflectChance.addEventListener(MouseEvent.CLICK, G.vars.shopmanager.buyBombChance);
+					G.vars.playerShop.nextPage.addEventListener(MouseEvent.CLICK, G.vars.shopmanager.nextPage);
+					G.vars.playerShop.prevPage.addEventListener(MouseEvent.CLICK, G.vars.shopmanager.prevPage);
 					break;
 				
 				case Keyboard.L:

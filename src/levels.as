@@ -91,7 +91,7 @@
 				
 				G.vars.lines.push(new line(50, 200, 1000, 200, 'y', 'RIGHT', 9999, G.vars.lineColors[num], false, false));
 				G.vars.lines[G.vars.lines.length - 1].visible = true;
-				G.vars._stage.addChild(G.vars.lines[G.vars.lines.length - 1])
+				G.vars._stage.addChild(G.vars.lines[G.vars.lines.length - 1]);
 			}
 			else if (G.vars.level == 5)
 			{
@@ -120,7 +120,7 @@
 				}
 				G.vars.lines.push(new line(50, 200, 1000, 200, 'y', 'RIGHT', 9999, G.vars.lineColors[num], false, false));
 				G.vars.lines[G.vars.lines.length - 1].visible = true;
-				G.vars._stage.addChild(G.vars.lines[G.vars.lines.length - 1])
+				G.vars._stage.addChild(G.vars.lines[G.vars.lines.length - 1]);
 			}
 		}
 		public function demoLevel() // a level for testing new features
@@ -156,26 +156,26 @@
 
 			G.vars.globes.push(new globe(139, 378));
 			G.vars._stage.addChild(G.vars.globes[G.vars.globes.length - 1]);
-	if (G.vars.spawnCoins)
-	{
-		G.vars.coins.push(new coin(177, 281));
-		G.vars._stage.addChild(G.vars.coins[G.vars.coins.length - 1]);
+			if (G.vars.spawnCoins)
+			{
+				G.vars.coins.push(new coin(177, 281));
+				G.vars._stage.addChild(G.vars.coins[G.vars.coins.length - 1]);
 
-		G.vars.coins.push(new coin(280, 272));
-		G.vars._stage.addChild(G.vars.coins[G.vars.coins.length - 1]);
+				G.vars.coins.push(new coin(280, 272));
+				G.vars._stage.addChild(G.vars.coins[G.vars.coins.length - 1]);
 
-		G.vars.coins.push(new coin(320, 232));
-		G.vars._stage.addChild(G.vars.coins[G.vars.coins.length - 1]);
+				G.vars.coins.push(new coin(320, 232));
+				G.vars._stage.addChild(G.vars.coins[G.vars.coins.length - 1]);
 
-		G.vars.coins.push(new coin(136, 97));
-		G.vars._stage.addChild(G.vars.coins[G.vars.coins.length - 1]);
+				G.vars.coins.push(new coin(136, 97));
+				G.vars._stage.addChild(G.vars.coins[G.vars.coins.length - 1]);
 
-		G.vars.coins.push(new coin(137, 167));
-		G.vars._stage.addChild(G.vars.coins[G.vars.coins.length - 1]);
-	}
-	G.vars.lines.push(new line(50, 200, 1000, 200, 'y', 'RIGHT', 9999, G.vars.lineColors[num], false, false));
-	G.vars.lines[G.vars.lines.length - 1].visible = true;
-	G.vars._stage.addChild(G.vars.lines[G.vars.lines.length - 1])
+				G.vars.coins.push(new coin(137, 167));
+				G.vars._stage.addChild(G.vars.coins[G.vars.coins.length - 1]);
+			}
+			G.vars.lines.push(new line(50, 200, 1000, 200, 'y', 'RIGHT', 9999, G.vars.lineColors[num], false, false));
+			G.vars.lines[G.vars.lines.length - 1].visible = true;
+			G.vars._stage.addChild(G.vars.lines[G.vars.lines.length - 1])
 		}
 		public function setupLevel()
 		{
