@@ -392,6 +392,20 @@
 				G.vars.hint1.y = 123;
 			}
 			
+			else if (G.vars.tutorial == true &&
+					 G.vars.level == 4 &&
+					 G.vars.mirrorDown == true &&
+					 G.vars.hint1.stage &&
+					 G.vars.tutstage == 1)
+			{
+				G.vars.tutstage = 2;
+				G.vars.hint1.gotoAndStop(2);
+				G.vars.hint1.hint.text = "this is a wall. light can't go past it.";
+				G.vars.hint1.x = 450;
+				G.vars.hint1.y = 200;
+				
+			}
+			
 			if (G.vars.badgeManager1.stage)
 			{
 				bringToFront(G.vars.badgeManager1);

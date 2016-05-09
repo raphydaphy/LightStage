@@ -73,20 +73,29 @@
 			}
 			else if (G.vars.level == 4)
 			{
-				G.vars.hint1.gotoAndStop(3);
-				G.vars.hint1.hint.text = "this is a wall. it dosen't let light go past it.";
+				G.vars.hint1.gotoAndStop(2);
+				G.vars.hint1.hint.text = "this is a heavy mirror. you can't move it.";
 				G.vars.tutstage = 1;
-				G.vars.hint1.x = 300;
-				G.vars.hint1.y = 315;
+				G.vars.hint1.x = 295;
+				G.vars.hint1.y = 80;
 				G.vars._stage.addChild(G.vars.hint1);
 				
-				G.vars.mirrors.push(new mirror(22, 22, 5));
+				G.vars.mirrors.push(new mirror(308, 198, 5, "STUCK"));
 				G.vars._stage.addChild(G.vars.mirrors[G.vars.mirrors.length - 1]);
 
-				G.vars.globes.push(new globe(446, 259));
+				G.vars.mirrors.push(new mirror(22, 22, 2));
+				G.vars._stage.addChild(G.vars.mirrors[G.vars.mirrors.length - 1]);
+
+				G.vars.globes.push(new globe(288, 352));
 				G.vars._stage.addChild(G.vars.globes[G.vars.globes.length - 1]);
 				
-				G.vars.walls.push(new block(501, 315));
+				if (G.vars.spawnCoins)
+				{
+					G.vars.coins.push(new coin(332, 308));
+					G.vars._stage.addChild(G.vars.coins[G.vars.coins.length - 1]);
+				}
+
+				G.vars.walls.push(new block(452, 337));
 				G.vars._stage.addChild(G.vars.walls[G.vars.walls.length - 1]);
 				
 				G.vars.lines.push(new line(50, 200, 1000, 200, 'y', 'RIGHT', 9999, G.vars.lineColors[num], false, false));

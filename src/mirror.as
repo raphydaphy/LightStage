@@ -2,6 +2,7 @@
 {
 	import flash.display.MovieClip;
 	import flash.events.MouseEvent;
+	import flash.geom.ColorTransform;
 	import G;
 	
 	public class mirror extends MovieClip
@@ -12,12 +13,22 @@
 		public var dragging: Boolean = true;
 		public var oX: int;
 		public var oY: int;
-		
-		public function mirror(mirrorX: int, mirrorY: int, frame: int = 1)
+		public var stuck: Boolean = false;
+		public function mirror(mirrorX: int, mirrorY: int, frame: int = 1, special: String = "NONE")
 		{
+			if (special == "STUCK")
+			{
+				stuck = true;
+				var transColor = new ColorTransform();
+				transColor.color = 0x34495e;
+				this.transform.colorTransform = transColor;
+			}
+			else 
+			{
+				this.addEventListener(MouseEvent.MOUSE_DOWN, onDown, false, 0, true);
+			}
 			this.hitbox.visible = false;
 			
-			this.addEventListener(MouseEvent.MOUSE_DOWN, onDown, false, 0, true);
 			x = mirrorX;
 			y = mirrorY;
 			

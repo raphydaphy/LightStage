@@ -75,6 +75,14 @@
 					}
 					break;
 					
+				case Keyboard.N:
+					if (G.vars.levelEdit == true)
+					{
+						G.vars.mirrors.push(new mirror(G.vars._root.mouseX, G.vars._root.mouseY, 9999, "STUCK"));
+						G.vars._stage.addChild(G.vars.mirrors[G.vars.mirrors.length - 1]);
+					}
+					break;
+					
 				case Keyboard.B:
 					if (G.vars.levelEdit == true)
 					{
@@ -134,14 +142,27 @@
 						{
 							if (G.vars.mirrors[printMirror].x != -100 && G.vars.mirrors[printMirror].y != -100)
 							{
-								trace('\nG.vars.mirrors.push(new mirror(' + 
-									  mirrorX + 
-									  ', ' + mirrorY +
-									  ', ' + G.vars.mirrors[printMirror].currentFrame +
-									  '));');
-								trace('G.vars._stage.addChild(G.vars.mirrors[G.vars.mirrors.length - 1]);');
-								if (mirrorX > 197) { mirrorX = 22; mirrorY += 50; }
-								else { mirrorX += 44; }
+								if (G.vars.mirrors[printMirror].stuck == false)
+								{
+									trace('\nG.vars.mirrors.push(new mirror(' + 
+										  mirrorX + 
+										  ', ' + mirrorY +
+										  ', ' + G.vars.mirrors[printMirror].currentFrame +
+										  '));');
+									trace('G.vars._stage.addChild(G.vars.mirrors[G.vars.mirrors.length - 1]);');
+									if (mirrorX > 197) { mirrorX = 22; mirrorY += 50; }
+									else { mirrorX += 44; }
+								}
+								else
+								{
+									trace('\nG.vars.mirrors.push(new mirror(' + 
+										  G.vars.mirrors[printMirror].x + 
+										  ', ' + G.vars.mirrors[printMirror].y +
+										  ', ' + G.vars.mirrors[printMirror].currentFrame +
+										  ', "STUCK"' +
+										  '));');
+									trace('G.vars._stage.addChild(G.vars.mirrors[G.vars.mirrors.length - 1]);');
+								}
 							}
 						}
 						for (var printGlobe: int = 0; printGlobe < G.vars.globes.length; printGlobe++)
@@ -208,7 +229,7 @@
 									   ', 9999, G.vars.lineColors[num]' +
 									   ', false, false));');
 								trace('G.vars.lines[G.vars.lines.length - 1].visible = true;');
-								trace('G.vars._stage.addChild(G.vars.lines[G.vars.lines.length - 1])');
+								trace('G.vars._stage.addChild(G.vars.lines[G.vars.lines.length - 1]);');
 							}
 						}
 						trace('====================END LEVEL CODE====================');
