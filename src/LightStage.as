@@ -30,6 +30,7 @@ package
 		GLOBAL VARIABLES FOR STORING CLASS INSTANCES
 		*******************************************/
 		G.vars.dialog = new openShop();
+		G.vars.levelSelect = new levelSelect();
 		G.vars.dialogbox = new dialogbox();
 		G.vars.leveleditor = new leveleditor();
 		G.vars.backend = new backend();

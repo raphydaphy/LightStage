@@ -402,6 +402,11 @@
 				bringToFront(G.vars.badgeManager2);
 			}
 			
+			if (G.vars.levelSelect.stage)
+			{
+				bringToFront(G.vars.levelSelect);
+			}
+			
 			if (G.vars.playerShop.stage)
 			{
 				bringToFront(G.vars.playerShop);
@@ -692,6 +697,77 @@
 		public function stopEnterFrame(event:TimerEvent)
 		{
 			G.vars._stage.removeEventListener(Event.ENTER_FRAME, G.vars.backend.enterFrame); // stop enterFrame listener
+		}
+		
+		
+		public function gotoLevel1(event:MouseEvent)
+		{
+			G.vars.level = 1;
+			reset();
+			prepGame();
+		}
+		
+		public function gotoLevel2(event:MouseEvent)
+		{
+			G.vars.level = 2;
+			reset();
+			prepGame();
+		}
+		
+		public function gotoLevel3(event:MouseEvent)
+		{
+			G.vars.level = 3;
+			reset();
+			prepGame();
+		}
+		
+		public function gotoLevel4(event:MouseEvent)
+		{
+			G.vars.level = 4;
+			reset();
+			prepGame();
+		}
+		
+		public function gotoLevel5(event:MouseEvent)
+		{
+			G.vars.level = 5;
+			reset();
+			prepGame();
+		}
+		
+		public function gotoLevel6(event:MouseEvent)
+		{
+			G.vars.level = 6;
+			reset();
+			prepGame();
+		}
+		
+		public function gotoLevel7(event:MouseEvent)
+		{
+			G.vars.level = 7;
+			reset();
+			prepGame();
+		}
+		
+		public function gotoLevel8(event:MouseEvent)
+		{
+			G.vars.level = 8;
+			reset();
+			prepGame();
+		}
+		
+		public function gotoLevel9(event:MouseEvent)
+		{
+			G.vars.level = 9;
+			reset();
+			prepGame();
+		}
+		
+		public function gotoLevel10(event:MouseEvent)
+		{
+			G.vars.level = 10;
+			reset();
+			prepGame();
 		}
 		
 	}
