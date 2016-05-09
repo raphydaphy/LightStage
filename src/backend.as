@@ -237,6 +237,7 @@
 									G.vars.tutstage = 4;
 									G.vars.hint1.gotoAndStop(5);
 									G.vars.hint1.hint.text = "press 's' to open the shop and spend your coins.";
+									G.vars._root.safeUpdateText();
 									G.vars.hint1.x = 380;
 									G.vars.hint1.y = 120;
 								}
@@ -401,6 +402,7 @@
 				G.vars.tutstage = 2;
 				G.vars.hint1.gotoAndStop(2);
 				G.vars.hint1.hint.text = "this is a wall. light can't go past it.";
+				G.vars._root.updateText();
 				G.vars.hint1.x = 450;
 				G.vars.hint1.y = 200;
 				
@@ -617,7 +619,7 @@
 						case 1: tmpLine = drawUp(mirrorNum, lineNum); break;
 						case 3: tmpLine = drawDown(mirrorNum, lineNum); break;
 						case 5: tmpLine = drawDownRight(mirrorNum, lineNum); break;
-						case 6: tmpLine = drawUpRight(mirrorNum, lineNum); break;
+						case 7: tmpLine = drawUpRight(mirrorNum, lineNum); break;
 					}
 					break;
 			}
