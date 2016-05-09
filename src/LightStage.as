@@ -43,6 +43,7 @@ package
 		G.vars.levels = new levels();
 		G.vars.collisiontest = new collisiontest();
 		G.vars.hint1 = new hintText();
+		G.vars.gameMenu = new gameMenu();
 		
 		/*********************************************
 		GLOBAL VARIABLES FOR COUNTING SCORES & STRINGS

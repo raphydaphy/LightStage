@@ -27,81 +27,7 @@
 					break;
 					
 				case Keyboard.ESCAPE:
-					if (!G.vars.levelSelect.stage && G.vars.tutorial == false)
-					{
-						G.vars._stage.addChild(G.vars.levelSelect);
-						G.vars.levelSelect.x = 275;
-						G.vars.levelSelect.y = 200;
-						
-						G.vars.levelSelect.level1.levelNum.text = '?';
-						G.vars.levelSelect.level2.levelNum.text = '?';
-						G.vars.levelSelect.level3.levelNum.text = '?';
-						G.vars.levelSelect.level4.levelNum.text = '?';
-						G.vars.levelSelect.level5.levelNum.text = '?';
-						G.vars.levelSelect.level6.levelNum.text = '?';
-						G.vars.levelSelect.level7.levelNum.text = '?';
-						G.vars.levelSelect.level8.levelNum.text = '?';
-						G.vars.levelSelect.level9.levelNum.text = '?';
-						G.vars.levelSelect.level10.levelNum.text = '?';
-						
-						if (G.vars.maxLevel > 0)
-						{
-							G.vars.levelSelect.level1.levelNum.text = '1';
-							G.vars.levelSelect.level1.addEventListener(MouseEvent.CLICK, G.vars.backend.gotoLevel1);
-						}
-						if (G.vars.maxLevel > 1)
-						{
-							G.vars.levelSelect.level2.levelNum.text = '2';
-							G.vars.levelSelect.level2.addEventListener(MouseEvent.CLICK, G.vars.backend.gotoLevel2);
-						}
-						if (G.vars.maxLevel > 2)
-						{
-							G.vars.levelSelect.level3.levelNum.text = '3';
-							G.vars.levelSelect.level3.addEventListener(MouseEvent.CLICK, G.vars.backend.gotoLevel3);
-						}
-						if (G.vars.maxLevel > 3)
-						{
-							G.vars.levelSelect.level4.levelNum.text = '4';
-							G.vars.levelSelect.level4.addEventListener(MouseEvent.CLICK, G.vars.backend.gotoLevel4);
-						}
-						if (G.vars.maxLevel > 4)
-						{
-							G.vars.levelSelect.level5.levelNum.text = '5';
-							G.vars.levelSelect.level5.addEventListener(MouseEvent.CLICK, G.vars.backend.gotoLevel5);
-						}
-						if (G.vars.maxLevel > 5)
-						{
-							G.vars.levelSelect.level6.levelNum.text = '6';
-							G.vars.levelSelect.level6.addEventListener(MouseEvent.CLICK, G.vars.backend.gotoLevel6);
-						}
-						if (G.vars.maxLEvel > 6)
-						{
-							G.vars.levelSelect.level7.levelNum.text = '7';
-							G.vars.levelSelect.level7.addEventListener(MouseEvent.CLICK, G.vars.backend.gotoLevel7);
-						}
-						if (G.vars.maxLevel > 7)
-						{
-							G.vars.levelSelect.level8.levelNum.text = '8';
-							G.vars.levelSelect.level8.addEventListener(MouseEvent.CLICK, G.vars.backend.gotoLevel8);
-						}
-						if (G.vars.maxLevel > 8)
-						{
-							G.vars.levelSelect.level9.levelNum.text = '9';
-							G.vars.levelSelect.level9.addEventListener(MouseEvent.CLICK, G.vars.backend.gotoLevel9);
-						}
-						if (G.vars.maxLevel > 9)
-						{
-							G.vars.levelSelect.level10.levelNum.text = '10';
-							G.vars.levelSelect.level10.addEventListener(MouseEvent.CLICK, G.vars.backend.gotoLevel10);
-						}
-						
-						
-						
-					}
-					else if (G.vars.levelSelect.stage)
-					{
-						G.vars._stage.removeChild(G.vars.levelSelect);
-					}
+					G.vars.backend.showLevelSelector(event);
 					break;
 				
 				case Keyboard.R:
@@ -123,39 +49,11 @@
 					break;
 				
 				case Keyboard.S:
-					G.vars._stage.addChild(G.vars.playerShop);
-					G.vars.playerShop.x = 275;
-					G.vars.playerShop.y = 200;
-					G.vars.playerShop.gotoAndStop(1);
-					G.vars.playerShop.exitShop.addEventListener(MouseEvent.CLICK, G.vars.shopmanager.closeShop);
-					G.vars.playerShop.doubleCoins.addEventListener(MouseEvent.CLICK, G.vars.shopmanager.buyDoubleCoins);
-					G.vars.playerShop.bombDeflectChance.addEventListener(MouseEvent.CLICK, G.vars.shopmanager.buyBombChance);
-					G.vars.playerShop.nextPage.addEventListener(MouseEvent.CLICK, G.vars.shopmanager.nextPage);
-					G.vars.playerShop.prevPage.addEventListener(MouseEvent.CLICK, G.vars.shopmanager.prevPage);
+					G.vars.backend.openShopUI(event);
 					break;
 				
 				case Keyboard.L:
-					G.vars._stage.addChild(G.vars.dialog);
-					G.vars.dialog.gotoAndStop(1);
-					G.vars.dialog.visible = true;
-					G.vars.dialog.x = 275;
-					G.vars.dialog.y = 200;
-					
-					if (G.vars.levelEdit == true)
-					{
-						G.vars.dialog.yesBtn.addEventListener(MouseEvent.MOUSE_DOWN, G.vars.leveleditor.startEditor);
-						G.vars.dialog.noBtn.addEventListener(MouseEvent.MOUSE_DOWN, G.vars.dialogbox.closeYNDialog);
-						G.vars.dialog.headingText.text = "Are you sure?";
-						G.vars.dialog.descText.text = "Do you really want to reset this level?";
-					}
-					else
-					{
-						G.vars.dialog.yesBtn.addEventListener(MouseEvent.MOUSE_DOWN, G.vars.leveleditor.startEditor);
-						G.vars.dialog.noBtn.addEventListener(MouseEvent.MOUSE_DOWN, G.vars.dialogbox.closeYNDialog);
-						G.vars.dialog.headingText.text = "Are you sure?";
-						G.vars.dialog.descText.text = "Opening the level editor will reset your game. Do you really want to open the editor?";
-					}
-					
+					G.vars.backend.openLevelEditorUI(event);
 					break;
 				
 				case Keyboard.Q:
