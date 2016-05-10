@@ -9,7 +9,7 @@ Documentation is located in the `doc` directory of the master branch.
 
 ## License
 
-Code is licensed under the MIT Licence. See the `LICENSE` file for more details.
+Code is licensed under the CC0 1.0 Universal Licence. See the `LICENSE` file for more details.
 
 ## Credits
 
