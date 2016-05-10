@@ -727,7 +727,7 @@
 		
 		public function gotoLevel1(event:MouseEvent)
 		{
-			showLevelSelect(event);
+			showLevelSelector(event);
 			G.vars.level = 1;
 			reset();
 			prepGame();
@@ -735,7 +735,7 @@
 		
 		public function gotoLevel2(event:MouseEvent)
 		{
-			showLevelSelect(event);
+			showLevelSelector(event);
 			G.vars.level = 2;
 			reset();
 			prepGame();
@@ -743,7 +743,7 @@
 		
 		public function gotoLevel3(event:MouseEvent)
 		{
-			showLevelSelect(event);
+			showLevelSelector(event);
 			G.vars.level = 3;
 			reset();
 			prepGame();
@@ -751,7 +751,7 @@
 		
 		public function gotoLevel4(event:MouseEvent)
 		{
-			showLevelSelect(event);
+			showLevelSelector(event);
 			G.vars.level = 4;
 			reset();
 			prepGame();
@@ -759,7 +759,7 @@
 		
 		public function gotoLevel5(event:MouseEvent)
 		{
-			showLevelSelect(event);
+			showLevelSelector(event);
 			G.vars.level = 5;
 			reset();
 			prepGame();
@@ -767,7 +767,7 @@
 		
 		public function gotoLevel6(event:MouseEvent)
 		{
-			showLevelSelect(event);
+			showLevelSelector(event);
 			G.vars.level = 6;
 			reset();
 			prepGame();
@@ -775,7 +775,7 @@
 		
 		public function gotoLevel7(event:MouseEvent)
 		{
-			showLevelSelect(event);
+			showLevelSelector(event);
 			G.vars.level = 7;
 			reset();
 			prepGame();
@@ -783,7 +783,7 @@
 		
 		public function gotoLevel8(event:MouseEvent)
 		{
-			showLevelSelect(event);
+			showLevelSelector(event);
 			G.vars.level = 8;
 			reset();
 			prepGame();
@@ -791,7 +791,7 @@
 		
 		public function gotoLevel9(event:MouseEvent)
 		{
-			showLevelSelect(event);
+			showLevelSelector(event);
 			G.vars.level = 9;
 			reset();
 			prepGame();
@@ -799,7 +799,7 @@
 		
 		public function gotoLevel10(event:MouseEvent)
 		{
-			showLevelSelect(event);
+			showLevelSelector(event);
 			G.vars.level = 10;
 			reset();
 			prepGame();
