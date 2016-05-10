@@ -7,11 +7,6 @@
 	import G;
 	
 	public class keyboard {
-
-		public function keyboard() {
-			// constructor code
-		}
-		
 		
 		public function keyHandler(event:KeyboardEvent): void // if a key is pressed
 		{

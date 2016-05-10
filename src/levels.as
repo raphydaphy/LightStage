@@ -1,6 +1,8 @@
 ﻿package  
 {
 	import G;
+	import flash.events.MouseEvent;
+	
 	public class levels 
 	{
 		public function tutorial() // a tutorial level set for the first time you play the game
@@ -19,6 +21,7 @@
 				G.vars.skipTut.x = 467;
 				G.vars.skipTut.y = 383.50;
 				G.vars._stage.addChild(G.vars.skipTut);
+				G.vars.skipTut.addEventListener(MouseEvent.CLICK, G.vars.backend.skipTutorial);
 				
 				G.vars.mirrors.push(new mirror(22, 22, 3));
 				G.vars._stage.addChild(G.vars.mirrors[G.vars.mirrors.length - 1]);

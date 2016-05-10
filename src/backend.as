@@ -9,7 +9,14 @@
 
 		public function reset():void //reset game
 		{
+			var fixOverlay:Shape = new Shape;
+			fixOverlay.graphics.beginFill(0x1abc9c);
+			fixOverlay.graphics.drawRect(-450, -600, 1000, 1000);
+			fixOverlay.graphics.endFill();
+			G.vars._stage.addChild(fixOverlay);
+			
 			G.vars.resetting = true;
+			
 			if (G.vars.tutorial == true)
 			{
 				G.vars.mirrorDown = false;
@@ -57,7 +64,6 @@
 				G.vars.deaths += 1;
 				G.vars.spawnCoins = false;
 				G.vars.startupMsg = "You died!"; // the text on the loading screen should be 'You died!'
-				//G.vars.level = 1;
 			}
 			else if (G.vars.result == "WON") // if the user completed the last G.vars.level
 			{
@@ -939,6 +945,14 @@
 				G.vars.dialog.headingText.text = "Are you sure?";
 				G.vars.dialog.descText.text = "Opening the level editor will reset your game. Do you really want to open the editor?";
 			}
+		}
+		
+		public function skipTutorial(event:MouseEvent)
+		{
+			G.vars.level = 6;
+			G.vars.result = "WON"; // make sure the reset function knows that the user restarted the game
+			G.vars.backend.reset(); // reset the game if the R key is pressed
+			G.vars.backend.prepGame();
 		}
 	}
 	
