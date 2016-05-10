@@ -19,7 +19,7 @@
 			switch (key)
 			{
 				case Keyboard.SPACE:
-					if (G.vars.result == "NEW")
+					if (G.vars.result == "NEW" && G.vars.level == 1 && G.vars.tutstage == 0)
 					{
 						G.vars.backend.reset();
 						G.vars.backend.prepGame();

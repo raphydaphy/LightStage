@@ -359,6 +359,11 @@
 				G.vars.hint1.x = 100;
 				G.vars.hint1.y = 289;
 				
+				if (G.vars.skipTut.stage)
+				{
+					G.vars._stage.removeChild(G.vars.skipTut);
+				}
+				
 				var tutTimer1:Timer = new Timer(4000, 1);
 				tutTimer1.addEventListener(TimerEvent.TIMER, continueTut);
 				tutTimer1.start();

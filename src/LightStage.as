@@ -44,6 +44,7 @@ package
 		G.vars.collisiontest = new collisiontest();
 		G.vars.hint1 = new hintText();
 		G.vars.gameMenu = new gameMenu();
+		G.vars.skipTut = new skipTut();
 		
 		/*********************************************
 		GLOBAL VARIABLES FOR COUNTING SCORES & STRINGS
