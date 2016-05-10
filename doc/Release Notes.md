@@ -1,6 +1,13 @@
 # Release Notes
 This page contains information about each minor release of LightStage. LightStage was first added to GitHub when it was in Alpha version 0.13. This page contains information from Alpha 0.01 all the way up to the latest release.
 
+## LightStage 0.3 Final
+- You can click to start the game now
+- The overlay glitch in issue #1 is FINALLY fixed
+- You can skip the tutorial
+- You only get the Student badge if you actually do the tutorial
+- You can't restart the game using the spacebar
+
 ## LightStage 0.3 Beta 3
 - All the game levels have been remade up to level 6
 - The menu button only shows up when the tutorial is finished
