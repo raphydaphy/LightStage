@@ -1,6 +1,17 @@
 # Release Notes
 This page contains information about each minor release of LightStage. LightStage was first added to GitHub when it was in Alpha version 0.13. This page contains information from Alpha 0.01 all the way up to the latest release.
 
+## LightStage 0.3 Beta 3
+- All the game levels have been remade up to level 6
+- The menu button only shows up when the tutorial is finished
+- Changed the game licence 
+- Added 'heavy' mirrors that can't be dragged from issue #42 
+- Added a menu button to easily access the shop, level editor and level chooser
+- Added a level selector that lets you go back to levels you have already completed
+- Bombs no longer take you back to level 1
+- Spending Spree 1 now is awarded after three purchases
+- Added Spending Spree 2 badge for 6 purchases in the shop
+
 ## LightStage 0.3 Beta 2
 - Fixed useless next page buttons in the shop in issue #17
 - Added Remove Bomb in the shop for $10 in-game money
