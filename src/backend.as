@@ -807,6 +807,7 @@
 				G.vars.gameMenu.openLevelSelectBtn.addEventListener(MouseEvent.CLICK, showLevelSelector);
 				G.vars.gameMenu.openShopBtn.addEventListener(MouseEvent.CLICK, openShopUI);
 				G.vars.gameMenu.openLevelEditorBtn.addEventListener(MouseEvent.CLICK, openLevelEditorUI);
+				G.vars.gameMenu.openBadgeArrayBtn.addEventListener(MouseEvent.CLICK, openBadgeArrayUI);
 			}
 		}
 		
@@ -818,6 +819,7 @@
 				G.vars.gameMenu.openLevelSelectBtn.removeEventListener(MouseEvent.CLICK, showLevelSelector);
 				G.vars.gameMenu.openShopBtn.removeEventListener(MouseEvent.CLICK, openShopUI);
 				G.vars.gameMenu.openLevelEditorBtn.removeEventListener(MouseEvent.CLICK, openLevelEditorUI);
+				G.vars.gameMenu.openBadgeArrayBtn.removeEventListener(MouseEvent.CLICK, openBadgeArrayUI);
 				G.vars._stage.removeChild(G.vars.gameMenu);
 			}
 		}
@@ -939,6 +941,103 @@
 				G.vars.dialog.headingText.text = "Are you sure?";
 				G.vars.dialog.descText.text = "Opening the level editor will reset your game. Do you really want to open the editor?";
 			}
+		}
+		
+		public function openBadgeArrayUI(event)
+		{
+			closeMenuUI(event);
+			G.vars._stage.addChild(G.vars.badgeArrayUI);
+			G.vars.badgeArrayUI.x = 275;
+			G.vars.badgeArrayUI.y = 200;
+			
+			G.vars.badgeArrayUI.badge1.gotoAndStop(7);
+			G.vars.badgeArrayUI.badge2.gotoAndStop(7);
+			G.vars.badgeArrayUI.badge3.gotoAndStop(7);
+			G.vars.badgeArrayUI.badge4.gotoAndStop(7);
+			G.vars.badgeArrayUI.badge5.gotoAndStop(7);
+			G.vars.badgeArrayUI.badge6.gotoAndStop(7);
+			G.vars.badgeArrayUI.badge7.gotoAndStop(7);
+			G.vars.badgeArrayUI.badge8.gotoAndStop(7);
+			G.vars.badgeArrayUI.badge9.gotoAndStop(7);
+			G.vars.badgeArrayUI.badge10.gotoAndStop(7);
+			G.vars.badgeArrayUI.badge11.gotoAndStop(7);
+			G.vars.badgeArrayUI.badge12.gotoAndStop(7);
+			
+			if (G.vars.badgesArray.indexOf("student") != -1)
+			{
+				G.vars.badgeArrayUI.badge1.gotoAndStop(6);
+			}
+			/*
+			if (G.vars.deaths > 4 && // if they have died at least 5 times in a row
+				G.vars.badgesArray.indexOf("crash test dummy 1") == -1 ) // if they don't already have the badge
+			{
+				showBadge("Crash Test Dummy 1","Die 5 times in a single game",5,1);
+			}
+			
+			if (G.vars.deaths > 9 && // if they have died at least 10 times in a row
+				G.vars.badgesArray.indexOf("crash test dummy 2") == -1 ) // if they don't already have the badge
+			{
+				showBadge("Crash Test Dummy 2","Die 10 times in a single game",10,1);
+			}
+			
+			if (G.vars.itemsPurchased > 2 && // if they have purchased at least 3 items from the shop
+				G.vars.badgesArray.indexOf("spending spree 1") == -1) // if they don't already have the badge
+			{
+				showBadge("Spending Spree 1","Buy at least three items from the ingame shop",5,2);
+			}
+			
+			if (G.vars.itemsPurchased > 5 && // if they have purchased at least 6 items from the shop
+				G.vars.badgesArray.indexOf("spending spree 2") == -1) // if they don't already have the badge
+			{
+				showBadge("Spending Spree 2","Buy at least six items from the ingame shop",10,2);
+			}
+			
+			if (G.vars.completedLevels > 3 &&
+				G.vars.tutorial == false &&
+				G.vars.badgesArray.indexOf("survivor 1") == -1)
+			{
+				showBadge("Survivor 1","Complete 4 levels without skipping the level",10,3);
+			}
+			
+			if (G.vars.completedLevels > 7 &&
+				G.vars.tutorial == false &&
+				G.vars.badgesArray.indexOf("survivor 2") == -1)
+			{
+				showBadge("Survivor 2","Complete 8 levels without skipping the level",25,3);
+			}
+			
+			if (G.vars.detonated > 5 &&
+				G.vars.badgesArray.indexOf("killing spree 1") == -1)
+			{
+				showBadge("Killing Spree 1","Detonate 5 bombs",5,4);
+			}
+			
+			if (G.vars.detonated > 10 &&
+				G.vars.badgesArray.indexOf("killing spree 2") == -1)
+			{
+				showBadge("Killing Spree 2","Detonate 10 G.vars.bombs",15,4);
+			}
+				
+			if (G.vars.escaped > 5 &&
+				G.vars.badgesArray.indexOf("escape artist 1") == -1)
+			{
+				showBadge("Escape Artist 1","Dodge 5 bombs using Bomb Deflection Chance",10,5);
+			}
+			
+			if (G.vars.escaped > 10 &&
+				G.vars.badgesArray.indexOf("escape artist 2") == -1)
+			{
+				showBadge("Escape Artist 2","Dodge 10 bombs using Bomb Deflection Chance",25,5);
+			}
+			
+			*/
+			G.vars.badgeArrayUI.exitBadgeUI.addEventListener(MouseEvent.CLICK, closeBadgeArrayUI);
+		}
+		
+		public function closeBadgeArrayUI(event)
+		{
+			G.vars.badgeArrayUI.exitBadgeUI.removeEventListener(MouseEvent.CLICK, closeBadgeArrayUI);
+			G.vars._stage.removeChild(G.vars.badgeArrayUI);
 		}
 		
 		public function skipTutorial(event:MouseEvent)

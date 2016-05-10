@@ -45,6 +45,7 @@ package
 		G.vars.hint1 = new hintText();
 		G.vars.gameMenu = new gameMenu();
 		G.vars.skipTut = new skipTut();
+		G.vars.badgeArrayUI = new badgeArrayUI();
 		
 		/*********************************************
 		GLOBAL VARIABLES FOR COUNTING SCORES & STRINGS

@@ -66,11 +66,18 @@
 			}
 			else if (G.vars.shopResult == "purchased")
 			{
+				if (G.vars.bombs.length > 0)
+				{
 				var rmBomb:int=Math.floor(Math.random() * G.vars.bombs.length);
-				G.vars.bombs[rmBomb].resetAll();
-				G.vars.bombs[rmBomb].destroy();
-				if (G.vars.bombs[rmBomb].stage) { G.vars._stage.removeChild(G.vars.bombs[rmBomb]); }
-				G.vars.dialogbox.simpleDialog("Removed a bomb!","You successfully removed a bomb!");
+					G.vars.bombs[rmBomb].resetAll();
+						G.vars.bombs[rmBomb].destroy();
+					if (G.vars.bombs[rmBomb].stage) { G.vars._stage.removeChild(G.vars.bombs[rmBomb]); }
+					G.vars.dialogbox.simpleDialog("Removed a bomb!","You successfully removed a bomb!");
+				}
+				else
+				{
+					G.vars.dialogbox.simpleDialog("There are no bombs!","Sorry! There are no bombs to remove. Lol rip :)");
+				}
 			}
 			G.vars._root.safeUpdateText(false);
 		}
