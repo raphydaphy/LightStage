@@ -727,6 +727,7 @@
 		
 		public function gotoLevel1(event:MouseEvent)
 		{
+			showLevelSelect(event);
 			G.vars.level = 1;
 			reset();
 			prepGame();
@@ -734,6 +735,7 @@
 		
 		public function gotoLevel2(event:MouseEvent)
 		{
+			showLevelSelect(event);
 			G.vars.level = 2;
 			reset();
 			prepGame();
@@ -741,6 +743,7 @@
 		
 		public function gotoLevel3(event:MouseEvent)
 		{
+			showLevelSelect(event);
 			G.vars.level = 3;
 			reset();
 			prepGame();
@@ -748,6 +751,7 @@
 		
 		public function gotoLevel4(event:MouseEvent)
 		{
+			showLevelSelect(event);
 			G.vars.level = 4;
 			reset();
 			prepGame();
@@ -755,6 +759,7 @@
 		
 		public function gotoLevel5(event:MouseEvent)
 		{
+			showLevelSelect(event);
 			G.vars.level = 5;
 			reset();
 			prepGame();
@@ -762,6 +767,7 @@
 		
 		public function gotoLevel6(event:MouseEvent)
 		{
+			showLevelSelect(event);
 			G.vars.level = 6;
 			reset();
 			prepGame();
@@ -769,6 +775,7 @@
 		
 		public function gotoLevel7(event:MouseEvent)
 		{
+			showLevelSelect(event);
 			G.vars.level = 7;
 			reset();
 			prepGame();
@@ -776,6 +783,7 @@
 		
 		public function gotoLevel8(event:MouseEvent)
 		{
+			showLevelSelect(event);
 			G.vars.level = 8;
 			reset();
 			prepGame();
@@ -783,6 +791,7 @@
 		
 		public function gotoLevel9(event:MouseEvent)
 		{
+			showLevelSelect(event);
 			G.vars.level = 9;
 			reset();
 			prepGame();
@@ -790,6 +799,7 @@
 		
 		public function gotoLevel10(event:MouseEvent)
 		{
+			showLevelSelect(event);
 			G.vars.level = 10;
 			reset();
 			prepGame();
@@ -833,6 +843,8 @@
 				G.vars._stage.addChild(G.vars.levelSelect);
 				G.vars.levelSelect.x = 275;
 				G.vars.levelSelect.y = 200;
+				
+				G.vars.levelSelect.exitLevelSelect.addEventListener(MouseEvent.CLICK, showLevelSelector);
 				
 				G.vars.levelSelect.level1.levelNum.text = '?';
 				G.vars.levelSelect.level2.levelNum.text = '?';
@@ -901,6 +913,7 @@
 			}
 			else if (G.vars.levelSelect.stage)
 			{
+				G.vars.levelSelect.exitLevelSelect.removeEventListener(MouseEvent.CLICK, showLevelSelector);
 				G.vars._stage.removeChild(G.vars.levelSelect);
 			}
 		}
@@ -967,70 +980,56 @@
 			{
 				G.vars.badgeArrayUI.badge1.gotoAndStop(6);
 			}
-			/*
-			if (G.vars.deaths > 4 && // if they have died at least 5 times in a row
-				G.vars.badgesArray.indexOf("crash test dummy 1") == -1 ) // if they don't already have the badge
+			
+			if (G.vars.badgesArray.indexOf("crash test dummy 1") != -1)
 			{
-				showBadge("Crash Test Dummy 1","Die 5 times in a single game",5,1);
+				G.vars.badgeArrayUI.badge2.gotoAndStop(1);
 			}
 			
-			if (G.vars.deaths > 9 && // if they have died at least 10 times in a row
-				G.vars.badgesArray.indexOf("crash test dummy 2") == -1 ) // if they don't already have the badge
+			if (G.vars.badgesArray.indexOf("crash test dummy 2") != -1)
 			{
-				showBadge("Crash Test Dummy 2","Die 10 times in a single game",10,1);
+				G.vars.badgeArrayUI.badge3.gotoAndStop(1);
 			}
 			
-			if (G.vars.itemsPurchased > 2 && // if they have purchased at least 3 items from the shop
-				G.vars.badgesArray.indexOf("spending spree 1") == -1) // if they don't already have the badge
+			if (G.vars.badgesArray.indexOf("spending spree 1") != -1)
 			{
-				showBadge("Spending Spree 1","Buy at least three items from the ingame shop",5,2);
+				G.vars.badgeArrayUI.badge4.gotoAndStop(2);
 			}
 			
-			if (G.vars.itemsPurchased > 5 && // if they have purchased at least 6 items from the shop
-				G.vars.badgesArray.indexOf("spending spree 2") == -1) // if they don't already have the badge
+			if (G.vars.badgesArray.indexOf("spending spree 2") != -1)
 			{
-				showBadge("Spending Spree 2","Buy at least six items from the ingame shop",10,2);
+				G.vars.badgeArrayUI.badge5.gotoAndStop(2);
 			}
 			
-			if (G.vars.completedLevels > 3 &&
-				G.vars.tutorial == false &&
-				G.vars.badgesArray.indexOf("survivor 1") == -1)
+			if (G.vars.badgesArray.indexOf("survivor 1") != -1)
 			{
-				showBadge("Survivor 1","Complete 4 levels without skipping the level",10,3);
+				G.vars.badgeArrayUI.badge6.gotoAndStop(3);
 			}
 			
-			if (G.vars.completedLevels > 7 &&
-				G.vars.tutorial == false &&
-				G.vars.badgesArray.indexOf("survivor 2") == -1)
+			if (G.vars.badgesArray.indexOf("survivor 2") != -1)
 			{
-				showBadge("Survivor 2","Complete 8 levels without skipping the level",25,3);
+				G.vars.badgeArrayUI.badge7.gotoAndStop(3);
 			}
 			
-			if (G.vars.detonated > 5 &&
-				G.vars.badgesArray.indexOf("killing spree 1") == -1)
+			if (G.vars.badgesArray.indexOf("killing spree 1") != -1)
 			{
-				showBadge("Killing Spree 1","Detonate 5 bombs",5,4);
+				G.vars.badgeArrayUI.badge8.gotoAndStop(4);
 			}
 			
-			if (G.vars.detonated > 10 &&
-				G.vars.badgesArray.indexOf("killing spree 2") == -1)
+			if (G.vars.badgesArray.indexOf("killing spree 2") != -1)
 			{
-				showBadge("Killing Spree 2","Detonate 10 G.vars.bombs",15,4);
-			}
-				
-			if (G.vars.escaped > 5 &&
-				G.vars.badgesArray.indexOf("escape artist 1") == -1)
-			{
-				showBadge("Escape Artist 1","Dodge 5 bombs using Bomb Deflection Chance",10,5);
+				G.vars.badgeArrayUI.badge9.gotoAndStop(4);
 			}
 			
-			if (G.vars.escaped > 10 &&
-				G.vars.badgesArray.indexOf("escape artist 2") == -1)
+			if (G.vars.badgesArray.indexOf("escape artist 1") != -1)
 			{
-				showBadge("Escape Artist 2","Dodge 10 bombs using Bomb Deflection Chance",25,5);
+				G.vars.badgeArrayUI.badge10.gotoAndStop(5);
 			}
 			
-			*/
+			if (G.vars.badgesArray.indexOf("escape artist 2") != -1)
+			{
+				G.vars.badgeArrayUI.badge11.gotoAndStop(5);
+			}
 			G.vars.badgeArrayUI.exitBadgeUI.addEventListener(MouseEvent.CLICK, closeBadgeArrayUI);
 		}
 		
