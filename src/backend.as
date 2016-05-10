@@ -950,6 +950,19 @@
 			G.vars.backend.reset(); // reset the game if the R key is pressed
 			G.vars.backend.prepGame();
 		}
+		
+		public function startGame(event)
+		{
+			if (G.vars.result == "NEW" && 
+				G.vars.level == 1 && 
+				G.vars.tutstage == 0 &&
+				G.vars.started == false)
+			{
+				G.vars.started = true;
+				G.vars.backend.reset();
+				G.vars.backend.prepGame();
+			}
+		}
 	}
 	
 }

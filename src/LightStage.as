@@ -59,6 +59,7 @@ package
 		G.vars.maxLevel = 0;
 		G.vars.deaths = 0;
 		G.vars.detonated = 0;
+		G.vars.started = false;
 		G.vars.escaped = 0;
 		G.vars.curBadgeBox = 0;
 		G.vars.lineColors = [0x2ecc71, 0x27ae60, 0x3498db, 0x2980b9, 0x9b59b6, 0x8e44ad, 0x34495e, 0x2c3e50,
