@@ -1,7 +1,7 @@
 # LightStage
 LightStage is a strategy game programmed in actionscript 3 where players position mirrors, prisms and more to deflect light into globes, which fills them up.
 
-![Gameplay Image](http://s32.postimg.org/7ybc06u6t/level6_1.png)
+![Gameplay Image](http://www.photo-host.org/images/2016/05/10/OFVE2.png)
 
 ## Documentation
 
