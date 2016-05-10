@@ -9,12 +9,6 @@
 
 		public function reset():void //reset game
 		{
-			var fixOverlay:Shape = new Shape;
-			fixOverlay.graphics.beginFill(0x1abc9c);
-			fixOverlay.graphics.drawRect(-450, -600, 1000, 1000);
-			fixOverlay.graphics.endFill();
-			G.vars._stage.addChild(fixOverlay);
-			
 			G.vars.resetting = true;
 			
 			if (G.vars.tutorial == true)
