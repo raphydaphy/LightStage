@@ -988,47 +988,47 @@
 			
 			if (G.vars.badgesArray.indexOf("crash test dummy 2") != -1)
 			{
-				G.vars.badgeArrayUI.badge3.gotoAndStop(1);
+				G.vars.badgeArrayUI.badge8.gotoAndStop(1);
 			}
 			
 			if (G.vars.badgesArray.indexOf("spending spree 1") != -1)
 			{
-				G.vars.badgeArrayUI.badge4.gotoAndStop(2);
+				G.vars.badgeArrayUI.badge3.gotoAndStop(2);
 			}
 			
 			if (G.vars.badgesArray.indexOf("spending spree 2") != -1)
 			{
-				G.vars.badgeArrayUI.badge5.gotoAndStop(2);
+				G.vars.badgeArrayUI.badge9.gotoAndStop(2);
 			}
 			
 			if (G.vars.badgesArray.indexOf("survivor 1") != -1)
 			{
-				G.vars.badgeArrayUI.badge6.gotoAndStop(3);
+				G.vars.badgeArrayUI.badge4.gotoAndStop(3);
 			}
 			
 			if (G.vars.badgesArray.indexOf("survivor 2") != -1)
 			{
-				G.vars.badgeArrayUI.badge7.gotoAndStop(3);
+				G.vars.badgeArrayUI.badge10.gotoAndStop(3);
 			}
 			
 			if (G.vars.badgesArray.indexOf("killing spree 1") != -1)
 			{
-				G.vars.badgeArrayUI.badge8.gotoAndStop(4);
+				G.vars.badgeArrayUI.badge5.gotoAndStop(4);
 			}
 			
 			if (G.vars.badgesArray.indexOf("killing spree 2") != -1)
 			{
-				G.vars.badgeArrayUI.badge9.gotoAndStop(4);
+				G.vars.badgeArrayUI.badge11.gotoAndStop(4);
 			}
 			
 			if (G.vars.badgesArray.indexOf("escape artist 1") != -1)
 			{
-				G.vars.badgeArrayUI.badge10.gotoAndStop(5);
+				G.vars.badgeArrayUI.badge6.gotoAndStop(5);
 			}
 			
 			if (G.vars.badgesArray.indexOf("escape artist 2") != -1)
 			{
-				G.vars.badgeArrayUI.badge11.gotoAndStop(5);
+				G.vars.badgeArrayUI.badge12.gotoAndStop(5);
 			}
 			G.vars.badgeArrayUI.exitBadgeUI.addEventListener(MouseEvent.CLICK, closeBadgeArrayUI);
 		}
@@ -1041,6 +1041,11 @@
 		
 		public function skipTutorial(event:MouseEvent)
 		{
+			if (G.vars.skipTut.stage)
+			{
+				G.vars._stage.removeChild(G.vars.skipTut);
+			}
+				
 			G.vars.level = 1;
 			G.vars.tutorial = false;
 			
