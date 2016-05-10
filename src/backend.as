@@ -432,6 +432,11 @@
 				bringToFront(G.vars.levelSelect);
 			}
 			
+			if (G.vars.badgeArrayUI.stage)
+			{
+				bringToFront(G.vars.badgeArrayUI);
+			}
+			
 			if (G.vars.playerShop.stage)
 			{
 				bringToFront(G.vars.playerShop);
