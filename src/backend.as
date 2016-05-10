@@ -949,8 +949,10 @@
 		
 		public function skipTutorial(event:MouseEvent)
 		{
-			G.vars.level = 6;
-			G.vars.result = "WON"; // make sure the reset function knows that the user restarted the game
+			G.vars.level = 1;
+			G.vars.tutorial = false;
+			
+			G.vars.result = "RESTART"; // make sure the reset function knows that the user restarted the game
 			G.vars.backend.reset(); // reset the game if the R key is pressed
 			G.vars.backend.prepGame();
 		}
